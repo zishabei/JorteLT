@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TSLocationManager</string>
+    <string name="background_permission_rationale_allow_always">Change to Allow all the time</string>
+    <string name="background_permission_rationale_message">In order to track your activity in the background, please enable "Allow all the time" location permission</string>
+    <string name="background_permission_rationale_title">Allow access to this device\'s location in the background?</string>
+    <string name="cancel">Cancel</string>
+    <string name="file_provider_authority" translatable="false">com.transistorsoft.tslocationmanager.fileprovider</string>
+    <style name="PermissionRationaleDialog" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/tslocationmanager_permission_rationale_background</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+    </style>
+    <style name="TSLocationManagerActivity" parent="AppTheme.Transparent">
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+</resources>
