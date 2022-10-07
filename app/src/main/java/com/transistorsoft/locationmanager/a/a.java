@@ -6,14 +6,17 @@
 package com.transistorsoft.locationmanager.a;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+
 import com.transistorsoft.locationmanager.logger.TSLog;
 import com.transistorsoft.locationmanager.util.d;
 import com.transistorsoft.tslocationmanager.Application;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
@@ -66,6 +69,7 @@ public class a {
 
     private static boolean b(Context param0) {
         // $FF: Couldn't be decompiled
+        return false;
     }
 
     public static Handler b() {
@@ -139,11 +143,14 @@ public class a {
 
             return false;
         } else {
-            label89: {
+            label89:
+            {
                 boolean var14;
-                label88: {
+                label88:
+                {
                     Exception var13;
-                    label97: {
+                    label97:
+                    {
                         boolean var10001;
                         try {
                             var14 = a(var2, var1, var3);
@@ -204,7 +211,7 @@ public class a {
                         --var17;
 
                         try {
-                            var14 = a(a(Arrays.asList((String[])Arrays.copyOf(var15, var17)), Application.B("鼇")), var1, var3);
+                            var14 = a(a(Arrays.asList((String[]) Arrays.copyOf(var15, var17)), Application.B("鼇")), var1, var3);
                             break label88;
                         } catch (Exception var5) {
                             var13 = var5;
@@ -237,7 +244,7 @@ public class a {
             String var10000 = Application.B("쬨⎬") + var3.length * 2 + Application.B("쭕");
             Object[] var10001 = new Object[1];
             BigInteger var4;
-            var4 = new BigInteger.<init>(1, var3);
+            var4 = new BigInteger(1, var3);
             var10001[0] = var4;
             return String.format(var10000, var10001).equalsIgnoreCase(var2);
         } else {
@@ -247,15 +254,20 @@ public class a {
 
     private static byte[] b(String var0) {
         ClassNotFoundException var44;
-        label130: {
+        label130:
+        {
             NoSuchMethodException var43;
-            label131: {
+            label131:
+            {
                 IllegalAccessException var42;
-                label132: {
+                label132:
+                {
                     InvocationTargetException var41;
-                    label133: {
+                    label133:
+                    {
                         Exception var10000;
-                        label116: {
+                        label116:
+                        {
                             boolean var10001;
                             Class var45;
                             try {
@@ -264,18 +276,6 @@ public class a {
                                 var44 = var29;
                                 var10001 = false;
                                 break label130;
-                            } catch (NoSuchMethodException var30) {
-                                var43 = var30;
-                                var10001 = false;
-                                break label131;
-                            } catch (IllegalAccessException var31) {
-                                var42 = var31;
-                                var10001 = false;
-                                break label132;
-                            } catch (InvocationTargetException var32) {
-                                var41 = var32;
-                                var10001 = false;
-                                break label133;
                             } catch (Exception var33) {
                                 var10000 = var33;
                                 var10001 = false;
@@ -288,22 +288,6 @@ public class a {
                             Class[] var10002;
                             try {
                                 var10002 = new Class[1];
-                            } catch (ClassNotFoundException var24) {
-                                var44 = var24;
-                                var10001 = false;
-                                break label130;
-                            } catch (NoSuchMethodException var25) {
-                                var43 = var25;
-                                var10001 = false;
-                                break label131;
-                            } catch (IllegalAccessException var26) {
-                                var42 = var26;
-                                var10001 = false;
-                                break label132;
-                            } catch (InvocationTargetException var27) {
-                                var41 = var27;
-                                var10001 = false;
-                                break label133;
                             } catch (Exception var28) {
                                 var10000 = var28;
                                 var10001 = false;
@@ -317,22 +301,10 @@ public class a {
                             try {
                                 var10002[var10003] = String.class;
                                 var50 = var47.getMethod(Application.B("\u0cdc솛됞憣폾绑ꅯ袃⅔脳褛"), var2);
-                            } catch (ClassNotFoundException var19) {
-                                var44 = var19;
-                                var10001 = false;
-                                break label130;
                             } catch (NoSuchMethodException var20) {
                                 var43 = var20;
                                 var10001 = false;
                                 break label131;
-                            } catch (IllegalAccessException var21) {
-                                var42 = var21;
-                                var10001 = false;
-                                break label132;
-                            } catch (InvocationTargetException var22) {
-                                var41 = var22;
-                                var10001 = false;
-                                break label133;
                             } catch (Exception var23) {
                                 var10000 = var23;
                                 var10001 = false;
@@ -344,22 +316,6 @@ public class a {
                             Class[] var51;
                             try {
                                 var51 = new Class[1];
-                            } catch (ClassNotFoundException var14) {
-                                var44 = var14;
-                                var10001 = false;
-                                break label130;
-                            } catch (NoSuchMethodException var15) {
-                                var43 = var15;
-                                var10001 = false;
-                                break label131;
-                            } catch (IllegalAccessException var16) {
-                                var42 = var16;
-                                var10001 = false;
-                                break label132;
-                            } catch (InvocationTargetException var17) {
-                                var41 = var17;
-                                var10001 = false;
-                                break label133;
                             } catch (Exception var18) {
                                 var10000 = var18;
                                 var10001 = false;
@@ -377,10 +333,6 @@ public class a {
                                 var52 = var45.getMethod(Application.B("\u0cdf솗됍憏폣绖"), var3);
                                 var53 = var40.invoke(var1, Application.B("೨솶됫懇펢纗ꄭ"));
                                 var48 = new Object[1];
-                            } catch (ClassNotFoundException var9) {
-                                var44 = var9;
-                                var10001 = false;
-                                break label130;
                             } catch (NoSuchMethodException var10) {
                                 var43 = var10;
                                 var10001 = false;
@@ -405,15 +357,7 @@ public class a {
 
                             try {
                                 var49[var34] = var10004.getBytes(Application.B("೮솪됬懇펨"));
-                                return (byte[])var52.invoke(var53, var48);
-                            } catch (ClassNotFoundException var4) {
-                                var44 = var4;
-                                var10001 = false;
-                                break label130;
-                            } catch (NoSuchMethodException var5) {
-                                var43 = var5;
-                                var10001 = false;
-                                break label131;
+                                return (byte[]) var52.invoke(var53, var48);
                             } catch (IllegalAccessException var6) {
                                 var42 = var6;
                                 var10001 = false;
@@ -462,11 +406,12 @@ public class a {
         String var1 = null;
 
         NameNotFoundException var9;
-        label60: {
+        label60:
+        {
             Bundle var10;
             boolean var10001;
             try {
-                var10 = var10000.getPackageManager().getApplicationInfo(var0.getPackageName(), 128).metaData;
+                var10 = var10000.getPackageManager().getApplicationInfo(var0.getPackageName(), PackageManager.GET_META_DATA).metaData;
             } catch (NameNotFoundException var8) {
                 var9 = var8;
                 var10001 = false;
@@ -479,44 +424,21 @@ public class a {
             }
 
             boolean var11;
-            try {
-                var11 = var2.containsKey(Application.B("쭮⏳眙就捰銪\uf5af軛鶎㰀ͣ炽唆⭖\ue535騜汝鳃誛滿픾鸓벖\ue7c6阈ሕ쎝強抎莹큠垣俄㘑ꡓ䃷棈鉳້\u1cb5\ued9f뇤"));
-            } catch (NameNotFoundException var7) {
-                var9 = var7;
-                var10001 = false;
-                break label60;
-            }
+            var11 = var2.containsKey(Application.B("쭮⏳眙就捰銪\uf5af軛鶎㰀ͣ炽唆⭖\ue535騜汝鳃誛滿픾鸓벖\ue7c6阈ሕ쎝強抎莹큠垣俄㘑ꡓ䃷棈鉳້\u1cb5\ued9f뇤"));
 
-            label47: {
+            label47:
+            {
                 String var12;
                 if (var11) {
-                    try {
-                        var12 = var2.getString(Application.B("쭮⏳眙就捰銪\uf5af軛鶎㰀ͣ炽唆⭖\ue535騜汝鳃誛滿픾鸓벖\ue7c6阈ሕ쎝強抎莹큠垣俄㘑ꡓ䃷棈鉳້\u1cb5\ued9f뇤"));
-                    } catch (NameNotFoundException var6) {
-                        var9 = var6;
-                        var10001 = false;
-                        break label60;
-                    }
+                    var12 = var2.getString(Application.B("쭮⏳眙就捰銪\uf5af軛鶎㰀ͣ炽唆⭖\ue535騜汝鳃誛滿픾鸓벖\ue7c6阈ሕ쎝強抎莹큠垣俄㘑ꡓ䃷棈鉳້\u1cb5\ued9f뇤"));
                 } else {
-                    try {
-                        var11 = var2.containsKey(Application.B("쭮⏳眙就捰銪\uf5af軛鶎㰀ͣ炽唆⭖\ue535騜汝鳃誛滿픾鸓벖\ue7c6阈ሕ쎝強抎莹큠垣俄㘑ꡓ䃷棈鉳້\u1cb5\ued9f뇤揃핺憕῟"));
-                    } catch (NameNotFoundException var5) {
-                        var9 = var5;
-                        var10001 = false;
-                        break label60;
-                    }
+                    var11 = var2.containsKey(Application.B("쭮⏳眙就捰銪\uf5af軛鶎㰀ͣ炽唆⭖\ue535騜汝鳃誛滿픾鸓벖\ue7c6阈ሕ쎝強抎莹큠垣俄㘑ꡓ䃷棈鉳້\u1cb5\ued9f뇤揃핺憕῟"));
 
                     if (!var11) {
                         break label47;
                     }
 
-                    try {
-                        var12 = var2.getString(Application.B("쭮⏳眙就捰銪\uf5af軛鶎㰀ͣ炽唆⭖\ue535騜汝鳃誛滿픾鸓벖\ue7c6阈ሕ쎝強抎莹큠垣俄㘑ꡓ䃷棈鉳້\u1cb5\ued9f뇤揃핺憕῟"));
-                    } catch (NameNotFoundException var4) {
-                        var9 = var4;
-                        var10001 = false;
-                        break label60;
-                    }
+                    var12 = var2.getString(Application.B("쭮⏳眙就捰銪\uf5af軛鶎㰀ͣ炽唆⭖\ue535騜汝鳃誛滿픾鸓벖\ue7c6阈ሕ쎝強抎莹큠垣俄㘑ꡓ䃷棈鉳້\u1cb5\ued9f뇤揃핺憕῟"));
                 }
 
                 var1 = var12;
@@ -526,13 +448,8 @@ public class a {
                 return null;
             }
 
-            try {
-                x = true;
-                return var1;
-            } catch (NameNotFoundException var3) {
-                var9 = var3;
-                var10001 = false;
-            }
+            x = true;
+            return var1;
         }
 
         var1 = var9.getMessage();
@@ -542,8 +459,7 @@ public class a {
 
     private static void a(Context var0, String var1, String var2) {
         StringBuffer var3;
-        StringBuffer var10001 = var3 = new StringBuffer;
-        var3.<init>();
+        StringBuffer var10001 = var3 = new StringBuffer();
         var3.append(TSLog.header(var1 + Application.B("쬷⎼") + var0.getPackageName()));
         var10001.append(TSLog.boxRow(var2));
         if (b(var0)) {
@@ -558,12 +474,12 @@ public class a {
     private static String a(List<String> var0, String var1) {
         List var10000 = var0;
         StringBuilder var5;
-        var5 = new StringBuilder.<init>();
+        var5 = new StringBuilder();
         boolean var2 = true;
 
         String var4;
-        for(Iterator var3 = var10000.iterator(); var3.hasNext(); var5.append(var4)) {
-            var4 = (String)var3.next();
+        for (Iterator var3 = var10000.iterator(); var3.hasNext(); var5.append(var4)) {
+            var4 = (String) var3.next();
             if (var2) {
                 var2 = false;
             } else {

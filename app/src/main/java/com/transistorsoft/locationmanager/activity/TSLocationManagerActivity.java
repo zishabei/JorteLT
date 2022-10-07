@@ -11,8 +11,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsResponse;
@@ -26,6 +28,7 @@ import com.transistorsoft.locationmanager.lifecycle.LifecycleManager;
 import com.transistorsoft.locationmanager.location.TSLocationManager;
 import com.transistorsoft.locationmanager.logger.TSLog;
 import com.transistorsoft.tslocationmanager.Application;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TSLocationManagerActivity extends AppCompatActivity {
@@ -52,9 +55,8 @@ public class TSLocationManagerActivity extends AppCompatActivity {
     public static void start(final Context var0, String var1) {
         if (!var1.equalsIgnoreCase(Application.B("鬺ﱠ쫨鑅ቆ욱䢈츆⢸渥\uecdf䈍噙鱡刭蒓")) || !TSConfig.getInstance(var0).getDisableLocationAuthorizationAlert()) {
             final Intent var2;
-            Intent var10000 = var2 = new Intent;
-            var2.<init>(var0, TSLocationManagerActivity.class);
-            var2.setFlags(268435456);
+            Intent var10000 = var2 = new Intent(var0, TSLocationManagerActivity.class);
+            var2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             var10000.setAction(var1);
             (new Handler(Looper.getMainLooper())).postDelayed(new Runnable() {
                 public void run() {
@@ -104,7 +106,7 @@ public class TSLocationManagerActivity extends AppCompatActivity {
             public void onComplete() {
                 TSLocationManagerActivity.this.stop();
             }
-        }.<init>();
+        };
         var10000.onStartActivity(this, var1);
     }
 

@@ -44,13 +44,12 @@ public class HttpResponse {
 
     public JSONObject toJson() {
         JSONObject var1;
-        JSONObject var10000 = var1 = new JSONObject;
+        JSONObject var10000 = var1 = new JSONObject();
         HttpResponse var10001 = this;
         JSONObject var10002 = var1;
         HttpResponse var10003 = this;
         JSONObject var10004 = var1;
         HttpResponse var10005 = this;
-        var1.<init>();
         String var5 = Application.B("\u1afcꠌ鶈踄\ue594ꄣ");
 
         JSONException var7;

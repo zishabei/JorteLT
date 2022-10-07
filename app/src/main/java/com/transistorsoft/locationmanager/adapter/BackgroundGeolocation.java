@@ -87,6 +87,7 @@ import com.transistorsoft.locationmanager.service.GeofencingService;
 import com.transistorsoft.locationmanager.service.HeartbeatService;
 import com.transistorsoft.locationmanager.service.TrackingService;
 import com.transistorsoft.locationmanager.util.BackgroundTaskManager;
+import com.transistorsoft.locationmanager.http.HttpResponse;
 import com.transistorsoft.locationmanager.util.Sensors;
 import com.transistorsoft.locationmanager.util.c;
 import com.transistorsoft.locationmanager.util.d;
