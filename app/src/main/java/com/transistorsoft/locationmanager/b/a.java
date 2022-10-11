@@ -6,11 +6,14 @@
 package com.transistorsoft.locationmanager.b;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
+
 import com.transistorsoft.locationmanager.adapter.TSConfig;
 import com.transistorsoft.locationmanager.logger.TSLog;
 import com.transistorsoft.tslocationmanager.Application;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
@@ -20,6 +23,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -60,10 +64,13 @@ public class a {
             this.a(Application.B("\uf7cf䝳杨ঁ湺烽\u18ab쑍㐚ៗ塙⒵䜃벿㫗\u0f70係律杜뀳졗臌饂䐙戮\ued35㲈㹋༯") + var2, Application.B("\uf789䝼杊ভ湘烋ᢊ쑍㐸៹堵⒚䜮벐㫧༙信徬期뀐졸臶饫䑬戗\ued15㳑㹆ས뮷⺩疷\udcb5轥㓰ꁝ㒧첁ꐮᶲ๛\ufd90㌺表؍\ue6f1嶠\udf73㱛\uda1cﳒ폃\u1bf7맋悌⮽넸\uee50낅㴲ܾ鵽㬣\uf8ad勵ἔ낫撀\ua7dfˏኌ\uea78獹⊑\ua7e7ܜ煸ﵖ䀴迿ࡡ뤼䐣⁍잃㶱婏\ue225ᖏ\uf26f持Ⱀ\ue66a兿Ꮗ튇頋研᠖︾誮蝧㫲७ꄷ␛燅駑\uf2aa\uded4噛븂\ude61\ue846\u3040젒줝\uf5eb鼺즞砡䭷") + var2 + Application.B("\uf7a1䜚杊প湐烜ᢁ쐄㐨ឬ塣⒝䜫벋㫦༄侯忹朥뀺졃臗餮䐀戵\ued33㳭㸨ཛྷ뮜⺩疽\udc9e轘㒼ꀐ㓮쳊ꑝ"));
             return false;
         } else {
-            label73: {
+            label73:
+            {
                 boolean var10000;
-                label72: {
-                    label79: {
+                label72:
+                {
+                    label79:
+                    {
                         boolean var10001;
                         try {
                             var10000 = this.a(var3, var2, var12);
@@ -123,7 +130,7 @@ public class a {
 
                         String var17;
                         try {
-                            var17 = a(Arrays.asList((String[])Arrays.copyOf(var15, var10002)), Application.B("\uf7ad"));
+                            var17 = a(Arrays.asList((String[]) Arrays.copyOf(var15, var10002)), Application.B("\uf7ad"));
                         } catch (Exception var6) {
                             var10001 = false;
                             break label79;
@@ -156,7 +163,7 @@ public class a {
     private String a(Context var1, String var2) {
         String var10000;
         try {
-            var10000 = var1.getPackageManager().getApplicationInfo(var1.getPackageName(), 128).metaData.getString(var2);
+            var10000 = var1.getPackageManager().getApplicationInfo(var1.getPackageName(), PackageManager.GET_META_DATA).metaData.getString(var2);
         } catch (NameNotFoundException var3) {
             return null;
         }
@@ -175,25 +182,16 @@ public class a {
         }
 
         boolean var15;
-        label63: {
-            label58: {
-                StringBuilder var14;
-                boolean var10001;
-                try {
-                    var14 = new StringBuilder;
-                } catch (Exception var9) {
-                    var10001 = false;
-                    break label58;
-                }
-
-                StringBuilder var10002 = var14;
+        label63:
+        {
+            label58:
+            {
+                StringBuilder var14 = new StringBuilder();
 
                 byte[] var11;
                 try {
-                    var10002.<init>();
                     var11 = var10000.digest(var14.append(var2).append(Application.B("糿")).append(var1).append(Application.B("糿")).append(Application.B("糷襳雦㑺䩥ⶆ䡫ጄᒿ葞ⴱ換亟文ﶖ擎䆒˺僜枣汅ț嵘延癸䐄ȁ隕갡帝蒢Ծ\u2d69讥\ud964\uf72c₧骸蕰圇")).toString().getBytes(Application.B("粐襄隘㑦䩮")));
                 } catch (Exception var8) {
-                    var10001 = false;
                     break label58;
                 }
 
@@ -205,7 +203,6 @@ public class a {
                     var12 = (new StringBuilder()).append(Application.B("糠褠"));
                     var16 = var10.length;
                 } catch (Exception var7) {
-                    var10001 = false;
                     break label58;
                 }
 
@@ -217,7 +214,6 @@ public class a {
                     var13 = var12.append(var16).append(Application.B("粝")).toString();
                     var18 = new Object[1];
                 } catch (Exception var6) {
-                    var10001 = false;
                     break label58;
                 }
 
@@ -229,7 +225,6 @@ public class a {
                     var15 = String.format(var13, var18).equalsIgnoreCase(var3);
                     break label63;
                 } catch (Exception var5) {
-                    var10001 = false;
                 }
             }
 
@@ -246,6 +241,8 @@ public class a {
 
     private boolean b(Context param1) {
         // $FF: Couldn't be decompiled
+        // TODO: 2022/10/11
+        return true;
     }
 
     private void a(String var1, String var2) {
@@ -255,12 +252,12 @@ public class a {
     private static String a(List<String> var0, String var1) {
         List var10000 = var0;
         StringBuilder var5;
-        var5 = new StringBuilder.<init>();
+        var5 = new StringBuilder();
         boolean var2 = true;
 
         String var4;
-        for(Iterator var3 = var10000.iterator(); var3.hasNext(); var5.append(var4)) {
-            var4 = (String)var3.next();
+        for (Iterator var3 = var10000.iterator(); var3.hasNext(); var5.append(var4)) {
+            var4 = (String) var3.next();
             if (var2) {
                 var2 = false;
             } else {
@@ -273,15 +270,20 @@ public class a {
 
     private void b(Context var1, String var2) {
         NoSuchMethodException var28;
-        label104: {
+        label104:
+        {
             IllegalAccessException var27;
-            label105: {
+            label105:
+            {
                 InvocationTargetException var26;
-                label106: {
+                label106:
+                {
                     Exception var10000;
-                    label107: {
+                    label107:
+                    {
                         ClassNotFoundException var29;
-                        label86: {
+                        label86:
+                        {
                             boolean var10001;
                             Class var30;
                             try {
@@ -290,18 +292,6 @@ public class a {
                                 var29 = var18;
                                 var10001 = false;
                                 break label86;
-                            } catch (NoSuchMethodException var19) {
-                                var28 = var19;
-                                var10001 = false;
-                                break label104;
-                            } catch (IllegalAccessException var20) {
-                                var27 = var20;
-                                var10001 = false;
-                                break label105;
-                            } catch (InvocationTargetException var21) {
-                                var26 = var21;
-                                var10001 = false;
-                                break label106;
                             } catch (Exception var22) {
                                 var10000 = var22;
                                 var10001 = false;
@@ -314,22 +304,6 @@ public class a {
                             Class[] var10002;
                             try {
                                 var10002 = new Class[1];
-                            } catch (ClassNotFoundException var13) {
-                                var29 = var13;
-                                var10001 = false;
-                                break label86;
-                            } catch (NoSuchMethodException var14) {
-                                var28 = var14;
-                                var10001 = false;
-                                break label104;
-                            } catch (IllegalAccessException var15) {
-                                var27 = var15;
-                                var10001 = false;
-                                break label105;
-                            } catch (InvocationTargetException var16) {
-                                var26 = var16;
-                                var10001 = false;
-                                break label106;
                             } catch (Exception var17) {
                                 var10000 = var17;
                                 var10001 = false;
@@ -343,22 +317,10 @@ public class a {
                             try {
                                 var10002[var10003] = Context.class;
                                 var32 = var31.getMethod(Application.B("\uf45bя℄潾睅\ue16e롤\ueadf坰Ṅ傄"), var24);
-                            } catch (ClassNotFoundException var8) {
-                                var29 = var8;
-                                var10001 = false;
-                                break label86;
                             } catch (NoSuchMethodException var9) {
                                 var28 = var9;
                                 var10001 = false;
                                 break label104;
-                            } catch (IllegalAccessException var10) {
-                                var27 = var10;
-                                var10001 = false;
-                                break label105;
-                            } catch (InvocationTargetException var11) {
-                                var26 = var11;
-                                var10001 = false;
-                                break label106;
                             } catch (Exception var12) {
                                 var10000 = var12;
                                 var10001 = false;
@@ -371,9 +333,6 @@ public class a {
                             try {
                                 var30.getMethod(var33).invoke(var25.invoke(var23, var1));
                                 return;
-                            } catch (ClassNotFoundException var3) {
-                                var29 = var3;
-                                var10001 = false;
                             } catch (NoSuchMethodException var4) {
                                 var28 = var4;
                                 var10001 = false;
@@ -427,14 +386,14 @@ public class a {
     public void a(Context var1, JSONObject var2) {
         Iterator var3 = var2.keys();
 
-        while(var3.hasNext()) {
+        while (var3.hasNext()) {
             a var10000 = this;
             Context var10001 = var1;
             JSONObject var10002 = var2;
-            String var10003 = (String)var3.next();
+            String var10003 = (String) var3.next();
 
             try {
-                var10000.b(var10001, (String)d.get(var10002.getInt(var10003)));
+                var10000.b(var10001, (String) d.get(var10002.getInt(var10003)));
             } catch (JSONException var5) {
                 TSLog.logger.debug(var5.getMessage(), var5);
                 var5.printStackTrace();
