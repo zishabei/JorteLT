@@ -12,8 +12,10 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.location.ActivityTransitionEvent;
 import com.intentfilter.androidpermissions.PermissionManager.PermissionRequestListener;
@@ -69,6 +71,8 @@ import com.transistorsoft.locationmanager.event.SettingsFailureEvent;
 import com.transistorsoft.locationmanager.event.TemplateErrorEvent;
 import com.transistorsoft.locationmanager.geofence.TSGeofence;
 import com.transistorsoft.locationmanager.geofence.TSGeofenceManager;
+import com.transistorsoft.locationmanager.http.HttpService;
+import com.transistorsoft.locationmanager.http.HttpResponse;
 import com.transistorsoft.locationmanager.lifecycle.LifecycleManager;
 import com.transistorsoft.locationmanager.location.TSCurrentPositionRequest;
 import com.transistorsoft.locationmanager.location.TSLocation;
@@ -92,6 +96,7 @@ import com.transistorsoft.locationmanager.util.Sensors;
 import com.transistorsoft.locationmanager.util.c;
 import com.transistorsoft.locationmanager.util.d;
 import com.transistorsoft.tslocationmanager.Application;
+
 import java.io.File;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.ArrayList;
@@ -103,6 +108,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -223,7 +229,7 @@ public class BackgroundGeolocation {
         }
 
         if (var0 instanceof Activity) {
-            z.setActivity((Activity)var0);
+            z.setActivity((Activity) var0);
         }
 
         return z;
@@ -384,834 +390,271 @@ public class BackgroundGeolocation {
     }
 
     private void a(TSLocationCallback var1) {
-        List var2;
-        List var10000 = var2 = this.i;
-        BackgroundGeolocation var10001 = this;
-        synchronized(var2){}
-
-        Throwable var9;
-        boolean var10;
-        try {
-            var10001.i.add(var1);
-        } catch (Throwable var8) {
-            var9 = var8;
-            var10 = false;
-            throw var9;
-        }
-
-        try {
-            ;
-        } catch (Throwable var7) {
-            var9 = var7;
-            var10 = false;
-            throw var9;
+        List<TSLocationCallback> list = this.i;
+        synchronized (list) {
+            this.i.add(var1);
+            return;
         }
     }
 
     private void b(TSLocationCallback var1) {
-        List var2;
-        List var10000 = var2 = this.j;
-        BackgroundGeolocation var10001 = this;
-        synchronized(var2){}
-
-        Throwable var9;
-        boolean var10;
-        try {
-            var10001.j.add(var1);
-        } catch (Throwable var8) {
-            var9 = var8;
-            var10 = false;
-            throw var9;
-        }
-
-        try {
-            ;
-        } catch (Throwable var7) {
-            var9 = var7;
-            var10 = false;
-            throw var9;
+        List<TSLocationCallback> list = this.j;
+        synchronized (list) {
+            this.j.add(var1);
+            return;
         }
     }
 
-    private void a(TSHttpResponseCallback var1) {
-        List var2;
-        List var10000 = var2 = this.n;
-        BackgroundGeolocation var10001 = this;
-        synchronized(var2){}
-
-        Throwable var9;
-        boolean var10;
-        try {
-            var10001.n.add(var1);
-        } catch (Throwable var8) {
-            var9 = var8;
-            var10 = false;
-            throw var9;
-        }
-
-        try {
-            ;
-        } catch (Throwable var7) {
-            var9 = var7;
-            var10 = false;
-            throw var9;
+    private void a(TSHttpResponseCallback tSHttpResponseCallback) {
+        List<TSHttpResponseCallback> list = this.n;
+        synchronized (list) {
+            this.n.add(tSHttpResponseCallback);
+            return;
         }
     }
 
-    private void a(TSHeartbeatCallback var1) {
-        List var2;
-        List var10000 = var2 = this.o;
-        BackgroundGeolocation var10001 = this;
-        synchronized(var2){}
-
-        Throwable var9;
-        boolean var10;
-        try {
-            var10001.o.add(var1);
-        } catch (Throwable var8) {
-            var9 = var8;
-            var10 = false;
-            throw var9;
-        }
-
-        try {
-            ;
-        } catch (Throwable var7) {
-            var9 = var7;
-            var10 = false;
-            throw var9;
+    private void a(TSHeartbeatCallback tSHeartbeatCallback) {
+        List<TSHeartbeatCallback> list = this.o;
+        synchronized (list) {
+            this.o.add(tSHeartbeatCallback);
+            return;
         }
     }
 
-    private void a(TSActivityChangeCallback var1) {
-        List var2;
-        List var10000 = var2 = this.p;
-        BackgroundGeolocation var10001 = this;
-        synchronized(var2){}
-
-        Throwable var9;
-        boolean var10;
-        try {
-            var10001.p.add(var1);
-        } catch (Throwable var8) {
-            var9 = var8;
-            var10 = false;
-            throw var9;
-        }
-
-        try {
-            ;
-        } catch (Throwable var7) {
-            var9 = var7;
-            var10 = false;
-            throw var9;
+    private void a(TSActivityChangeCallback tSActivityChangeCallback) {
+        List<TSActivityChangeCallback> list = this.p;
+        synchronized (list) {
+            this.p.add(tSActivityChangeCallback);
+            return;
         }
     }
 
-    private void a(TSPowerSaveChangeCallback var1) {
-        List var2;
-        List var10000 = var2 = this.q;
-        BackgroundGeolocation var10001 = this;
-        synchronized(var2){}
-
-        Throwable var9;
-        boolean var10;
-        try {
-            var10001.q.add(var1);
-        } catch (Throwable var8) {
-            var9 = var8;
-            var10 = false;
-            throw var9;
-        }
-
-        try {
-            ;
-        } catch (Throwable var7) {
-            var9 = var7;
-            var10 = false;
-            throw var9;
+    private void a(TSPowerSaveChangeCallback tSPowerSaveChangeCallback) {
+        List<TSPowerSaveChangeCallback> list = this.q;
+        synchronized (list) {
+            this.q.add(tSPowerSaveChangeCallback);
+            return;
         }
     }
 
-    private void a(TSLocationProviderChangeCallback var1) {
-        List var2;
-        List var10000 = var2 = this.r;
-        BackgroundGeolocation var10001 = this;
-        synchronized(var2){}
-
-        Throwable var9;
-        boolean var10;
-        try {
-            var10001.r.add(var1);
-        } catch (Throwable var8) {
-            var9 = var8;
-            var10 = false;
-            throw var9;
-        }
-
-        try {
-            ;
-        } catch (Throwable var7) {
-            var9 = var7;
-            var10 = false;
-            throw var9;
+    private void a(TSLocationProviderChangeCallback tSLocationProviderChangeCallback) {
+        List<TSLocationProviderChangeCallback> list = this.r;
+        synchronized (list) {
+            this.r.add(tSLocationProviderChangeCallback);
+            return;
         }
     }
 
-    private void a(TSConnectivityChangeCallback var1) {
-        List var2;
-        List var10000 = var2 = this.m;
-        BackgroundGeolocation var10001 = this;
-        synchronized(var2){}
-
-        Throwable var9;
-        boolean var10;
-        try {
-            var10001.m.add(var1);
-        } catch (Throwable var8) {
-            var9 = var8;
-            var10 = false;
-            throw var9;
-        }
-
-        try {
-            ;
-        } catch (Throwable var7) {
-            var9 = var7;
-            var10 = false;
-            throw var9;
+    private void a(TSConnectivityChangeCallback tSConnectivityChangeCallback) {
+        List<TSConnectivityChangeCallback> list = this.m;
+        synchronized (list) {
+            this.m.add(tSConnectivityChangeCallback);
+            return;
         }
     }
 
-    private void a(TSEnabledChangeCallback var1) {
-        List var2;
-        List var10000 = var2 = this.l;
-        BackgroundGeolocation var10001 = this;
-        synchronized(var2){}
-
-        Throwable var9;
-        boolean var10;
-        try {
-            var10001.l.add(var1);
-        } catch (Throwable var8) {
-            var9 = var8;
-            var10 = false;
-            throw var9;
-        }
-
-        try {
-            ;
-        } catch (Throwable var7) {
-            var9 = var7;
-            var10 = false;
-            throw var9;
+    private void a(TSEnabledChangeCallback tSEnabledChangeCallback) {
+        List<TSEnabledChangeCallback> list = this.l;
+        synchronized (list) {
+            this.l.add(tSEnabledChangeCallback);
+            return;
         }
     }
 
-    private void a(TSScheduleCallback var1) {
-        List var2;
-        List var10000 = var2 = this.s;
-        BackgroundGeolocation var10001 = this;
-        synchronized(var2){}
-
-        Throwable var9;
-        boolean var10;
-        try {
-            var10001.s.add(var1);
-        } catch (Throwable var8) {
-            var9 = var8;
-            var10 = false;
-            throw var9;
-        }
-
-        try {
-            ;
-        } catch (Throwable var7) {
-            var9 = var7;
-            var10 = false;
-            throw var9;
+    private void a(TSScheduleCallback tSScheduleCallback) {
+        List<TSScheduleCallback> list = this.s;
+        synchronized (list) {
+            this.s.add(tSScheduleCallback);
+            return;
         }
     }
 
-    private void a(TSGeofencesChangeCallback var1) {
-        TSGeofenceManager.getInstance(this.c).onGeofencesChange(var1);
+    private void a(TSGeofencesChangeCallback tSGeofencesChangeCallback) {
+        TSGeofenceManager.getInstance(this.c).onGeofencesChange(tSGeofencesChangeCallback);
     }
 
-    private void a(TSGeofenceCallback var1) {
-        List var2;
-        List var10000 = var2 = this.k;
-        BackgroundGeolocation var10001 = this;
-        synchronized(var2){}
-
-        Throwable var9;
-        boolean var10;
-        try {
-            var10001.k.add(var1);
-        } catch (Throwable var8) {
-            var9 = var8;
-            var10 = false;
-            throw var9;
-        }
-
-        try {
-            ;
-        } catch (Throwable var7) {
-            var9 = var7;
-            var10 = false;
-            throw var9;
+    private void a(TSGeofenceCallback tSGeofenceCallback) {
+        List<TSGeofenceCallback> list = this.k;
+        synchronized (list) {
+            this.k.add(tSGeofenceCallback);
+            return;
         }
     }
 
-    private void a(TSNotificationActionCallback var1) {
-        List var2;
-        List var10000 = var2 = this.v;
-        BackgroundGeolocation var10001 = this;
-        synchronized(var2){}
-
-        Throwable var9;
-        boolean var10;
-        try {
-            var10001.v.add(var1);
-        } catch (Throwable var8) {
-            var9 = var8;
-            var10 = false;
-            throw var9;
-        }
-
-        try {
-            ;
-        } catch (Throwable var7) {
-            var9 = var7;
-            var10 = false;
-            throw var9;
+    private void a(TSNotificationActionCallback tSNotificationActionCallback) {
+        List<TSNotificationActionCallback> list = this.v;
+        synchronized (list) {
+            this.v.add(tSNotificationActionCallback);
+            return;
         }
     }
 
-    private void a(TSPlayServicesConnectErrorCallback var1) {
-        List var2;
-        List var10000 = var2 = this.t;
-        BackgroundGeolocation var10001 = this;
-        synchronized(var2){}
-
-        Throwable var9;
-        boolean var10;
-        try {
-            var10001.t.add(var1);
-        } catch (Throwable var8) {
-            var9 = var8;
-            var10 = false;
-            throw var9;
-        }
-
-        try {
-            ;
-        } catch (Throwable var7) {
-            var9 = var7;
-            var10 = false;
-            throw var9;
+    private void a(TSPlayServicesConnectErrorCallback tSPlayServicesConnectErrorCallback) {
+        List<TSPlayServicesConnectErrorCallback> list = this.t;
+        synchronized (list) {
+            this.t.add(tSPlayServicesConnectErrorCallback);
+            return;
         }
     }
 
     private void a(final int var1) {
-        getUiHandler().post(new Runnable() {
+        BackgroundGeolocation.getUiHandler().post(new Runnable() {
+            @Override
             public void run() {
-                <undefinedtype> var10000 = this;
-                synchronized(BackgroundGeolocation.this.t){}
-
-                boolean var10001;
-                Throwable var23;
-                Iterator var24;
-                try {
-                    var24 = BackgroundGeolocation.this.t.iterator();
-                } catch (Throwable var22) {
-                    var23 = var22;
-                    var10001 = false;
-                    throw var23;
-                }
-
-                Iterator var2 = var24;
-
-                while(true) {
-                    boolean var25;
-                    try {
-                        var25 = var2.hasNext();
-                    } catch (Throwable var20) {
-                        var23 = var20;
-                        var10001 = false;
-                        break;
-                    }
-
-                    if (!var25) {
-                        try {
+                synchronized (BackgroundGeolocation.this.t) {
+                    Iterator iterator = BackgroundGeolocation.this.t.iterator();
+                    while (true) {
+                        if (!iterator.hasNext()) {
                             return;
-                        } catch (Throwable var19) {
-                            var23 = var19;
-                            var10001 = false;
-                            break;
                         }
-                    }
-
-                    try {
-                        ((TSPlayServicesConnectErrorCallback)var2.next()).onPlayServicesConnectError(var1);
-                    } catch (Throwable var21) {
-                        var23 = var21;
-                        var10001 = false;
-                        break;
+                        ((TSPlayServicesConnectErrorCallback) iterator.next()).onPlayServicesConnectError(var1);
                     }
                 }
-
-                throw var23;
             }
         });
     }
 
-    private void a(TSSecurityExceptionCallback var1) {
-        List var2;
-        List var10000 = var2 = this.u;
-        BackgroundGeolocation var10001 = this;
-        synchronized(var2){}
-
-        Throwable var9;
-        boolean var10;
-        try {
-            var10001.u.add(var1);
-        } catch (Throwable var8) {
-            var9 = var8;
-            var10 = false;
-            throw var9;
-        }
-
-        try {
-            ;
-        } catch (Throwable var7) {
-            var9 = var7;
-            var10 = false;
-            throw var9;
+    private void a(TSSecurityExceptionCallback tSSecurityExceptionCallback) {
+        List<TSSecurityExceptionCallback> list = this.u;
+        synchronized (list) {
+            this.u.add(tSSecurityExceptionCallback);
+            return;
         }
     }
 
-    private void a(final ScheduleEvent var1) {
-        getUiHandler().post(new Runnable() {
+    private void a(final ScheduleEvent scheduleEvent) {
+        BackgroundGeolocation.getUiHandler().post(new Runnable() {
+            @Override
             public void run() {
-                <undefinedtype> var10000 = this;
-                synchronized(BackgroundGeolocation.this.s){}
-
-                boolean var10001;
-                Throwable var23;
-                Iterator var24;
-                try {
-                    var24 = BackgroundGeolocation.this.s.iterator();
-                } catch (Throwable var22) {
-                    var23 = var22;
-                    var10001 = false;
-                    throw var23;
-                }
-
-                Iterator var2 = var24;
-
-                while(true) {
-                    boolean var25;
-                    try {
-                        var25 = var2.hasNext();
-                    } catch (Throwable var20) {
-                        var23 = var20;
-                        var10001 = false;
-                        break;
-                    }
-
-                    if (!var25) {
-                        try {
+                synchronized (BackgroundGeolocation.this.s) {
+                    Iterator iterator = BackgroundGeolocation.this.s.iterator();
+                    while (true) {
+                        if (!iterator.hasNext()) {
                             return;
-                        } catch (Throwable var19) {
-                            var23 = var19;
-                            var10001 = false;
-                            break;
                         }
-                    }
-
-                    try {
-                        ((TSScheduleCallback)var2.next()).onSchedule(var1);
-                    } catch (Throwable var21) {
-                        var23 = var21;
-                        var10001 = false;
-                        break;
+                        ((TSScheduleCallback) iterator.next()).onSchedule(scheduleEvent);
                     }
                 }
-
-                throw var23;
             }
         });
     }
 
-    private void a(final ActivityTransitionEvent var1) {
-        getUiHandler().post(new Runnable() {
+    private void a(final ActivityTransitionEvent activityTransitionEvent) {
+        BackgroundGeolocation.getUiHandler().post(new Runnable() {
+            @Override
             public void run() {
-                <undefinedtype> var10000 = this;
-                ActivityChangeEvent var1x;
-                var1x = new ActivityChangeEvent.<init>(var1);
-                synchronized(BackgroundGeolocation.this.p){}
-
-                boolean var10001;
-                Throwable var23;
-                Iterator var24;
-                try {
-                    var24 = BackgroundGeolocation.this.p.iterator();
-                } catch (Throwable var22) {
-                    var23 = var22;
-                    var10001 = false;
-                    throw var23;
-                }
-
-                Iterator var2 = var24;
-
-                while(true) {
-                    boolean var25;
-                    try {
-                        var25 = var2.hasNext();
-                    } catch (Throwable var20) {
-                        var23 = var20;
-                        var10001 = false;
-                        break;
-                    }
-
-                    if (!var25) {
-                        try {
+                ActivityChangeEvent activityChangeEvent = new ActivityChangeEvent(activityTransitionEvent);
+                synchronized (BackgroundGeolocation.this.p) {
+                    Iterator iterator = BackgroundGeolocation.this.p.iterator();
+                    while (true) {
+                        if (!iterator.hasNext()) {
                             return;
-                        } catch (Throwable var19) {
-                            var23 = var19;
-                            var10001 = false;
-                            break;
                         }
-                    }
-
-                    try {
-                        ((TSActivityChangeCallback)var2.next()).onActivityChange(var1x);
-                    } catch (Throwable var21) {
-                        var23 = var21;
-                        var10001 = false;
-                        break;
+                        ((TSActivityChangeCallback) iterator.next()).onActivityChange(activityChangeEvent);
                     }
                 }
-
-                throw var23;
             }
         });
     }
 
-    private void a(final TSLocation var1) {
-        getUiHandler().post(new Runnable() {
+    private void a(final TSLocation tSLocation) {
+        BackgroundGeolocation.getUiHandler().post(new Runnable() {
+            @Override
             public void run() {
-                <undefinedtype> var10000 = this;
-                synchronized(BackgroundGeolocation.this.i){}
-
-                boolean var10001;
-                Throwable var23;
-                Iterator var24;
-                try {
-                    var24 = BackgroundGeolocation.this.i.iterator();
-                } catch (Throwable var22) {
-                    var23 = var22;
-                    var10001 = false;
-                    throw var23;
-                }
-
-                Iterator var2 = var24;
-
-                while(true) {
-                    boolean var25;
-                    try {
-                        var25 = var2.hasNext();
-                    } catch (Throwable var20) {
-                        var23 = var20;
-                        var10001 = false;
-                        break;
-                    }
-
-                    if (!var25) {
-                        try {
+                synchronized (BackgroundGeolocation.this.i) {
+                    Iterator iterator = BackgroundGeolocation.this.i.iterator();
+                    while (true) {
+                        if (!iterator.hasNext()) {
                             return;
-                        } catch (Throwable var19) {
-                            var23 = var19;
-                            var10001 = false;
-                            break;
                         }
-                    }
-
-                    try {
-                        ((TSLocationCallback)var2.next()).onLocation(var1);
-                    } catch (Throwable var21) {
-                        var23 = var21;
-                        var10001 = false;
-                        break;
+                        ((TSLocationCallback) iterator.next()).onLocation(tSLocation);
                     }
                 }
-
-                throw var23;
             }
         });
     }
 
-    private void b(final int var1) {
-        getUiHandler().post(new Runnable() {
+    private void b(final int n2) {
+        BackgroundGeolocation.getUiHandler().post(new Runnable() {
+            @Override
             public void run() {
-                <undefinedtype> var10000 = this;
-                synchronized(BackgroundGeolocation.this.i){}
-
-                boolean var10001;
-                Throwable var23;
-                Iterator var24;
-                try {
-                    var24 = BackgroundGeolocation.this.i.iterator();
-                } catch (Throwable var22) {
-                    var23 = var22;
-                    var10001 = false;
-                    throw var23;
-                }
-
-                Iterator var2 = var24;
-
-                while(true) {
-                    boolean var25;
-                    try {
-                        var25 = var2.hasNext();
-                    } catch (Throwable var20) {
-                        var23 = var20;
-                        var10001 = false;
-                        break;
-                    }
-
-                    if (!var25) {
-                        try {
+                synchronized (BackgroundGeolocation.this.i) {
+                    Iterator iterator = BackgroundGeolocation.this.i.iterator();
+                    while (true) {
+                        if (!iterator.hasNext()) {
                             return;
-                        } catch (Throwable var19) {
-                            var23 = var19;
-                            var10001 = false;
-                            break;
                         }
-                    }
-
-                    try {
-                        ((TSLocationCallback)var2.next()).onError(var1);
-                    } catch (Throwable var21) {
-                        var23 = var21;
-                        var10001 = false;
-                        break;
+                        ((TSLocationCallback) iterator.next()).onError(n2);
                     }
                 }
-
-                throw var23;
             }
         });
     }
 
-    private void a(final LocationProviderChangeEvent var1) {
-        getUiHandler().post(new Runnable() {
+    private void a(final LocationProviderChangeEvent locationProviderChangeEvent) {
+        BackgroundGeolocation.getUiHandler().post(new Runnable() {
+            @Override
             public void run() {
-                <undefinedtype> var10000 = this;
-                synchronized(BackgroundGeolocation.this.r){}
-
-                boolean var10001;
-                Throwable var23;
-                Iterator var24;
-                try {
-                    var24 = BackgroundGeolocation.this.r.iterator();
-                } catch (Throwable var22) {
-                    var23 = var22;
-                    var10001 = false;
-                    throw var23;
-                }
-
-                Iterator var2 = var24;
-
-                while(true) {
-                    boolean var25;
-                    try {
-                        var25 = var2.hasNext();
-                    } catch (Throwable var20) {
-                        var23 = var20;
-                        var10001 = false;
-                        break;
-                    }
-
-                    if (!var25) {
-                        try {
+                synchronized (BackgroundGeolocation.this.r) {
+                    Iterator iterator = BackgroundGeolocation.this.r.iterator();
+                    while (true) {
+                        if (!iterator.hasNext()) {
                             return;
-                        } catch (Throwable var19) {
-                            var23 = var19;
-                            var10001 = false;
-                            break;
                         }
-                    }
-
-                    try {
-                        ((TSLocationProviderChangeCallback)var2.next()).onLocationProviderChange(var1);
-                    } catch (Throwable var21) {
-                        var23 = var21;
-                        var10001 = false;
-                        break;
+                        ((TSLocationProviderChangeCallback) iterator.next()).onLocationProviderChange(locationProviderChangeEvent);
                     }
                 }
-
-                throw var23;
             }
         });
     }
 
-    private void a(final HeartbeatEvent var1) {
-        getUiHandler().post(new Runnable() {
+    private void a(final HeartbeatEvent heartbeatEvent) {
+        BackgroundGeolocation.getUiHandler().post(new Runnable() {
+            @Override
             public void run() {
-                <undefinedtype> var10000 = this;
-                synchronized(BackgroundGeolocation.this.o){}
-
-                boolean var10001;
-                Throwable var23;
-                Iterator var24;
-                try {
-                    var24 = BackgroundGeolocation.this.o.iterator();
-                } catch (Throwable var22) {
-                    var23 = var22;
-                    var10001 = false;
-                    throw var23;
-                }
-
-                Iterator var2 = var24;
-
-                while(true) {
-                    boolean var25;
-                    try {
-                        var25 = var2.hasNext();
-                    } catch (Throwable var20) {
-                        var23 = var20;
-                        var10001 = false;
-                        break;
-                    }
-
-                    if (!var25) {
-                        try {
+                synchronized (BackgroundGeolocation.this.o) {
+                    Iterator iterator = BackgroundGeolocation.this.o.iterator();
+                    while (true) {
+                        if (!iterator.hasNext()) {
                             return;
-                        } catch (Throwable var19) {
-                            var23 = var19;
-                            var10001 = false;
-                            break;
                         }
-                    }
-
-                    try {
-                        ((TSHeartbeatCallback)var2.next()).onHeartbeat(var1);
-                    } catch (Throwable var21) {
-                        var23 = var21;
-                        var10001 = false;
-                        break;
+                        ((TSHeartbeatCallback) iterator.next()).onHeartbeat(heartbeatEvent);
                     }
                 }
-
-                throw var23;
             }
         });
     }
 
-    private void a(final GeofenceEvent var1) {
-        getUiHandler().post(new Runnable() {
+    private void a(final GeofenceEvent geofenceEvent) {
+        BackgroundGeolocation.getUiHandler().post(new Runnable() {
+            @Override
             public void run() {
-                <undefinedtype> var10000 = this;
-                synchronized(BackgroundGeolocation.this.k){}
-
-                boolean var10001;
-                Throwable var23;
-                Iterator var24;
-                try {
-                    var24 = BackgroundGeolocation.this.k.iterator();
-                } catch (Throwable var22) {
-                    var23 = var22;
-                    var10001 = false;
-                    throw var23;
-                }
-
-                Iterator var2 = var24;
-
-                while(true) {
-                    boolean var25;
-                    try {
-                        var25 = var2.hasNext();
-                    } catch (Throwable var20) {
-                        var23 = var20;
-                        var10001 = false;
-                        break;
-                    }
-
-                    if (!var25) {
-                        try {
+                synchronized (BackgroundGeolocation.this.k) {
+                    Iterator iterator = BackgroundGeolocation.this.k.iterator();
+                    while (true) {
+                        if (!iterator.hasNext()) {
                             return;
-                        } catch (Throwable var19) {
-                            var23 = var19;
-                            var10001 = false;
-                            break;
                         }
-                    }
-
-                    try {
-                        ((TSGeofenceCallback)var2.next()).onGeofence(var1);
-                    } catch (Throwable var21) {
-                        var23 = var21;
-                        var10001 = false;
-                        break;
+                        ((TSGeofenceCallback) iterator.next()).onGeofence(geofenceEvent);
                     }
                 }
-
-                throw var23;
             }
         });
     }
 
-    private void a(final MotionChangeEvent var1) {
-        getUiHandler().post(new Runnable() {
+    private void a(final MotionChangeEvent motionChangeEvent) {
+        BackgroundGeolocation.getUiHandler().post(new Runnable() {
+            @Override
             public void run() {
-                <undefinedtype> var10000 = this;
-                synchronized(BackgroundGeolocation.this.j){}
-
-                boolean var10001;
-                Throwable var23;
-                Iterator var24;
-                try {
-                    var24 = BackgroundGeolocation.this.j.iterator();
-                } catch (Throwable var22) {
-                    var23 = var22;
-                    var10001 = false;
-                    throw var23;
-                }
-
-                Iterator var2 = var24;
-
-                while(true) {
-                    boolean var25;
-                    try {
-                        var25 = var2.hasNext();
-                    } catch (Throwable var20) {
-                        var23 = var20;
-                        var10001 = false;
-                        break;
-                    }
-
-                    if (!var25) {
-                        try {
+                synchronized (BackgroundGeolocation.this.j) {
+                    Iterator iterator = BackgroundGeolocation.this.j.iterator();
+                    while (true) {
+                        if (!iterator.hasNext()) {
                             return;
-                        } catch (Throwable var19) {
-                            var23 = var19;
-                            var10001 = false;
-                            break;
                         }
-                    }
-
-                    try {
-                        ((TSLocationCallback)var2.next()).onLocation(var1.getLocation());
-                    } catch (Throwable var21) {
-                        var23 = var21;
-                        var10001 = false;
-                        break;
+                        ((TSLocationCallback) iterator.next()).onLocation(motionChangeEvent.getLocation());
                     }
                 }
-
-                throw var23;
             }
         });
     }
@@ -1238,7 +681,7 @@ public class BackgroundGeolocation {
         BackgroundGeolocation var10013 = this;
         TSGeofenceManager.getInstance(this.c).removeListeners();
         HttpService.getInstance(this.c).removeListeners();
-        synchronized(this) {
+        synchronized (this) {
             var10013.i.clear();
             var10012.j.clear();
             var10011.k.clear();
@@ -1277,76 +720,47 @@ public class BackgroundGeolocation {
 
         OnChangeCallback var4;
         var4 = new OnChangeCallback() {
-            public void a(TSConfig var1) {
+            @Override
+            public void a(TSConfig tSConfig) {
                 BackgroundGeolocation.getUiHandler().post(new Runnable() {
+
+                    /*
+                     * WARNING - Removed try catching itself - possible behaviour change.
+                     * Enabled aggressive block sorting
+                     * Enabled unnecessary exception pruning
+                     * Enabled aggressive exception aggregation
+                     */
+                    @Override
                     public void run() {
-                        Boolean var1 = TSConfig.getInstance(BackgroundGeolocation.this.c).getEnabled();
+                        Boolean bl = TSConfig.getInstance(BackgroundGeolocation.this.c).getEnabled();
                         if (LifecycleManager.f().b()) {
                             com.transistorsoft.locationmanager.util.b.a(new HeadlessEvent(BackgroundGeolocation.this.c, Application.B("ម\uf1c4\uda68\ue028饭ឦおखᯞؐꂚ裿瑙"), var1));
                         }
-
-                        <undefinedtype> var10000 = this;
-                        synchronized(BackgroundGeolocation.this.l){}
-
-                        boolean var10001;
-                        Throwable var23;
-                        Iterator var24;
-                        try {
-                            var24 = BackgroundGeolocation.this.l.iterator();
-                        } catch (Throwable var22) {
-                            var23 = var22;
-                            var10001 = false;
-                            throw var23;
-                        }
-
-                        Iterator var2 = var24;
-
-                        while(true) {
-                            boolean var25;
-                            try {
-                                var25 = var2.hasNext();
-                            } catch (Throwable var20) {
-                                var23 = var20;
-                                var10001 = false;
-                                break;
-                            }
-
-                            if (!var25) {
-                                try {
+                        synchronized (BackgroundGeolocation.this.l) {
+                            Iterator iterator = BackgroundGeolocation.this.l.iterator();
+                            while (true) {
+                                if (!iterator.hasNext()) {
                                     return;
-                                } catch (Throwable var19) {
-                                    var23 = var19;
-                                    var10001 = false;
-                                    break;
                                 }
-                            }
-
-                            try {
-                                ((TSEnabledChangeCallback)var2.next()).onEnabledChange(var1);
-                            } catch (Throwable var21) {
-                                var23 = var21;
-                                var10001 = false;
-                                break;
+                                ((TSEnabledChangeCallback) iterator.next()).onEnabledChange(bl);
                             }
                         }
-
-                        throw var23;
                     }
                 });
             }
-        }.<init>();
+        };
         var1.onChange(Application.B("셮Ɲ፺㞄젪\ud9c4苵"), var4);
         var4 = new OnChangeCallback() {
             public void a(TSConfig var1) {
                 TSLocation.resetGeofenceTemplate();
             }
-        }.<init>();
+        };
         var1.onChange(Application.B("셬Ɩ፴㞀젣\ud9cf苲梄컼ኯࠜᢺ冿꜐씵弪"), var4);
         var4 = new OnChangeCallback() {
             public void a(TSConfig var1) {
                 TSLocation.resetLocationTemplate();
             }
-        }.<init>();
+        };
         var1.onChange(Application.B("셧Ɯ፸㞇젲\ud9c8苾梏컼ኯࠜᢺ冿꜐씵弪"), var4);
         var4 = new OnChangeCallback() {
             public void a(TSConfig var1) {
@@ -1355,7 +769,7 @@ public class BackgroundGeolocation {
                 }
 
             }
-        }.<init>();
+        };
         var1.onChange(Application.B("셣Ɩ፺㞔젲\ud9c3苴梀컜ኃࠟᢾ冶꜃씷弮ߤ"), var4);
         var4 = new OnChangeCallback() {
             public void a(TSConfig var1) {
@@ -1364,7 +778,7 @@ public class BackgroundGeolocation {
                 }
 
             }
-        }.<init>();
+        };
         var1.onChange(Application.B("셥Ɯ፯㞏젠\ud9c8苲梀컜ኣࠞᢤ函꜂씵弦߫ဏന"), var4);
         var4 = new OnChangeCallback() {
             public void a(TSConfig var1) {
@@ -1378,7 +792,7 @@ public class BackgroundGeolocation {
                     });
                 }
             }
-        }.<init>();
+        };
         var1.onChange(Application.B("셧Ɯ፸㞇젲\ud9c8苾梏컩\u12bfࠅᢢ冼꜃씨張ߩတസⱹ膘Կ읎鍶냡䓟졜\ue3d9"), var4);
         var4 = new OnChangeCallback() {
             public void a(TSConfig var1) {
@@ -1395,7 +809,7 @@ public class BackgroundGeolocation {
 
                 }
             }
-        }.<init>();
+        };
         var1.onChange(Application.B("셯ƚ፨㞇젤\ud9cd苴梬컇ኾ࠘ᢥ冽ꜰ씢弻ߡဒസⱢ膏Ը읛鍣냵䓎졊\ue3de"), var4);
         TSMediaPlayer.getInstance().init(this.c);
         A.execute(new Runnable() {
@@ -1433,36 +847,37 @@ public class BackgroundGeolocation {
     public void ready(TSCallback var1) {
         TSConfig var2 = TSConfig.getInstance(this.c);
         if (!this.e.get() && !var2.getConfigUrl().isEmpty() && this.g.compareAndSet(false, true)) {
-            TSConfig var7 = var2;
-            Runnable var5;
-            var5 = new Runnable() {
-                {
-                    this.a = var2;
-                }
-
-                public void run() {
-                    BackgroundGeolocation.this.ready(this.a);
-                }
-            }.<init>(var1);
-            var1 = new TSCallback() {
-                {
-                    this.a = var2;
-                }
-
-                public void onSuccess() {
-                    BackgroundGeolocation.getUiHandler().post(this.a);
-                }
-
-                public void onFailure(String var1) {
-                    TSLog.logger.warn(TSLog.warn(var1));
-                    BackgroundGeolocation.getUiHandler().post(this.a);
-                }
-            }.<init>(var5);
-            var7.loadConfig(var1);
+            Log.i(TAG, "ready: 不理解");
+//            TSConfig var7 = var2;
+//            Runnable var5;
+//            var5 = new Runnable() {
+//                {
+//                    this.a = var2;
+//                }
+//
+//                public void run() {
+//                    BackgroundGeolocation.this.ready(this.a);
+//                }
+//            }.<init>(var1);
+//            var1 = new TSCallback() {
+//                {
+//                    this.a = var2;
+//                }
+//
+//                public void onSuccess() {
+//                    BackgroundGeolocation.getUiHandler().post(this.a);
+//                }
+//
+//                public void onFailure(String var1) {
+//                    TSLog.logger.warn(TSLog.warn(var1));
+//                    BackgroundGeolocation.getUiHandler().post(this.a);
+//                }
+//            }.<init>(var5);
+//            var7.loadConfig(var1);
         } else if (this.e.get()) {
             if (var2.getEnabled()) {
                 BackgroundGeolocation var6 = this;
-                TSCurrentPositionRequest var3 = ((Builder)((Builder)((Builder)(new Builder(this.c)).setPersist(false)).setSamples(1)).setDesiredAccuracy(100)).setMaximumAge(60000L).build();
+                TSCurrentPositionRequest var3 = ((Builder) ((Builder) ((Builder) (new Builder(this.c)).setPersist(false)).setSamples(1)).setDesiredAccuracy(100)).setMaximumAge(60000L).build();
                 TSLocationManager.getInstance(var6.c).getCurrentPosition(var3);
             }
 
@@ -1490,7 +905,7 @@ public class BackgroundGeolocation {
             }
 
             LocationProviderChangeEvent var4;
-            var4 = new LocationProviderChangeEvent.<init>(this.c);
+            var4 = new LocationProviderChangeEvent(this.c);
             EventBus.getDefault().post(var4);
         }
     }
@@ -1511,7 +926,7 @@ public class BackgroundGeolocation {
 
             public void onFailure(String var1) {
             }
-        }.<init>();
+        };
         BackgroundGeolocation.z0 var2;
         if ((var2 = this.h) != null) {
             var1 = var2.a();
@@ -1578,7 +993,7 @@ public class BackgroundGeolocation {
 
             public void onFailure(String var1) {
             }
-        }.<init>();
+        };
         BackgroundGeolocation.z0 var2;
         if ((var2 = this.h) != null) {
             var1 = var2.a();
@@ -1609,7 +1024,7 @@ public class BackgroundGeolocation {
 
             public void onFailure(String var1) {
             }
-        }.<init>();
+        };
         this.stop(var1);
     }
 
@@ -1634,7 +1049,7 @@ public class BackgroundGeolocation {
 
             public void onFailure(String var1) {
             }
-        }.<init>();
+        };
         this.changePace(var1, var2);
     }
 
@@ -1714,7 +1129,7 @@ public class BackgroundGeolocation {
 
             public void onFailure(String var1) {
             }
-        }.<init>();
+        };
         this.addGeofence(var1, var2);
     }
 
@@ -1730,7 +1145,7 @@ public class BackgroundGeolocation {
 
             public void onFailure(String var1) {
             }
-        }.<init>();
+        };
         this.addGeofences(var1, var2);
     }
 
@@ -1782,7 +1197,7 @@ public class BackgroundGeolocation {
 
             public void onFailure(String var1) {
             }
-        }.<init>();
+        };
         this.removeGeofence(var1, var2);
     }
 
@@ -1798,7 +1213,7 @@ public class BackgroundGeolocation {
 
             public void onFailure(String var1) {
             }
-        }.<init>();
+        };
         this.removeGeofences(var1, var2);
     }
 
@@ -1814,7 +1229,7 @@ public class BackgroundGeolocation {
 
             public void onFailure(String var1) {
             }
-        }.<init>();
+        };
         this.removeGeofences(var1);
     }
 
@@ -1826,31 +1241,31 @@ public class BackgroundGeolocation {
         return TSConfig.getInstance(this.c).getOdometer();
     }
 
-    public void setOdometer(final Float var1, final TSLocationCallback var2) {
-        final TSLocationManager var3;
-        if (!(var3 = TSLocationManager.getInstance(this.c)).isLocationServicesEnabled()) {
-            var2.onError(1);
+
+    public void setOdometer(final Float f2, final TSLocationCallback tSLocationCallback) {
+        final TSLocationManager tSLocationManager = TSLocationManager.getInstance(this.c);
+        if (!tSLocationManager.isLocationServicesEnabled().booleanValue()) {
+            tSLocationCallback.onError(1);
             this.b(1);
-        } else {
-            getThreadPool().execute(new Runnable() {
-                public void run() {
-                    TSLocationManager var10000 = var3;
-                    <undefinedtype> var10001 = this;
-                    Float var1x = var1;
-                    var10000.setOdometer(var1x, var2);
-                }
-            });
+            return;
         }
+        BackgroundGeolocation.getThreadPool().execute(new Runnable() {
+
+            @Override
+            public void run() {
+                tSLocationManager.setOdometer(f2, tSLocationCallback);
+            }
+        });
     }
 
     public JSONArray getLocations() {
         List var10000 = c(this.c).all();
         JSONArray var2;
-        var2 = new JSONArray.<init>();
+        var2 = new JSONArray();
         Iterator var1 = var10000.iterator();
 
-        while(var1.hasNext()) {
-            var2.put(((LocationModel)var1.next()).json);
+        while (var1.hasNext()) {
+            var2.put(((LocationModel) var1.next()).json);
         }
 
         return var2;
@@ -1894,7 +1309,7 @@ public class BackgroundGeolocation {
 
             public void onFailure(String var1) {
             }
-        }.<init>();
+        };
         this.destroyLog(var1);
     }
 
@@ -1914,7 +1329,7 @@ public class BackgroundGeolocation {
 
             public void onFailure(String var1) {
             }
-        }.<init>();
+        };
         this.destroyLocations(var1);
     }
 
@@ -1926,7 +1341,7 @@ public class BackgroundGeolocation {
 
             public void onFailure(String var1) {
             }
-        }.<init>();
+        };
         this.destroyLocation(var1, var2);
     }
 
@@ -1992,27 +1407,25 @@ public class BackgroundGeolocation {
         });
     }
 
-    public void requestTemporaryFullAccuracy(String var1, final TSRequestPermissionCallback var2) {
-        if (ContextCompat.checkSelfPermission(this.c, Application.B("\uea76芐\uee1b窎ΐ㲰鍔堎ꬳࠤ쎩娘翥྿⌨㮑ꊎ禔누ꀂ껓遗\ufe6c✾쁏䝰ૺ瞞ᵋ훼宺쳡ꟾプ\u0e62델\uf75e긯ᦋ")) == 0) {
-            var2.onSuccess(TSProviderManager.ACCURACY_AUTHORIZATION_FULL);
-        } else {
-            com.transistorsoft.locationmanager.util.c.f(this.c, new PermissionRequestListener() {
-                public void onPermissionGranted() {
-                    <undefinedtype> var10000 = this;
-                    <undefinedtype> var10001 = this;
-                    <undefinedtype> var10002 = this;
-                    TSConfig var1 = TSConfig.getInstance(BackgroundGeolocation.this.c);
-                    TrackingService.changePace(BackgroundGeolocation.this.c, var1.getIsMoving(), (TSLocationCallback)null);
-                    BackgroundGeolocation var2x;
-                    (var2x = BackgroundGeolocation.this).a(new LocationProviderChangeEvent(var2x.c));
-                    var2.onSuccess(TSProviderManager.ACCURACY_AUTHORIZATION_FULL);
-                }
-
-                public void onPermissionDenied(DeniedPermissions var1) {
-                    var2.onFailure(TSProviderManager.ACCURACY_AUTHORIZATION_REDUCED);
-                }
-            });
+    public void requestTemporaryFullAccuracy(String string, final TSRequestPermissionCallback tSRequestPermissionCallback) {
+        if (ContextCompat.checkSelfPermission((Context) this.c, (String) Application.B("\uea76芐\uee1b窎ΐ㲰鍔堎ꬳࠤ쎩娘翥྿⌨㮑ꊎ禔누ꀂ껓遗\ufe6c✾쁏䝰ૺ瞞ᵋ훼宺쳡ꟾプ\u0e62델\uf75e긯ᦋ")) == 0) {
+            tSRequestPermissionCallback.onSuccess(TSProviderManager.ACCURACY_AUTHORIZATION_FULL);
+            return;
         }
+        com.transistorsoft.locationmanager.util.c.f(this.c, new PermissionRequestListener() {
+
+            public void onPermissionGranted() {
+                Object object = TSConfig.getInstance(BackgroundGeolocation.this.c);
+                TrackingService.changePace(BackgroundGeolocation.this.c, ((TSConfig) object).getIsMoving(), null);
+                object = BackgroundGeolocation.this;
+                ((BackgroundGeolocation) object).a(new LocationProviderChangeEvent(((BackgroundGeolocation) object).c));
+                tSRequestPermissionCallback.onSuccess(TSProviderManager.ACCURACY_AUTHORIZATION_FULL);
+            }
+
+            public void onPermissionDenied(DeniedPermissions deniedPermissions) {
+                tSRequestPermissionCallback.onFailure(TSProviderManager.ACCURACY_AUTHORIZATION_REDUCED);
+            }
+        });
     }
 
     public void startBackgroundTask(TSBackgroundTaskCallback var1) {
@@ -2109,7 +1522,7 @@ public class BackgroundGeolocation {
             if ((var3 = this.a(var1)) != null) {
                 List var10000 = var3;
                 List var10001 = var3;
-                synchronized(var3) {
+                synchronized (var3) {
                     var10001.clear();
                 }
             }
@@ -2183,7 +1596,7 @@ public class BackgroundGeolocation {
     public void _onActivityTransitionEvent(ActivityTransitionEvent var1) {
         if (LifecycleManager.f().b()) {
             ActivityChangeEvent var2;
-            var2 = new ActivityChangeEvent.<init>(var1);
+            var2 = new ActivityChangeEvent(var1);
             com.transistorsoft.locationmanager.util.b.a(new HeadlessEvent(this.c, Application.B("␅璹牋㚌髴蒷漭뿨볜怸ᱢ\udd64⚑獪"), var2));
         }
 
@@ -2201,59 +1614,22 @@ public class BackgroundGeolocation {
         this.a(var1);
     }
 
-    public void fireNotificationActionListeners(final String var1) {
+    public void fireNotificationActionListeners(final String string) {
         if (LifecycleManager.f().b()) {
-            com.transistorsoft.locationmanager.util.b.a(new HeadlessEvent(this.c, Application.B("䓐Ӻ섃䌬胯Ⲓ뮥\uea6c\ue36a䂪┭暉嫈ݗ⌎쪈ǡ⤒"), var1));
+            com.transistorsoft.locationmanager.util.b.a(new HeadlessEvent(this.c, Application.B("䓐Ӻ섃䌬胯Ⲓ뮥\uea6c\ue36a䂪┭暉嫈ݗ⌎쪈ǡ⤒"), string));
         }
-
-        getUiHandler().post(new Runnable() {
+        BackgroundGeolocation.getUiHandler().post(new Runnable() {
+            @Override
             public void run() {
-                <undefinedtype> var10000 = this;
-                synchronized(BackgroundGeolocation.this.v){}
-
-                boolean var10001;
-                Throwable var23;
-                Iterator var24;
-                try {
-                    var24 = BackgroundGeolocation.this.v.iterator();
-                } catch (Throwable var22) {
-                    var23 = var22;
-                    var10001 = false;
-                    throw var23;
-                }
-
-                Iterator var2 = var24;
-
-                while(true) {
-                    boolean var25;
-                    try {
-                        var25 = var2.hasNext();
-                    } catch (Throwable var20) {
-                        var23 = var20;
-                        var10001 = false;
-                        break;
-                    }
-
-                    if (!var25) {
-                        try {
+                synchronized (BackgroundGeolocation.this.v) {
+                    Iterator iterator = BackgroundGeolocation.this.v.iterator();
+                    while (true) {
+                        if (!iterator.hasNext()) {
                             return;
-                        } catch (Throwable var19) {
-                            var23 = var19;
-                            var10001 = false;
-                            break;
                         }
-                    }
-
-                    try {
-                        ((TSNotificationActionCallback)var2.next()).onClick(var1);
-                    } catch (Throwable var21) {
-                        var23 = var21;
-                        var10001 = false;
-                        break;
+                        ((TSNotificationActionCallback) iterator.next()).onClick(string);
                     }
                 }
-
-                throw var23;
             }
         });
     }
@@ -2270,144 +1646,41 @@ public class BackgroundGeolocation {
         this.a(var1);
     }
 
-    @Subscribe(
-            threadMode = ThreadMode.MAIN
-    )
-    public void onConnectivityChange(ConnectivityChangeEvent var1) {
-        BackgroundGeolocation var10000 = this;
-        synchronized(this.m){}
 
-        Throwable var46;
-        Iterator var47;
-        boolean var10001;
-        try {
-            var47 = var10000.m.iterator();
-        } catch (Throwable var45) {
-            var46 = var45;
-            var10001 = false;
-            throw var46;
-        }
-
-        Iterator var3 = var47;
-
-        boolean var48;
-        try {
-            var48 = LifecycleManager.f().b();
-        } catch (Throwable var44) {
-            var46 = var44;
-            var10001 = false;
-            throw var46;
-        }
-
-        if (var48) {
-            try {
-                com.transistorsoft.locationmanager.util.b.a(new HeadlessEvent(this.c, Application.B("䘒鈺\u2d7cჟ뮉冽喬➭例傥䦓嶵㖍離鍥㗖쐜ᄔ"), var1));
-            } catch (Throwable var43) {
-                var46 = var43;
-                var10001 = false;
-                throw var46;
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onConnectivityChange(ConnectivityChangeEvent connectivityChangeEvent) {
+        BackgroundGeolocation backgroundGeolocation = this;
+        List<TSConnectivityChangeCallback> list = backgroundGeolocation.m;
+        synchronized (list) {
+            Iterator<TSConnectivityChangeCallback> iterator = backgroundGeolocation.m.iterator();
+            if (LifecycleManager.f().b()) {
+                com.transistorsoft.locationmanager.util.b.a(new HeadlessEvent(this.c, Application.B("䘒鈺\u2d7cჟ뮉冽喬➭例傥䦓嶵㖍離鍥㗖쐜ᄔ"), connectivityChangeEvent));
             }
-        }
-
-        while(true) {
-            try {
-                var48 = var3.hasNext();
-            } catch (Throwable var41) {
-                var46 = var41;
-                var10001 = false;
-                break;
-            }
-
-            if (!var48) {
-                try {
+            while (true) {
+                if (!iterator.hasNext()) {
                     return;
-                } catch (Throwable var40) {
-                    var46 = var40;
-                    var10001 = false;
-                    break;
                 }
-            }
-
-            try {
-                ((TSConnectivityChangeCallback)var3.next()).onConnectivityChange(var1);
-            } catch (Throwable var42) {
-                var46 = var42;
-                var10001 = false;
-                break;
+                iterator.next().onConnectivityChange(connectivityChangeEvent);
             }
         }
-
-        throw var46;
     }
 
-    @Subscribe(
-            threadMode = ThreadMode.MAIN
-    )
-    public void onPowerSaveModeChange(PowerSaveModeChangeEvent var1) {
-        BackgroundGeolocation var10000 = this;
-        synchronized(this.q){}
-
-        Throwable var46;
-        Iterator var47;
-        boolean var10001;
-        try {
-            var47 = var10000.q.iterator();
-        } catch (Throwable var45) {
-            var46 = var45;
-            var10001 = false;
-            throw var46;
-        }
-
-        Iterator var3 = var47;
-
-        boolean var48;
-        try {
-            var48 = LifecycleManager.f().b();
-        } catch (Throwable var44) {
-            var46 = var44;
-            var10001 = false;
-            throw var46;
-        }
-
-        if (var48) {
-            try {
-                com.transistorsoft.locationmanager.util.b.a(new HeadlessEvent(this.c, Application.B("⣩箽孹퇏\u0383ޚꢳ뿑\u0dfc\ue101봚剷힊\ueb7fừ"), var1));
-            } catch (Throwable var43) {
-                var46 = var43;
-                var10001 = false;
-                throw var46;
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPowerSaveModeChange(PowerSaveModeChangeEvent powerSaveModeChangeEvent) {
+        BackgroundGeolocation backgroundGeolocation = this;
+        List<TSPowerSaveChangeCallback> list = backgroundGeolocation.q;
+        synchronized (list) {
+            Iterator<TSPowerSaveChangeCallback> iterator = backgroundGeolocation.q.iterator();
+            if (LifecycleManager.f().b()) {
+                com.transistorsoft.locationmanager.util.b.a(new HeadlessEvent(this.c, Application.B("⣩箽孹퇏\u0383ޚꢳ뿑\u0dfc\ue101봚剷힊\ueb7fừ"), powerSaveModeChangeEvent));
             }
-        }
-
-        while(true) {
-            try {
-                var48 = var3.hasNext();
-            } catch (Throwable var41) {
-                var46 = var41;
-                var10001 = false;
-                break;
-            }
-
-            if (!var48) {
-                try {
+            while (true) {
+                if (!iterator.hasNext()) {
                     return;
-                } catch (Throwable var40) {
-                    var46 = var40;
-                    var10001 = false;
-                    break;
                 }
-            }
-
-            try {
-                ((TSPowerSaveChangeCallback)var3.next()).onPowerSaveChange(var1.isPowerSaveMode());
-            } catch (Throwable var42) {
-                var46 = var42;
-                var10001 = false;
-                break;
+                iterator.next().onPowerSaveChange(powerSaveModeChangeEvent.isPowerSaveMode());
             }
         }
-
-        throw var46;
     }
 
     @Subscribe(
@@ -2436,7 +1709,7 @@ public class BackgroundGeolocation {
             List var2;
             List var10001 = var2 = this.w;
             BackgroundGeolocation var10002 = this;
-            synchronized(var2) {
+            synchronized (var2) {
                 var10002.w.clear();
             }
 
@@ -2449,113 +1722,34 @@ public class BackgroundGeolocation {
         }
     }
 
-    @Subscribe(
-            threadMode = ThreadMode.MAIN
-    )
-    public void _onSecurityException(SecurityExceptionEvent var1) {
-        BackgroundGeolocation var10000 = this;
-        TSLog.logger.warn(TSLog.warn(Application.B("ﴸ빅ฌ䙜㇜㋮⿄飞캑킴\udd2f闶畀㢶邙띿荩\uf4b0뉰ો凛灖ꎟ\uecac\uf5dcꊁ\uf4a5\uf7a3峵晫螇氠\ue7f0墦棘컀✌芇ᖑꂙꯡ咈\ue341") + var1.toString()));
-        synchronized(this.u){}
-
-        boolean var10001;
-        Throwable var23;
-        Iterator var24;
-        try {
-            var24 = var10000.u.iterator();
-        } catch (Throwable var22) {
-            var23 = var22;
-            var10001 = false;
-            throw var23;
-        }
-
-        Iterator var2 = var24;
-
-        while(true) {
-            boolean var25;
-            try {
-                var25 = var2.hasNext();
-            } catch (Throwable var20) {
-                var23 = var20;
-                var10001 = false;
-                break;
-            }
-
-            if (!var25) {
-                try {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void _onSecurityException(SecurityExceptionEvent securityExceptionEvent) {
+        TSLog.logger.warn(TSLog.warn(Application.B("ﴸ빅ฌ䙜㇜㋮⿄飞캑킴\udd2f闶畀㢶邙띿荩\uf4b0뉰ો凛灖ꎟ\uecac\uf5dcꊁ\uf4a5\uf7a3峵晫螇氠\ue7f0墦棘컀✌芇ᖑꂙꯡ咈\ue341") + securityExceptionEvent.toString()));
+        synchronized (BackgroundGeolocation.this.u) {
+            Iterator<TSSecurityExceptionCallback> iterator = BackgroundGeolocation.this.u.iterator();
+            while (true) {
+                if (!iterator.hasNext()) {
                     return;
-                } catch (Throwable var19) {
-                    var23 = var19;
-                    var10001 = false;
-                    break;
                 }
-            }
-
-            try {
-                ((TSSecurityExceptionCallback)var2.next()).onSecurityException(var1);
-            } catch (Throwable var21) {
-                var23 = var21;
-                var10001 = false;
-                break;
+                iterator.next().onSecurityException(securityExceptionEvent);
             }
         }
-
-        throw var23;
     }
 
-    @Subscribe(
-            threadMode = ThreadMode.MAIN
-    )
-    public void _onHttpResponse(HttpResponse var1) {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void _onHttpResponse(HttpResponse httpResponse) {
         if (LifecycleManager.f().b()) {
-            com.transistorsoft.locationmanager.util.b.a(new HeadlessEvent(this.c, Application.B("蓐ɏ婥텦"), var1));
+            com.transistorsoft.locationmanager.util.b.a(new HeadlessEvent(this.c, Application.B("蓐ɏ婥텦"), httpResponse));
         }
-
-        BackgroundGeolocation var10000 = this;
-        synchronized(this.n){}
-
-        boolean var10001;
-        Throwable var23;
-        Iterator var24;
-        try {
-            var24 = var10000.n.iterator();
-        } catch (Throwable var22) {
-            var23 = var22;
-            var10001 = false;
-            throw var23;
-        }
-
-        Iterator var2 = var24;
-
-        while(true) {
-            boolean var25;
-            try {
-                var25 = var2.hasNext();
-            } catch (Throwable var20) {
-                var23 = var20;
-                var10001 = false;
-                break;
-            }
-
-            if (!var25) {
-                try {
+        synchronized (BackgroundGeolocation.this.n) {
+            Iterator<TSHttpResponseCallback> iterator = BackgroundGeolocation.this.n.iterator();
+            while (true) {
+                if (!iterator.hasNext()) {
                     return;
-                } catch (Throwable var19) {
-                    var23 = var19;
-                    var10001 = false;
-                    break;
                 }
-            }
-
-            try {
-                ((TSHttpResponseCallback)var2.next()).onHttpResponse(var1);
-            } catch (Throwable var21) {
-                var23 = var21;
-                var10001 = false;
-                break;
+                iterator.next().onHttpResponse(httpResponse);
             }
         }
-
-        throw var23;
     }
 
     @Subscribe(
@@ -2613,7 +1807,6 @@ public class BackgroundGeolocation {
                     EventBus.getDefault().post(new BackgroundGeolocation.ActivityDestroyed());
                 }
 
-                <undefinedtype> var10000 = this;
                 StringBuilder var2 = (new StringBuilder()).append(TSLog.header(Application.B("\ue136䞚猼\ud817\ufff5햗큲蟦̌焩갾䔯譌릠\ue5df扆骹흯⁑㨊\ude2fxꠊ\udead틣䙮"))).append(TSLog.boxRow(Application.B("\ue108䞏猺\ud809\ufffb햚큒蟪̈焭갣䔸謍릣\ue5db戏骹") + var1.getStopOnTerminate())).append(TSLog.boxRow(Application.B("\ue11e䞕猴\ud81b\uffd8햑큢螵͚") + var1.getEnabled()));
                 BackgroundGeolocation.this.c();
                 TSLog.logger.info(var2.toString());
@@ -2665,8 +1858,8 @@ public class BackgroundGeolocation {
                 TSConfig var10000 = var3 = TSConfig.getInstance(BackgroundGeolocation.this.c);
                 HttpService var2 = HttpService.getInstance(BackgroundGeolocation.this.c);
                 if (var10000.hasUrl() && var3.getAutoSync() && var2.isNetworkAvailable()) {
-                    Integer var4;
-                    if (var4 = var3.getAutoSyncThreshold() > 0 && com.transistorsoft.locationmanager.data.sqlite.b.a(BackgroundGeolocation.this.c).count() < var4) {
+                    Integer var4 = var3.getAutoSyncThreshold();
+                    if (var4 > 0 && com.transistorsoft.locationmanager.data.sqlite.b.a(BackgroundGeolocation.this.c).count() < var4) {
                         return;
                     }
 
@@ -2742,7 +1935,7 @@ public class BackgroundGeolocation {
         }
 
         public void run() {
-            if (Boolean.valueOf(BackgroundGeolocation.c(BackgroundGeolocation.this.c).persist((TSLocation)this.a))) {
+            if (Boolean.valueOf(BackgroundGeolocation.c(BackgroundGeolocation.this.c).persist((TSLocation) this.a))) {
                 if (TSConfig.getInstance(BackgroundGeolocation.this.c).getAutoSync()) {
                     BackgroundGeolocation.this.sync();
                 }
@@ -2839,7 +2032,7 @@ public class BackgroundGeolocation {
                         }
                     });
                 }
-            }.<init>();
+            };
             if (TSConfig.getInstance(BackgroundGeolocation.this.c).isLocationTrackingMode()) {
                 TrackingService.changePace(BackgroundGeolocation.this.c, this.a, var1);
             } else {
@@ -2887,8 +2080,14 @@ public class BackgroundGeolocation {
                     }
                 });
             } else {
-                byte var2;
-                boolean var10000 = (var2 = this.a.equalsIgnoreCase(Application.B("笸炻쵤톑⥐"))) != var1.getTrackingMode();
+                // TODO: 2022/10/11
+                /// Whether the plugin is in the location-tracking mode ([BackgroundGeolocation.start] or geofences-only mode ([BackgroundGeolocation.startGeofences]).
+                /// - `1` = Location + Geofence tracking (ie: [BackgroundGeolocation.start]).
+                /// - `0` = Geofences-only tracking (ie: [BackgroundGeolocation.startGeofences]).
+                ///
+                // late int trackingMode;
+                int var2 = this.a.equalsIgnoreCase(Application.B("笸炻쵤톑⥐")) ? 0 : 1;
+                boolean var10000 = (var2 != var1.getTrackingMode());
                 var1.setTrackingMode(Integer.valueOf(var2));
                 Boolean var3 = var1.getEnabled();
                 Log.i(Application.B("笟炜쵉톌⥇섢\ue017ꬻ\udae3醊ὀ\uf8bb⩳䘱㍾ㅎ\uf474"), Application.B("筦烯쵀톍⥅섡\ue00fꬷ\udab6釄") + var3 + Application.B("筫兝촥") + true + Application.B("筧烯쵱톑⥅선\ue008ꬻ\udae2醃ὀ\uf8b5⩹䘵㌣ㄋ") + var1.getTrackingMode());
@@ -2901,7 +2100,7 @@ public class BackgroundGeolocation {
                     public void onError(Integer var1) {
                         BackgroundGeolocation.this.h = null;
                     }
-                }.<init>();
+                };
                 if (var10000 && var3) {
                     TrackingService.changeTrackingMode(BackgroundGeolocation.this.c, var2, var4);
                 } else {
