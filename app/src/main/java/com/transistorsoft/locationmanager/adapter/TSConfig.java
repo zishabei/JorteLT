@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.util.Log;
+
 import com.transistorsoft.locationmanager.adapter.callback.TSCallback;
 import com.transistorsoft.locationmanager.b.a;
 import com.transistorsoft.locationmanager.config.TSAuthorization;
@@ -25,6 +26,7 @@ import com.transistorsoft.locationmanager.service.ForegroundNotification;
 import com.transistorsoft.locationmanager.service.TrackingService;
 import com.transistorsoft.locationmanager.util.Sensors;
 import com.transistorsoft.tslocationmanager.Application;
+
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -39,15 +41,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
+
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.transistorsoft.locationmanager.http.HttpService;
+import com.transistorsoft.locationmanager.http.HttpResponse;
 
 public class TSConfig {
     private static TSConfig q;
@@ -167,238 +174,63 @@ public class TSConfig {
     }
 
     private void b() {
-        TSConfig var10000 = this;
-        synchronized(this.a.dirtyFields){}
-
-        boolean var10001;
-        Throwable var424;
-        boolean var425;
-        try {
-            var425 = com.transistorsoft.locationmanager.d.b.e(var10000.b);
-        } catch (Throwable var423) {
-            var424 = var423;
-            var10001 = false;
-            throw var424;
-        }
-
-        if (!var425) {
-            try {
+        TSConfig tSConfig = this;
+        List list = tSConfig.a.dirtyFields;
+        synchronized (list) {
+            if (!com.transistorsoft.locationmanager.d.b.e(tSConfig.b)) {
                 this.a.dirtyFields.clear();
                 return;
-            } catch (Throwable var404) {
-                var424 = var404;
-                var10001 = false;
-                throw var424;
             }
-        } else {
-            try {
-                var425 = this.a.dirtyFields.isEmpty();
-            } catch (Throwable var422) {
-                var424 = var422;
-                var10001 = false;
-                throw var424;
+            if (this.a.dirtyFields.isEmpty()) {
+                return;
             }
-
-            if (var425) {
-                try {
-                    return;
-                } catch (Throwable var405) {
-                    var424 = var405;
-                    var10001 = false;
-                    throw var424;
-                }
-            } else {
-                try {
-                    var425 = this.isDirty(Application.B("릫ꮹ㷼紌꿾캖捅醣"));
-                } catch (Throwable var421) {
-                    var424 = var421;
-                    var10001 = false;
-                    throw var424;
-                }
-
-                if (var425) {
-                    try {
-                        TSLog.setLogLevel(this.a.logLevel);
-                    } catch (Throwable var420) {
-                        var424 = var420;
-                        var10001 = false;
-                        throw var424;
-                    }
-                }
-
-                try {
-                    var425 = this.isDirty(Application.B("릫ꮹ㷼納꿺캘捤醮덵ᄂ"));
-                } catch (Throwable var419) {
-                    var424 = var419;
-                    var10001 = false;
-                    throw var424;
-                }
-
-                if (var425) {
-                    try {
-                        TSLog.setMaxHistory(this.a.logMaxDays);
-                    } catch (Throwable var418) {
-                        var424 = var418;
-                        var10001 = false;
-                        throw var424;
-                    }
-                }
-
-                try {
-                    var425 = this.isDirty(Application.B("릩ꮹ㷯紩꿽캉捃醮델ᄘᚏ왎璝襱\udc33⿲楸㔉訯ꬃ\ue80f㆟旽ᾕ"));
-                } catch (Throwable var417) {
-                    var424 = var417;
-                    var10001 = false;
-                    throw var424;
-                }
-
-                if (var425) {
-                    try {
-                        ForegroundNotification.createNotificationChannel(this.b);
-                    } catch (Throwable var416) {
-                        var424 = var416;
-                        var10001 = false;
-                        throw var424;
-                    }
-                }
-
-                try {
-                    var425 = this.isDirty(Application.B("릤ꮹ㷵紦꿲캇捵醽덠"));
-                } catch (Throwable var415) {
-                    var424 = var415;
-                    var10001 = false;
-                    throw var424;
-                }
-
-                if (var425) {
-                    try {
-                        var425 = this.a.configUrl.isEmpty();
-                    } catch (Throwable var414) {
-                        var424 = var414;
-                        var10001 = false;
-                        throw var424;
-                    }
-
-                    if (!var425) {
-                        try {
-                            this.loadConfig(new TSCallback() {
-                                public void onSuccess() {
-                                    TSLog.logger.debug(TSLog.ok(Application.B("㣐燬鬪\udbd7\ue9ed滤\ue141靐向輠䕞ട\uef02\uf7a5싧\ue77a逖ই")));
-                                }
-
-                                public void onFailure(String var1) {
-                                    TSLog.logger.warn(TSLog.warn(var1));
-                                }
-                            });
-                        } catch (Throwable var413) {
-                            var424 = var413;
-                            var10001 = false;
-                            throw var424;
-                        }
-                    }
-                }
-
-                Iterator var426;
-                try {
-                    this.d();
-                    EventBus.getDefault().post(new ConfigChangeEvent(this.b, this.a.dirtyFields));
-                    var426 = this.a.dirtyFields.iterator();
-                } catch (Throwable var412) {
-                    var424 = var412;
-                    var10001 = false;
-                    throw var424;
-                }
-
-                Iterator var2 = var426;
-
-                while(true) {
-                    try {
-                        var425 = var2.hasNext();
-                    } catch (Throwable var407) {
-                        var424 = var407;
-                        var10001 = false;
-                        break;
-                    }
-
-                    if (!var425) {
-                        try {
-                            this.a.dirtyFields.clear();
-                            return;
-                        } catch (Throwable var406) {
-                            var424 = var406;
-                            var10001 = false;
-                            break;
-                        }
-                    }
-
-                    String var427;
-                    try {
-                        var427 = (String)var2.next();
-                    } catch (Throwable var411) {
-                        var424 = var411;
-                        var10001 = false;
-                        break;
-                    }
-
-                    String var3 = var427;
-
-                    try {
-                        var425 = var427.equalsIgnoreCase(Application.B("릳ꮤ㷲紧꿼캅捒醎덯ᄅᚉ왖瓚襦\udc32⿶楥"));
-                    } catch (Throwable var410) {
-                        var424 = var410;
-                        var10001 = false;
-                        break;
-                    }
-
-                    if (var425) {
-                        try {
-                            this.o = this.a(this.a.triggerActivities);
-                        } catch (Throwable var409) {
-                            var424 = var409;
-                            var10001 = false;
-                            break;
-                        }
-                    }
-
-                    try {
-                        this.b(var3);
-                    } catch (Throwable var408) {
-                        var424 = var408;
-                        var10001 = false;
-                        break;
-                    }
-                }
+            if (this.isDirty(Application.B("릫ꮹ㷼紌꿾캖捅醣"))) {
+                TSLog.setLogLevel(this.a.logLevel);
             }
+            if (this.isDirty(Application.B("릫ꮹ㷼納꿺캘捤醮덵ᄂ"))) {
+                TSLog.setMaxHistory(this.a.logMaxDays);
+            }
+            if (this.isDirty(Application.B("릩ꮹ㷯紩꿽캉捃醮델ᄘᚏ왎璝襱\udc33⿲楸㔉訯ꬃ\ue80f㆟旽ᾕ"))) {
+                ForegroundNotification.createNotificationChannel(this.b);
+            }
+            if (this.isDirty(Application.B("릤ꮹ㷵紦꿲캇捵醽덠")) && !this.a.configUrl.isEmpty()) {
+                this.loadConfig(new TSCallback() {
+
+                    @Override
+                    public void onSuccess() {
+                        TSLog.logger.debug(TSLog.ok(Application.B("㣐燬鬪\udbd7\ue9ed滤\ue141靐向輠䕞ട\uef02\uf7a5싧\ue77a逖ই")));
+                    }
+
+                    @Override
+                    public void onFailure(String string) {
+                        TSLog.logger.warn(TSLog.warn(string));
+                    }
+                });
+            }
+            TSConfig tSConfig2 = this;
+            tSConfig2.d();
+            EventBus.getDefault().post((Object) new ConfigChangeEvent(this.b, this.a.dirtyFields));
+            for (String string : tSConfig2.a.dirtyFields) {
+                if (string.equalsIgnoreCase(Application.B("릳ꮤ㷲紧꿼캅捒醎덯ᄅᚉ왖瓚襦\udc32⿶楥"))) {
+                    TSConfig tSConfig3 = this;
+                    tSConfig3.o = tSConfig3.a(tSConfig3.a.triggerActivities);
+                }
+                this.b(string);
+            }
+            this.a.dirtyFields.clear();
+            return;
         }
-
-        throw var424;
     }
 
     private void d() {
-        List var1;
-        List var10000 = var1 = this.a.dirtyFields;
-        TSConfig var10001 = this;
-        synchronized(var1){}
-
-        Throwable var8;
-        boolean var9;
-        Editor var10;
-        try {
+        List list = this.a.dirtyFields;
+        synchronized (list) {
             TSLog.logger.debug(Application.B("낒歲ﰎ\udba4ὅ呲\uea37㐯었奰ᤊ匮礸\udeb6ᘚﲄ썬喇얅\ud9cb\ue01e壐ⴡ햗\udcbd웭胁ꥤ") + this.a.dirtyFields.toString());
-            var10 = var10001.b.getSharedPreferences(r, 0).edit();
-            var10.putString(TSConfig.Builder.class.getName(), this.a.b(false).toString());
-        } catch (Throwable var7) {
-            var8 = var7;
-            var9 = false;
-            throw var8;
-        }
-
-        try {
-            var10.apply();
-        } catch (Throwable var6) {
-            var8 = var6;
-            var9 = false;
-            throw var8;
+            SharedPreferences.Editor editor = this.b.getSharedPreferences(r, 0).edit();
+            SharedPreferences.Editor editor2 = editor;
+            editor.putString(Builder.class.getName(), this.a.b(false).toString());
+            editor2.apply();
+            return;
         }
     }
 
@@ -407,15 +239,15 @@ public class TSConfig {
         if (var2 != null) {
             Class var4;
             if ((var4 = var2.getClass()) == Boolean.class) {
-                var3.putBoolean(var1, (Boolean)var2);
+                var3.putBoolean(var1, (Boolean) var2);
             } else if (var4 == String.class) {
-                var3.putString(var1, (String)var2);
+                var3.putString(var1, (String) var2);
             } else if (var4 == Double.class) {
-                var3.putLong(var1, Double.doubleToRawLongBits((Double)var2));
+                var3.putLong(var1, Double.doubleToRawLongBits((Double) var2));
             } else if (var4 == Integer.class) {
-                var3.putInt(var1, (Integer)var2);
+                var3.putInt(var1, (Integer) var2);
             } else if (var4 == Float.class) {
-                var3.putFloat(var1, (Float)var2);
+                var3.putFloat(var1, (Float) var2);
             } else if (var4 == JSONObject.class) {
                 var3.putString(var1, var2.toString());
             } else {
@@ -432,12 +264,12 @@ public class TSConfig {
     private ArrayList<Integer> a(String var1) {
         String var10000 = var1;
         ArrayList var4;
-        var4 = new ArrayList.<init>();
+        var4 = new ArrayList();
         Iterator var2 = Arrays.asList(var10000.replaceAll(Application.B("뵑⬺ꉇ"), "").split(Application.B("봡"))).iterator();
 
-        while(var2.hasNext()) {
+        while (var2.hasNext()) {
             String var3;
-            if ((var3 = (String)var2.next()).equalsIgnoreCase(Application.B("뵤⬧ꈳ忖犊趄땪\ue628䱿落"))) {
+            if ((var3 = (String) var2.next()).equalsIgnoreCase(Application.B("뵤⬧ꈳ忖犊趄땪\ue628䱿落"))) {
                 var4.add(0);
             } else if (var3.equalsIgnoreCase(Application.B("뵢⬧ꈳ忂犆趏땺\ue628䱿落"))) {
                 var4.add(1);
@@ -458,10 +290,10 @@ public class TSConfig {
 
     private void b(String var1) {
         if (this.p.containsKey(var1)) {
-            Iterator var2 = ((ArrayList)this.p.get(var1)).iterator();
+            Iterator var2 = ((ArrayList) this.p.get(var1)).iterator();
 
-            while(var2.hasNext()) {
-                ((TSConfig.OnChangeCallback)var2.next()).a(this);
+            while (var2.hasNext()) {
+                ((TSConfig.OnChangeCallback) var2.next()).a(this);
             }
         }
 
@@ -476,7 +308,11 @@ public class TSConfig {
     }
 
     public void updateWithJSONObject(JSONObject var1) {
-        this.a.a(var1);
+        try {
+            this.a.a(var1);
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
         this.b();
     }
 
@@ -498,7 +334,8 @@ public class TSConfig {
         String var10013 = Application.B("쇾ᗂ僉錄䫩Ὸ֒");
 
         JSONException var14;
-        label77: {
+        label77:
+        {
             boolean var15;
             try {
                 var10012.put(var10013, this.getEnabled());
@@ -593,107 +430,39 @@ public class TSConfig {
         if (!this.p.containsKey(var1)) {
             Map var10000 = this.p;
             ArrayList var3;
-            var3 = new ArrayList.<init>();
+            var3 = new ArrayList();
             var10000.put(var1, var3);
         }
 
-        ((ArrayList)this.p.get(var1)).add(var2);
+        ((ArrayList) this.p.get(var1)).add(var2);
     }
 
-    public boolean removeListener(String var1, TSConfig.OnChangeCallback var2) {
-        TSConfig var10000 = this;
-        boolean var3 = false;
-        synchronized(this.p){}
-
-        Throwable var80;
-        boolean var81;
-        boolean var10001;
-        try {
-            var81 = var10000.p.containsKey(var1);
-        } catch (Throwable var78) {
-            var80 = var78;
-            var10001 = false;
-            throw var80;
-        }
-
-        if (var81) {
-            List var82;
-            try {
-                var82 = (List)this.p.get(var1);
-            } catch (Throwable var77) {
-                var80 = var77;
-                var10001 = false;
-                throw var80;
+    public boolean removeListener(String string, OnChangeCallback onChangeCallback) {
+        TSConfig tSConfig = this;
+        ArrayList<TSConfig.OnChangeCallback> list = this.p.get(string);
+        boolean bl = false;
+        Map<String, ArrayList<OnChangeCallback>> map = tSConfig.p;
+        synchronized (map) {
+            block7:
+            {
+                Object object;
+                block8:
+                {
+                    if (!tSConfig.p.containsKey(string)) break block7;
+                    string = null;
+                    Iterator iterator = list.iterator();
+                    while (iterator.hasNext()) {
+                        object = (OnChangeCallback) iterator.next();
+                        if (!object.equals(onChangeCallback)) continue;
+                        break block8;
+                    }
+                    object = string;
+                }
+                if (object == null) break block7;
+                list.remove(object);
+                bl = true;
             }
-
-            List var79 = var82;
-            var1 = null;
-
-            Iterator var83;
-            try {
-                var83 = var82.iterator();
-            } catch (Throwable var76) {
-                var80 = var76;
-                var10001 = false;
-                throw var80;
-            }
-
-            Iterator var5 = var83;
-
-            TSConfig.OnChangeCallback var6;
-            do {
-                try {
-                    var81 = var5.hasNext();
-                } catch (Throwable var75) {
-                    var80 = var75;
-                    var10001 = false;
-                    throw var80;
-                }
-
-                if (!var81) {
-                    var6 = var1;
-                    break;
-                }
-
-                TSConfig.OnChangeCallback var84;
-                try {
-                    var84 = (TSConfig.OnChangeCallback)var5.next();
-                } catch (Throwable var74) {
-                    var80 = var74;
-                    var10001 = false;
-                    throw var80;
-                }
-
-                var6 = var84;
-
-                try {
-                    var81 = var84.equals(var2);
-                } catch (Throwable var73) {
-                    var80 = var73;
-                    var10001 = false;
-                    throw var80;
-                }
-            } while(!var81);
-
-            if (var6 != null) {
-                try {
-                    var79.remove(var6);
-                } catch (Throwable var72) {
-                    var80 = var72;
-                    var10001 = false;
-                    throw var80;
-                }
-
-                var3 = true;
-            }
-        }
-
-        try {
-            return var3;
-        } catch (Throwable var71) {
-            var80 = var71;
-            var10001 = false;
-            throw var80;
+            return bl;
         }
     }
 
@@ -703,7 +472,7 @@ public class TSConfig {
 
     public boolean isDirty(String var1) {
         TSConfig var10000 = this;
-        synchronized(this.a.dirtyFields) {
+        synchronized (this.a.dirtyFields) {
             return var10000.a.dirtyFields.contains(var1);
         }
     }
@@ -837,7 +606,7 @@ public class TSConfig {
 
     public float calculateDistanceFilter(float var1) {
         if (!(var1 <= 0.0F) && !this.getDisableElasticity()) {
-            if ((var1 = (float)(Math.floor((double)var1 / 5.0D + 0.5D) * 5.0D / 5.0D)) < 0.0F) {
+            if ((var1 = (float) (Math.floor((double) var1 / 5.0D + 0.5D) * 5.0D / 5.0D)) < 0.0F) {
                 var1 = 0.0F;
             }
 
@@ -1149,7 +918,7 @@ public class TSConfig {
         } else {
             TSConfig var10000 = this;
             this.l = var1.getBoolean(Application.B("釥諦曤ফ⸛ⴞ햃崃췍ꍖ曹௳㕴\uf3b5\ue80d\ue07b깵߈\uef8b眕◟"), false);
-            this.m = var1.getString(Application.B("釽諴曨আ⸖ⴱ햘崉췚ꍋ曤\u0be5㕔\uf395\ue803\ue07d"), (String)null);
+            this.m = var1.getString(Application.B("釽諴曨আ⸖ⴱ햘崉췚ꍋ曤\u0be5㕔\uf395\ue803\ue07d"), (String) null);
             this.d = var1.getBoolean(Application.B("釵諻曠ঊ⸻ⴷ했"), false);
             this.f = var1.getBoolean(Application.B("釣諶曩\u098d⸳ⴧ햀崅췞ꍧ曾\u0bfd㕸\uf398\ue80b\ue07c"), false);
             this.e = var1.getInt(Application.B("釤諧曠ঋ⸼ⴻ햂崇췡ꍍ更௹"), 1);
@@ -1159,53 +928,38 @@ public class TSConfig {
             try {
                 var10000.n = new JSONObject(var1.getString(Application.B("釠諹更এ⸾ⴼ햟"), Application.B("釫諨")));
             } catch (JSONException var3) {
-                var2 = new JSONObject.<init>();
+                var2 = new JSONObject();
                 this.n = var2;
             }
 
             String var7;
             TSConfig var10001;
-            if ((var7 = var1.getString(TSConfig.Builder.class.getName(), (String)null)) != null) {
-                label40: {
+            if ((var7 = var1.getString(TSConfig.Builder.class.getName(), (String) null)) != null) {
+                label40:
+                {
                     var10000 = this;
                     var10001 = this;
                     this.i = true;
 
                     JSONException var10;
-                    label41: {
+                    label41:
+                    {
                         boolean var11;
                         JSONObject var10002;
-                        try {
-                            var10002 = new JSONObject;
-                        } catch (JSONException var5) {
-                            var10 = var5;
-                            var11 = false;
-                            break label41;
-                        }
+                        var10002 = new JSONObject();
 
                         var2 = var10002;
 
-                        try {
-                            var10002.<init>(var7);
-                            var10001.a = new TSConfig.Builder(var2);
-                            var10000.i = false;
-                            s.set(true);
-                            break label40;
-                        } catch (JSONException var4) {
-                            var10 = var4;
-                            var11 = false;
-                        }
+                        //                            var10002.<init>(var7);
+                        var10001.a = new Builder(var2);
+                        var10000.i = false;
+                        s.set(true);
+                        break label40;
                     }
-
-                    JSONException var8 = var10;
-                    Log.i(Application.B("釄諆曍ই⸴ⴳ햘崉췃ꍌ曝\u0bfd㕴\uf395\ue809\ue07d깲"), TSLog.error(var8.getMessage()));
-                    TSLog.logger.error(TSLog.error(var8.getMessage()), var8);
-                    this.a = new TSConfig.Builder();
-                    this.d();
                 }
             } else {
                 TSConfig.Builder var9;
-                var9 = new TSConfig.Builder.<init>();
+                var9 = new TSConfig.Builder();
                 this.a = var9;
                 this.d();
             }
@@ -1226,9 +980,8 @@ public class TSConfig {
 
     public void print() {
         StringBuilder var1;
-        StringBuilder var10000 = var1 = new StringBuilder;
+        StringBuilder var10000 = var1 = new StringBuilder();
         TSConfig var10001 = this;
-        var1.<init>();
         var1.append(TSLog.header(Application.B("퀦ፀ搾⦠⤗⩈돠ꍟ횬\u2cf7왂\ueacb牞蘱뼞敽齸ᆶ愝ᦵꕰ䴮폣ᓋ㚦㑥궉\ue171\uf859\u0fdb㛙唡鶒헩垄鼀셖\ue19f")));
         var1.append(TSLog.boxRow(DeviceInfo.getInstance(this.b).print()));
 
@@ -1240,8 +993,7 @@ public class TSConfig {
         }
 
         TSLog.logger.info(var1.toString());
-        var10000 = var1 = new StringBuilder;
-        var1.<init>();
+        var10000 = var1 = new StringBuilder();
         var10000.append(Sensors.getInstance(this.b).print().toString());
         TSLog.logger.info(var1.toString());
     }
@@ -1281,6 +1033,7 @@ public class TSConfig {
 
     public int getPluginForEvent(String param1) {
         // $FF: Couldn't be decompiled
+        return 1;
     }
 
     public void loadConfig(final TSCallback var1) {
@@ -1292,41 +1045,23 @@ public class TSConfig {
                 Iterator var5 = var4.keys();
 
                 label52:
-                while(true) {
+                while (true) {
                     JSONException var10000;
-                    while(true) {
+                    while (true) {
                         boolean var12;
                         boolean var10001;
-                        try {
-                            var12 = var5.hasNext();
-                        } catch (JSONException var10) {
-                            var10000 = var10;
-                            var10001 = false;
-                            break;
-                        }
+                        var12 = var5.hasNext();
 
                         if (!var12) {
                             break label52;
                         }
 
                         String var13;
-                        try {
-                            var13 = (String)var5.next();
-                        } catch (JSONException var9) {
-                            var10000 = var9;
-                            var10001 = false;
-                            break;
-                        }
+                        var13 = (String) var5.next();
 
                         String var6 = var13;
 
-                        try {
-                            var12 = var13.equalsIgnoreCase(Application.B("䢩ꖿퟔ绱輂鐬음ᾅ䵞⬴蜈⑭"));
-                        } catch (JSONException var8) {
-                            var10000 = var8;
-                            var10001 = false;
-                            break;
-                        }
+                        var12 = var13.equalsIgnoreCase(Application.B("䢩ꖿퟔ绱輂鐬음ᾅ䵞⬴蜈⑭"));
 
                         if (!var12) {
                             try {
@@ -1361,6 +1096,11 @@ public class TSConfig {
         private c() {
         }
 
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
+
         protected Void a(Void... var1) {
             ForegroundNotification.createNotificationChannel(TSConfig.this.b);
             LifecycleManager.f().a(new com.transistorsoft.locationmanager.lifecycle.LifecycleManager.b() {
@@ -1386,7 +1126,7 @@ public class TSConfig {
 
     public static class Builder {
         private static final Set<String> IGNORED_FIELDS = new HashSet(Arrays.asList(Application.B("ዘꩩ⛶㺪㚏\udbc4ꈯ\ude32챸⻡㼺")));
-        private final List<String> dirtyFields;
+        private final List<String> dirtyFields = new ArrayList<>();
         private Boolean isMoving;
         private Float distanceFilter;
         private Integer desiredAccuracy;
@@ -1452,48 +1192,32 @@ public class TSConfig {
         private Integer logMaxDays;
 
         public Builder() {
-            TSConfig.Builder var10000 = this;
-            TSConfig.Builder var10001 = this;
             super();
-            ArrayList var1;
-            var1 = new ArrayList.<init>();
-            var10001.dirtyFields = var1;
-            var10000.a();
+            a();
         }
 
         public Builder(JSONObject var1) {
-            ArrayList var2;
-            var2 = new ArrayList.<init>();
-            this.dirtyFields = var2;
             this.a();
             Field[] var88;
             int var3 = (var88 = TSConfig.Builder.class.getDeclaredFields()).length;
 
-            for(int var4 = 0; var4 < var3; ++var4) {
+            for (int var4 = 0; var4 < var3; ++var4) {
                 Field var5;
                 Field var10001 = var5 = var88[var4];
                 String var6 = var10001.getName();
                 Class var7 = var10001.getType();
                 if (var1.has(var6) && this.a(var5)) {
                     JSONException var96;
-                    label349: {
+                    label349:
+                    {
                         IllegalAccessException var10000;
-                        label348: {
+                        label348:
+                        {
                             Class var97;
                             boolean var98;
                             Class var99;
-                            try {
-                                var97 = var7;
-                                var99 = Boolean.class;
-                            } catch (JSONException var86) {
-                                var96 = var86;
-                                var98 = false;
-                                break label349;
-                            } catch (IllegalAccessException var87) {
-                                var10000 = var87;
-                                var98 = false;
-                                break label348;
-                            }
+                            var97 = var7;
+                            var99 = Boolean.class;
 
                             if (var97 == var99) {
                                 try {
@@ -1508,19 +1232,10 @@ public class TSConfig {
                                     var98 = false;
                                 }
                             } else {
-                                label344: {
-                                    try {
-                                        var97 = var7;
-                                        var99 = Long.class;
-                                    } catch (JSONException var84) {
-                                        var96 = var84;
-                                        var98 = false;
-                                        break label349;
-                                    } catch (IllegalAccessException var85) {
-                                        var10000 = var85;
-                                        var98 = false;
-                                        break label344;
-                                    }
+                                label344:
+                                {
+                                    var97 = var7;
+                                    var99 = Long.class;
 
                                     if (var97 == var99) {
                                         try {
@@ -1535,19 +1250,10 @@ public class TSConfig {
                                             var98 = false;
                                         }
                                     } else {
-                                        label340: {
-                                            try {
-                                                var97 = var7;
-                                                var99 = Integer.class;
-                                            } catch (JSONException var82) {
-                                                var96 = var82;
-                                                var98 = false;
-                                                break label349;
-                                            } catch (IllegalAccessException var83) {
-                                                var10000 = var83;
-                                                var98 = false;
-                                                break label340;
-                                            }
+                                        label340:
+                                        {
+                                            var97 = var7;
+                                            var99 = Integer.class;
 
                                             if (var97 == var99) {
                                                 try {
@@ -1562,24 +1268,16 @@ public class TSConfig {
                                                     var98 = false;
                                                 }
                                             } else {
-                                                label336: {
-                                                    try {
-                                                        var97 = var7;
-                                                        var99 = Float.class;
-                                                    } catch (JSONException var80) {
-                                                        var96 = var80;
-                                                        var98 = false;
-                                                        break label349;
-                                                    } catch (IllegalAccessException var81) {
-                                                        var10000 = var81;
-                                                        var98 = false;
-                                                        break label336;
-                                                    }
+                                                label336:
+                                                {
+                                                    var97 = var7;
+                                                    var99 = Float.class;
 
                                                     Field var103;
                                                     TSConfig.Builder var104;
                                                     if (var97 == var99) {
-                                                        label356: {
+                                                        label356:
+                                                        {
                                                             double var10002;
                                                             try {
                                                                 var103 = var5;
@@ -1589,40 +1287,23 @@ public class TSConfig {
                                                                 var96 = var18;
                                                                 var98 = false;
                                                                 break label349;
-                                                            } catch (IllegalAccessException var19) {
-                                                                var10000 = var19;
-                                                                var98 = false;
-                                                                break label356;
                                                             }
 
-                                                            float var100 = (float)var10002;
+                                                            float var100 = (float) var10002;
 
                                                             try {
                                                                 var103.set(var104, var100);
                                                                 continue;
-                                                            } catch (JSONException var16) {
-                                                                var96 = var16;
-                                                                var98 = false;
-                                                                break label349;
                                                             } catch (IllegalAccessException var17) {
                                                                 var10000 = var17;
                                                                 var98 = false;
                                                             }
                                                         }
                                                     } else {
-                                                        label332: {
-                                                            try {
-                                                                var97 = var7;
-                                                                var99 = Double.class;
-                                                            } catch (JSONException var78) {
-                                                                var96 = var78;
-                                                                var98 = false;
-                                                                break label349;
-                                                            } catch (IllegalAccessException var79) {
-                                                                var10000 = var79;
-                                                                var98 = false;
-                                                                break label332;
-                                                            }
+                                                        label332:
+                                                        {
+                                                            var97 = var7;
+                                                            var99 = Double.class;
 
                                                             if (var97 == var99) {
                                                                 try {
@@ -1637,19 +1318,10 @@ public class TSConfig {
                                                                     var98 = false;
                                                                 }
                                                             } else {
-                                                                label328: {
-                                                                    try {
-                                                                        var97 = var7;
-                                                                        var99 = JSONObject.class;
-                                                                    } catch (JSONException var76) {
-                                                                        var96 = var76;
-                                                                        var98 = false;
-                                                                        break label349;
-                                                                    } catch (IllegalAccessException var77) {
-                                                                        var10000 = var77;
-                                                                        var98 = false;
-                                                                        break label328;
-                                                                    }
+                                                                label328:
+                                                                {
+                                                                    var97 = var7;
+                                                                    var99 = JSONObject.class;
 
                                                                     if (var97 == var99) {
                                                                         try {
@@ -1664,19 +1336,10 @@ public class TSConfig {
                                                                             var98 = false;
                                                                         }
                                                                     } else {
-                                                                        label324: {
-                                                                            try {
-                                                                                var97 = var7;
-                                                                                var99 = JSONArray.class;
-                                                                            } catch (JSONException var74) {
-                                                                                var96 = var74;
-                                                                                var98 = false;
-                                                                                break label349;
-                                                                            } catch (IllegalAccessException var75) {
-                                                                                var10000 = var75;
-                                                                                var98 = false;
-                                                                                break label324;
-                                                                            }
+                                                                        label324:
+                                                                        {
+                                                                            var97 = var7;
+                                                                            var99 = JSONArray.class;
 
                                                                             if (var97 == var99) {
                                                                                 try {
@@ -1691,19 +1354,10 @@ public class TSConfig {
                                                                                     var98 = false;
                                                                                 }
                                                                             } else {
-                                                                                label357: {
-                                                                                    try {
-                                                                                        var97 = var7;
-                                                                                        var99 = List.class;
-                                                                                    } catch (JSONException var72) {
-                                                                                        var96 = var72;
-                                                                                        var98 = false;
-                                                                                        break label349;
-                                                                                    } catch (IllegalAccessException var73) {
-                                                                                        var10000 = var73;
-                                                                                        var98 = false;
-                                                                                        break label357;
-                                                                                    }
+                                                                                label357:
+                                                                                {
+                                                                                    var97 = var7;
+                                                                                    var99 = List.class;
 
                                                                                     Object var94;
                                                                                     if (var97 == var99) {
@@ -1714,104 +1368,43 @@ public class TSConfig {
                                                                                             var96 = var68;
                                                                                             var98 = false;
                                                                                             break label349;
-                                                                                        } catch (IllegalAccessException var69) {
-                                                                                            var10000 = var69;
-                                                                                            var98 = false;
-                                                                                            break label357;
                                                                                         }
 
                                                                                         JSONArray var91 = var105;
 
-                                                                                        ArrayList var106;
-                                                                                        try {
-                                                                                            var106 = new ArrayList;
-                                                                                        } catch (JSONException var66) {
-                                                                                            var96 = var66;
-                                                                                            var98 = false;
-                                                                                            break label349;
-                                                                                        } catch (IllegalAccessException var67) {
-                                                                                            var10000 = var67;
-                                                                                            var98 = false;
-                                                                                            break label357;
-                                                                                        }
+                                                                                        ArrayList var106 = new ArrayList();
 
                                                                                         var94 = var106;
 
-                                                                                        try {
-                                                                                            var106.<init>();
-                                                                                        } catch (JSONException var64) {
-                                                                                            var96 = var64;
-                                                                                            var98 = false;
-                                                                                            break label349;
-                                                                                        } catch (IllegalAccessException var65) {
-                                                                                            var10000 = var65;
-                                                                                            var98 = false;
-                                                                                            break label357;
-                                                                                        }
-
                                                                                         int var8 = 0;
 
-                                                                                        while(true) {
+                                                                                        while (true) {
                                                                                             int var107;
                                                                                             int var108;
-                                                                                            try {
-                                                                                                var107 = var8;
-                                                                                                var108 = var91.length();
-                                                                                            } catch (JSONException var60) {
-                                                                                                var96 = var60;
-                                                                                                var98 = false;
-                                                                                                break label349;
-                                                                                            } catch (IllegalAccessException var61) {
-                                                                                                var10000 = var61;
-                                                                                                var98 = false;
-                                                                                                break label357;
-                                                                                            }
+                                                                                            var107 = var8;
+                                                                                            var108 = var91.length();
 
                                                                                             if (var107 >= var108) {
                                                                                                 break;
                                                                                             }
 
                                                                                             try {
-                                                                                                ((List)var94).add(var91.getString(var8));
+                                                                                                ((List) var94).add(var91.getString(var8));
                                                                                             } catch (JSONException var62) {
                                                                                                 var96 = var62;
                                                                                                 var98 = false;
                                                                                                 break label349;
-                                                                                            } catch (IllegalAccessException var63) {
-                                                                                                var10000 = var63;
-                                                                                                var98 = false;
-                                                                                                break label357;
                                                                                             }
 
                                                                                             ++var8;
                                                                                         }
                                                                                     } else {
-                                                                                        try {
-                                                                                            var97 = var7;
-                                                                                            var99 = Map.class;
-                                                                                        } catch (JSONException var70) {
-                                                                                            var96 = var70;
-                                                                                            var98 = false;
-                                                                                            break label349;
-                                                                                        } catch (IllegalAccessException var71) {
-                                                                                            var10000 = var71;
-                                                                                            var98 = false;
-                                                                                            break label357;
-                                                                                        }
+                                                                                        var97 = var7;
+                                                                                        var99 = Map.class;
 
                                                                                         if (var97 != var99) {
-                                                                                            try {
-                                                                                                var97 = var7;
-                                                                                                var99 = TSNotification.class;
-                                                                                            } catch (JSONException var46) {
-                                                                                                var96 = var46;
-                                                                                                var98 = false;
-                                                                                                break label349;
-                                                                                            } catch (IllegalAccessException var47) {
-                                                                                                var10000 = var47;
-                                                                                                var98 = false;
-                                                                                                break label357;
-                                                                                            }
+                                                                                            var97 = var7;
+                                                                                            var99 = TSNotification.class;
 
                                                                                             JSONObject var89;
                                                                                             JSONObject var102;
@@ -1824,10 +1417,6 @@ public class TSConfig {
                                                                                                     var96 = var30;
                                                                                                     var98 = false;
                                                                                                     break label349;
-                                                                                                } catch (IllegalAccessException var31) {
-                                                                                                    var10000 = var31;
-                                                                                                    var98 = false;
-                                                                                                    break label357;
                                                                                                 }
 
                                                                                                 var89 = var102;
@@ -1835,28 +1424,14 @@ public class TSConfig {
                                                                                                 try {
                                                                                                     var103.set(var104, new TSNotification(var89, true));
                                                                                                     continue;
-                                                                                                } catch (JSONException var28) {
-                                                                                                    var96 = var28;
-                                                                                                    var98 = false;
-                                                                                                    break label349;
                                                                                                 } catch (IllegalAccessException var29) {
                                                                                                     var10000 = var29;
                                                                                                     var98 = false;
                                                                                                     break label357;
                                                                                                 }
                                                                                             } else {
-                                                                                                try {
-                                                                                                    var97 = var7;
-                                                                                                    var99 = TSAuthorization.class;
-                                                                                                } catch (JSONException var44) {
-                                                                                                    var96 = var44;
-                                                                                                    var98 = false;
-                                                                                                    break label349;
-                                                                                                } catch (IllegalAccessException var45) {
-                                                                                                    var10000 = var45;
-                                                                                                    var98 = false;
-                                                                                                    break label357;
-                                                                                                }
+                                                                                                var97 = var7;
+                                                                                                var99 = TSAuthorization.class;
 
                                                                                                 if (var97 == var99) {
                                                                                                     try {
@@ -1867,10 +1442,6 @@ public class TSConfig {
                                                                                                         var96 = var34;
                                                                                                         var98 = false;
                                                                                                         break label349;
-                                                                                                    } catch (IllegalAccessException var35) {
-                                                                                                        var10000 = var35;
-                                                                                                        var98 = false;
-                                                                                                        break label357;
                                                                                                     }
 
                                                                                                     var89 = var102;
@@ -1878,28 +1449,14 @@ public class TSConfig {
                                                                                                     try {
                                                                                                         var103.set(var104, new TSAuthorization(var89, true));
                                                                                                         continue;
-                                                                                                    } catch (JSONException var32) {
-                                                                                                        var96 = var32;
-                                                                                                        var98 = false;
-                                                                                                        break label349;
                                                                                                     } catch (IllegalAccessException var33) {
                                                                                                         var10000 = var33;
                                                                                                         var98 = false;
                                                                                                         break label357;
                                                                                                     }
                                                                                                 } else {
-                                                                                                    try {
-                                                                                                        var97 = var7;
-                                                                                                        var99 = TSBackgroundPermissionRationale.class;
-                                                                                                    } catch (JSONException var42) {
-                                                                                                        var96 = var42;
-                                                                                                        var98 = false;
-                                                                                                        break label349;
-                                                                                                    } catch (IllegalAccessException var43) {
-                                                                                                        var10000 = var43;
-                                                                                                        var98 = false;
-                                                                                                        break label357;
-                                                                                                    }
+                                                                                                    var97 = var7;
+                                                                                                    var99 = TSBackgroundPermissionRationale.class;
 
                                                                                                     if (var97 == var99) {
                                                                                                         try {
@@ -1910,10 +1467,6 @@ public class TSConfig {
                                                                                                             var96 = var38;
                                                                                                             var98 = false;
                                                                                                             break label349;
-                                                                                                        } catch (IllegalAccessException var39) {
-                                                                                                            var10000 = var39;
-                                                                                                            var98 = false;
-                                                                                                            break label357;
                                                                                                         }
 
                                                                                                         var89 = var102;
@@ -1921,10 +1474,6 @@ public class TSConfig {
                                                                                                         try {
                                                                                                             var103.set(var104, new TSBackgroundPermissionRationale(var89, true));
                                                                                                             continue;
-                                                                                                        } catch (JSONException var36) {
-                                                                                                            var96 = var36;
-                                                                                                            var98 = false;
-                                                                                                            break label349;
                                                                                                         } catch (IllegalAccessException var37) {
                                                                                                             var10000 = var37;
                                                                                                             var98 = false;
@@ -1955,58 +1504,21 @@ public class TSConfig {
                                                                                             var96 = var58;
                                                                                             var98 = false;
                                                                                             break label349;
-                                                                                        } catch (IllegalAccessException var59) {
-                                                                                            var10000 = var59;
-                                                                                            var98 = false;
-                                                                                            break label357;
                                                                                         }
 
                                                                                         JSONObject var93 = var109;
 
-                                                                                        HashMap var110;
-                                                                                        try {
-                                                                                            var110 = new HashMap;
-                                                                                        } catch (JSONException var56) {
-                                                                                            var96 = var56;
-                                                                                            var98 = false;
-                                                                                            break label349;
-                                                                                        } catch (IllegalAccessException var57) {
-                                                                                            var10000 = var57;
-                                                                                            var98 = false;
-                                                                                            break label357;
-                                                                                        }
+                                                                                        HashMap var110 = new HashMap();
 
                                                                                         var94 = var110;
 
-                                                                                        Iterator var111;
-                                                                                        try {
-                                                                                            var110.<init>();
-                                                                                            var111 = var109.keys();
-                                                                                        } catch (JSONException var54) {
-                                                                                            var96 = var54;
-                                                                                            var98 = false;
-                                                                                            break label349;
-                                                                                        } catch (IllegalAccessException var55) {
-                                                                                            var10000 = var55;
-                                                                                            var98 = false;
-                                                                                            break label357;
-                                                                                        }
+                                                                                        Iterator var111 = var109.keys();
 
                                                                                         Iterator var95 = var111;
 
-                                                                                        while(true) {
+                                                                                        while (true) {
                                                                                             boolean var112;
-                                                                                            try {
-                                                                                                var112 = var95.hasNext();
-                                                                                            } catch (JSONException var48) {
-                                                                                                var96 = var48;
-                                                                                                var98 = false;
-                                                                                                break label349;
-                                                                                            } catch (IllegalAccessException var49) {
-                                                                                                var10000 = var49;
-                                                                                                var98 = false;
-                                                                                                break label357;
-                                                                                            }
+                                                                                            var112 = var95.hasNext();
 
                                                                                             if (!var112) {
                                                                                                 break;
@@ -2015,32 +1527,18 @@ public class TSConfig {
                                                                                             String var101;
                                                                                             Object var113;
                                                                                             JSONObject var114;
-                                                                                            try {
-                                                                                                var113 = var94;
-                                                                                                var114 = var93;
-                                                                                                var101 = (String)var95.next();
-                                                                                            } catch (JSONException var52) {
-                                                                                                var96 = var52;
-                                                                                                var98 = false;
-                                                                                                break label349;
-                                                                                            } catch (IllegalAccessException var53) {
-                                                                                                var10000 = var53;
-                                                                                                var98 = false;
-                                                                                                break label357;
-                                                                                            }
+                                                                                            var113 = var94;
+                                                                                            var114 = var93;
+                                                                                            var101 = (String) var95.next();
 
                                                                                             String var9 = var101;
 
                                                                                             try {
-                                                                                                ((Map)var113).put(var9, var114.getString(var101));
+                                                                                                ((Map) var113).put(var9, var114.getString(var101));
                                                                                             } catch (JSONException var50) {
                                                                                                 var96 = var50;
                                                                                                 var98 = false;
                                                                                                 break label349;
-                                                                                            } catch (IllegalAccessException var51) {
-                                                                                                var10000 = var51;
-                                                                                                var98 = false;
-                                                                                                break label357;
                                                                                             }
                                                                                         }
                                                                                     }
@@ -2048,10 +1546,6 @@ public class TSConfig {
                                                                                     try {
                                                                                         var5.set(this, var94);
                                                                                         continue;
-                                                                                    } catch (JSONException var26) {
-                                                                                        var96 = var26;
-                                                                                        var98 = false;
-                                                                                        break label349;
                                                                                     } catch (IllegalAccessException var27) {
                                                                                         var10000 = var27;
                                                                                         var98 = false;
@@ -2159,7 +1653,7 @@ public class TSConfig {
             List var1;
             List var10001 = var1 = this.dirtyFields;
             TSConfig.Builder var10002 = this;
-            synchronized(var1) {
+            synchronized (var1) {
                 var10002.dirtyFields.clear();
                 return var10000;
             }
@@ -2167,12 +1661,12 @@ public class TSConfig {
 
         private void a(boolean var1) {
             TSConfig.Builder var2;
-            var2 = new TSConfig.Builder.<init>();
+            var2 = new TSConfig.Builder();
             Field[] var3;
             int var4 = (var3 = TSConfig.Builder.class.getDeclaredFields()).length;
 
             TSConfig.Builder var10001;
-            for(int var5 = 0; var5 < var4; ++var5) {
+            for (int var5 = 0; var5 < var4; ++var5) {
                 Field var6;
                 if (this.a(var6 = var3[var5])) {
                     Field var10000 = var6;
@@ -2181,50 +1675,25 @@ public class TSConfig {
                     String var7 = var6.getName();
 
                     NoSuchMethodException var33;
-                    label93: {
+                    label93:
+                    {
                         IllegalAccessException var32;
-                        label92: {
+                        label92:
+                        {
                             InvocationTargetException var31;
-                            label101: {
+                            label101:
+                            {
                                 String var10003;
                                 boolean var34;
-                                try {
-                                    var10003 = Application.B("颯磊뙋") + var7.substring(0, 1).toUpperCase() + var7.substring(1);
-                                } catch (NoSuchMethodException var21) {
-                                    var33 = var21;
-                                    var34 = false;
-                                    break label93;
-                                } catch (IllegalAccessException var22) {
-                                    var32 = var22;
-                                    var34 = false;
-                                    break label92;
-                                } catch (InvocationTargetException var23) {
-                                    var31 = var23;
-                                    var34 = false;
-                                    break label101;
-                                }
+                                var10003 = Application.B("颯磊뙋") + var7.substring(0, 1).toUpperCase() + var7.substring(1);
 
                                 var7 = var10003;
 
                                 Class[] var10004;
                                 Class var35;
-                                try {
-                                    var35 = var10002.getClass();
-                                    var10003 = var7;
-                                    var10004 = new Class[1];
-                                } catch (NoSuchMethodException var18) {
-                                    var33 = var18;
-                                    var34 = false;
-                                    break label93;
-                                } catch (IllegalAccessException var19) {
-                                    var32 = var19;
-                                    var34 = false;
-                                    break label92;
-                                } catch (InvocationTargetException var20) {
-                                    var31 = var20;
-                                    var34 = false;
-                                    break label101;
-                                }
+                                var35 = var10002.getClass();
+                                var10003 = var7;
+                                var10004 = new Class[1];
 
                                 Class[] var10005 = var10004;
                                 Field var10006 = var6;
@@ -2238,14 +1707,6 @@ public class TSConfig {
                                     var33 = var15;
                                     var34 = false;
                                     break label93;
-                                } catch (IllegalAccessException var16) {
-                                    var32 = var16;
-                                    var34 = false;
-                                    break label92;
-                                } catch (InvocationTargetException var17) {
-                                    var31 = var17;
-                                    var34 = false;
-                                    break label101;
                                 }
 
                                 Method var26 = var36;
@@ -2253,18 +1714,10 @@ public class TSConfig {
                                 Object var37;
                                 try {
                                     var37 = var10000.get(var10001);
-                                } catch (NoSuchMethodException var12) {
-                                    var33 = var12;
-                                    var34 = false;
-                                    break label93;
                                 } catch (IllegalAccessException var13) {
                                     var32 = var13;
                                     var34 = false;
                                     break label92;
-                                } catch (InvocationTargetException var14) {
-                                    var31 = var14;
-                                    var34 = false;
-                                    break label101;
                                 }
 
                                 Object var30 = var37;
@@ -2275,10 +1728,6 @@ public class TSConfig {
                                 try {
                                     var26.invoke(this, var30);
                                     continue;
-                                } catch (NoSuchMethodException var9) {
-                                    var33 = var9;
-                                    var34 = false;
-                                    break label93;
                                 } catch (IllegalAccessException var10) {
                                     var32 = var10;
                                     var34 = false;
@@ -2308,7 +1757,7 @@ public class TSConfig {
                 List var24;
                 List var38 = var24 = this.dirtyFields;
                 var10001 = this;
-                synchronized(var24) {
+                synchronized (var24) {
                     var10001.dirtyFields.clear();
                 }
             }
@@ -2316,11 +1765,11 @@ public class TSConfig {
             this.commit();
         }
 
-        private void a(JSONObject var1) {
+        private void a(JSONObject var1) throws JSONException {
             List var2;
             List var10000 = var2 = this.dirtyFields;
             TSConfig.Builder var10001 = this;
-            synchronized(var2) {
+            synchronized (var2) {
                 var10001.dirtyFields.clear();
             }
 
@@ -2328,68 +1777,36 @@ public class TSConfig {
             int var3 = (var239 = TSConfig.Builder.class.getDeclaredFields()).length;
 
             label749:
-            for(int var4 = 0; var4 < var3; ++var4) {
+            for (int var4 = 0; var4 < var3; ++var4) {
                 Field var5;
                 String var6;
                 if (var1.has(var6 = (var5 = var239[var4]).getName()) && this.a(var5)) {
                     JSONException var255;
-                    label744: {
+                    label744:
+                    {
                         NoSuchMethodException var254;
-                        label743: {
+                        label743:
+                        {
                             IllegalAccessException var253;
-                            label742: {
+                            label742:
+                            {
                                 InvocationTargetException var252;
-                                label753: {
+                                label753:
+                                {
                                     boolean var256;
                                     Field var257;
                                     String var10002;
-                                    try {
-                                        var257 = var5;
-                                        var10001 = this;
-                                        var10002 = Application.B("颯磊뙋") + var6.substring(0, 1).toUpperCase() + var6.substring(1);
-                                    } catch (JSONException var235) {
-                                        var255 = var235;
-                                        var256 = false;
-                                        break label744;
-                                    } catch (NoSuchMethodException var236) {
-                                        var254 = var236;
-                                        var256 = false;
-                                        break label743;
-                                    } catch (IllegalAccessException var237) {
-                                        var253 = var237;
-                                        var256 = false;
-                                        break label742;
-                                    } catch (InvocationTargetException var238) {
-                                        var252 = var238;
-                                        var256 = false;
-                                        break label753;
-                                    }
+                                    var257 = var5;
+                                    var10001 = this;
+                                    var10002 = Application.B("颯磊뙋") + var6.substring(0, 1).toUpperCase() + var6.substring(1);
 
                                     String var7 = var10002;
 
                                     Class var260;
                                     Class[] var10003;
-                                    try {
-                                        var260 = var10001.getClass();
-                                        var10002 = var7;
-                                        var10003 = new Class[1];
-                                    } catch (JSONException var231) {
-                                        var255 = var231;
-                                        var256 = false;
-                                        break label744;
-                                    } catch (NoSuchMethodException var232) {
-                                        var254 = var232;
-                                        var256 = false;
-                                        break label743;
-                                    } catch (IllegalAccessException var233) {
-                                        var253 = var233;
-                                        var256 = false;
-                                        break label742;
-                                    } catch (InvocationTargetException var234) {
-                                        var252 = var234;
-                                        var256 = false;
-                                        break label753;
-                                    }
+                                    var260 = var10001.getClass();
+                                    var10002 = var7;
+                                    var10003 = new Class[1];
 
                                     Class[] var10004 = var10003;
                                     Field var10005 = var5;
@@ -2399,47 +1816,17 @@ public class TSConfig {
                                     try {
                                         var10004[var243] = var10005.getType();
                                         var265 = var260.getMethod(var10002, var10003);
-                                    } catch (JSONException var227) {
-                                        var255 = var227;
-                                        var256 = false;
-                                        break label744;
                                     } catch (NoSuchMethodException var228) {
                                         var254 = var228;
                                         var256 = false;
                                         break label743;
-                                    } catch (IllegalAccessException var229) {
-                                        var253 = var229;
-                                        var256 = false;
-                                        break label742;
-                                    } catch (InvocationTargetException var230) {
-                                        var252 = var230;
-                                        var256 = false;
-                                        break label753;
                                     }
 
                                     Method var244 = var265;
 
                                     Class var266;
-                                    try {
-                                        var266 = var257.getType();
-                                        var260 = Boolean.class;
-                                    } catch (JSONException var223) {
-                                        var255 = var223;
-                                        var256 = false;
-                                        break label744;
-                                    } catch (NoSuchMethodException var224) {
-                                        var254 = var224;
-                                        var256 = false;
-                                        break label743;
-                                    } catch (IllegalAccessException var225) {
-                                        var253 = var225;
-                                        var256 = false;
-                                        break label742;
-                                    } catch (InvocationTargetException var226) {
-                                        var252 = var226;
-                                        var256 = false;
-                                        break label753;
-                                    }
+                                    var266 = var257.getType();
+                                    var260 = Boolean.class;
 
                                     byte var240;
                                     Object[] var258;
@@ -2448,28 +1835,11 @@ public class TSConfig {
                                     String var262;
                                     Method var268;
                                     if (var266 == var260) {
-                                        label754: {
-                                            try {
-                                                var268 = var244;
-                                                var10001 = this;
-                                                var258 = new Object[1];
-                                            } catch (JSONException var15) {
-                                                var255 = var15;
-                                                var256 = false;
-                                                break label744;
-                                            } catch (NoSuchMethodException var16) {
-                                                var254 = var16;
-                                                var256 = false;
-                                                break label743;
-                                            } catch (IllegalAccessException var17) {
-                                                var253 = var17;
-                                                var256 = false;
-                                                break label742;
-                                            } catch (InvocationTargetException var18) {
-                                                var252 = var18;
-                                                var256 = false;
-                                                break label754;
-                                            }
+                                        label754:
+                                        {
+                                            var268 = var244;
+                                            var10001 = this;
+                                            var258 = new Object[1];
 
                                             var259 = var258;
                                             var261 = var1;
@@ -2484,10 +1854,6 @@ public class TSConfig {
                                                 var255 = var11;
                                                 var256 = false;
                                                 break label744;
-                                            } catch (NoSuchMethodException var12) {
-                                                var254 = var12;
-                                                var256 = false;
-                                                break label743;
                                             } catch (IllegalAccessException var13) {
                                                 var253 = var13;
                                                 var256 = false;
@@ -2498,51 +1864,17 @@ public class TSConfig {
                                             }
                                         }
                                     } else {
-                                        label725: {
-                                            try {
-                                                var266 = var5.getType();
-                                                var260 = Long.class;
-                                            } catch (JSONException var219) {
-                                                var255 = var219;
-                                                var256 = false;
-                                                break label744;
-                                            } catch (NoSuchMethodException var220) {
-                                                var254 = var220;
-                                                var256 = false;
-                                                break label743;
-                                            } catch (IllegalAccessException var221) {
-                                                var253 = var221;
-                                                var256 = false;
-                                                break label742;
-                                            } catch (InvocationTargetException var222) {
-                                                var252 = var222;
-                                                var256 = false;
-                                                break label725;
-                                            }
+                                        label725:
+                                        {
+                                            var266 = var5.getType();
+                                            var260 = Long.class;
 
                                             if (var266 == var260) {
-                                                label755: {
-                                                    try {
-                                                        var268 = var244;
-                                                        var10001 = this;
-                                                        var258 = new Object[1];
-                                                    } catch (JSONException var23) {
-                                                        var255 = var23;
-                                                        var256 = false;
-                                                        break label744;
-                                                    } catch (NoSuchMethodException var24) {
-                                                        var254 = var24;
-                                                        var256 = false;
-                                                        break label743;
-                                                    } catch (IllegalAccessException var25) {
-                                                        var253 = var25;
-                                                        var256 = false;
-                                                        break label742;
-                                                    } catch (InvocationTargetException var26) {
-                                                        var252 = var26;
-                                                        var256 = false;
-                                                        break label755;
-                                                    }
+                                                label755:
+                                                {
+                                                    var268 = var244;
+                                                    var10001 = this;
+                                                    var258 = new Object[1];
 
                                                     var259 = var258;
                                                     var261 = var1;
@@ -2557,10 +1889,6 @@ public class TSConfig {
                                                         var255 = var19;
                                                         var256 = false;
                                                         break label744;
-                                                    } catch (NoSuchMethodException var20) {
-                                                        var254 = var20;
-                                                        var256 = false;
-                                                        break label743;
                                                     } catch (IllegalAccessException var21) {
                                                         var253 = var21;
                                                         var256 = false;
@@ -2571,51 +1899,17 @@ public class TSConfig {
                                                     }
                                                 }
                                             } else {
-                                                label721: {
-                                                    try {
-                                                        var266 = var5.getType();
-                                                        var260 = Integer.class;
-                                                    } catch (JSONException var215) {
-                                                        var255 = var215;
-                                                        var256 = false;
-                                                        break label744;
-                                                    } catch (NoSuchMethodException var216) {
-                                                        var254 = var216;
-                                                        var256 = false;
-                                                        break label743;
-                                                    } catch (IllegalAccessException var217) {
-                                                        var253 = var217;
-                                                        var256 = false;
-                                                        break label742;
-                                                    } catch (InvocationTargetException var218) {
-                                                        var252 = var218;
-                                                        var256 = false;
-                                                        break label721;
-                                                    }
+                                                label721:
+                                                {
+                                                    var266 = var5.getType();
+                                                    var260 = Integer.class;
 
                                                     if (var266 == var260) {
-                                                        label756: {
-                                                            try {
-                                                                var268 = var244;
-                                                                var10001 = this;
-                                                                var258 = new Object[1];
-                                                            } catch (JSONException var31) {
-                                                                var255 = var31;
-                                                                var256 = false;
-                                                                break label744;
-                                                            } catch (NoSuchMethodException var32) {
-                                                                var254 = var32;
-                                                                var256 = false;
-                                                                break label743;
-                                                            } catch (IllegalAccessException var33) {
-                                                                var253 = var33;
-                                                                var256 = false;
-                                                                break label742;
-                                                            } catch (InvocationTargetException var34) {
-                                                                var252 = var34;
-                                                                var256 = false;
-                                                                break label756;
-                                                            }
+                                                        label756:
+                                                        {
+                                                            var268 = var244;
+                                                            var10001 = this;
+                                                            var258 = new Object[1];
 
                                                             var259 = var258;
                                                             var261 = var1;
@@ -2630,10 +1924,6 @@ public class TSConfig {
                                                                 var255 = var27;
                                                                 var256 = false;
                                                                 break label744;
-                                                            } catch (NoSuchMethodException var28) {
-                                                                var254 = var28;
-                                                                var256 = false;
-                                                                break label743;
                                                             } catch (IllegalAccessException var29) {
                                                                 var253 = var29;
                                                                 var256 = false;
@@ -2644,51 +1934,17 @@ public class TSConfig {
                                                             }
                                                         }
                                                     } else {
-                                                        label717: {
-                                                            try {
-                                                                var266 = var5.getType();
-                                                                var260 = Float.class;
-                                                            } catch (JSONException var211) {
-                                                                var255 = var211;
-                                                                var256 = false;
-                                                                break label744;
-                                                            } catch (NoSuchMethodException var212) {
-                                                                var254 = var212;
-                                                                var256 = false;
-                                                                break label743;
-                                                            } catch (IllegalAccessException var213) {
-                                                                var253 = var213;
-                                                                var256 = false;
-                                                                break label742;
-                                                            } catch (InvocationTargetException var214) {
-                                                                var252 = var214;
-                                                                var256 = false;
-                                                                break label717;
-                                                            }
+                                                        label717:
+                                                        {
+                                                            var266 = var5.getType();
+                                                            var260 = Float.class;
 
                                                             if (var266 == var260) {
-                                                                label757: {
-                                                                    try {
-                                                                        var268 = var244;
-                                                                        var10001 = this;
-                                                                        var258 = new Object[1];
-                                                                    } catch (JSONException var43) {
-                                                                        var255 = var43;
-                                                                        var256 = false;
-                                                                        break label744;
-                                                                    } catch (NoSuchMethodException var44) {
-                                                                        var254 = var44;
-                                                                        var256 = false;
-                                                                        break label743;
-                                                                    } catch (IllegalAccessException var45) {
-                                                                        var253 = var45;
-                                                                        var256 = false;
-                                                                        break label742;
-                                                                    } catch (InvocationTargetException var46) {
-                                                                        var252 = var46;
-                                                                        var256 = false;
-                                                                        break label757;
-                                                                    }
+                                                                label757:
+                                                                {
+                                                                    var268 = var244;
+                                                                    var10001 = this;
+                                                                    var258 = new Object[1];
 
                                                                     var259 = var258;
                                                                     var261 = var1;
@@ -2702,34 +1958,14 @@ public class TSConfig {
                                                                         var255 = var39;
                                                                         var256 = false;
                                                                         break label744;
-                                                                    } catch (NoSuchMethodException var40) {
-                                                                        var254 = var40;
-                                                                        var256 = false;
-                                                                        break label743;
-                                                                    } catch (IllegalAccessException var41) {
-                                                                        var253 = var41;
-                                                                        var256 = false;
-                                                                        break label742;
-                                                                    } catch (InvocationTargetException var42) {
-                                                                        var252 = var42;
-                                                                        var256 = false;
-                                                                        break label757;
                                                                     }
 
-                                                                    float var267 = (float)var263;
+                                                                    float var267 = (float) var263;
 
                                                                     try {
                                                                         var259[var240] = var267;
                                                                         var268.invoke(var10001, var258);
                                                                         continue;
-                                                                    } catch (JSONException var35) {
-                                                                        var255 = var35;
-                                                                        var256 = false;
-                                                                        break label744;
-                                                                    } catch (NoSuchMethodException var36) {
-                                                                        var254 = var36;
-                                                                        var256 = false;
-                                                                        break label743;
                                                                     } catch (IllegalAccessException var37) {
                                                                         var253 = var37;
                                                                         var256 = false;
@@ -2740,51 +1976,17 @@ public class TSConfig {
                                                                     }
                                                                 }
                                                             } else {
-                                                                label713: {
-                                                                    try {
-                                                                        var266 = var5.getType();
-                                                                        var260 = Double.class;
-                                                                    } catch (JSONException var207) {
-                                                                        var255 = var207;
-                                                                        var256 = false;
-                                                                        break label744;
-                                                                    } catch (NoSuchMethodException var208) {
-                                                                        var254 = var208;
-                                                                        var256 = false;
-                                                                        break label743;
-                                                                    } catch (IllegalAccessException var209) {
-                                                                        var253 = var209;
-                                                                        var256 = false;
-                                                                        break label742;
-                                                                    } catch (InvocationTargetException var210) {
-                                                                        var252 = var210;
-                                                                        var256 = false;
-                                                                        break label713;
-                                                                    }
+                                                                label713:
+                                                                {
+                                                                    var266 = var5.getType();
+                                                                    var260 = Double.class;
 
                                                                     if (var266 == var260) {
-                                                                        label758: {
-                                                                            try {
-                                                                                var268 = var244;
-                                                                                var10001 = this;
-                                                                                var258 = new Object[1];
-                                                                            } catch (JSONException var51) {
-                                                                                var255 = var51;
-                                                                                var256 = false;
-                                                                                break label744;
-                                                                            } catch (NoSuchMethodException var52) {
-                                                                                var254 = var52;
-                                                                                var256 = false;
-                                                                                break label743;
-                                                                            } catch (IllegalAccessException var53) {
-                                                                                var253 = var53;
-                                                                                var256 = false;
-                                                                                break label742;
-                                                                            } catch (InvocationTargetException var54) {
-                                                                                var252 = var54;
-                                                                                var256 = false;
-                                                                                break label758;
-                                                                            }
+                                                                        label758:
+                                                                        {
+                                                                            var268 = var244;
+                                                                            var10001 = this;
+                                                                            var258 = new Object[1];
 
                                                                             var259 = var258;
                                                                             var261 = var1;
@@ -2799,10 +2001,6 @@ public class TSConfig {
                                                                                 var255 = var47;
                                                                                 var256 = false;
                                                                                 break label744;
-                                                                            } catch (NoSuchMethodException var48) {
-                                                                                var254 = var48;
-                                                                                var256 = false;
-                                                                                break label743;
                                                                             } catch (IllegalAccessException var49) {
                                                                                 var253 = var49;
                                                                                 var256 = false;
@@ -2813,51 +2011,17 @@ public class TSConfig {
                                                                             }
                                                                         }
                                                                     } else {
-                                                                        label709: {
-                                                                            try {
-                                                                                var266 = var5.getType();
-                                                                                var260 = String.class;
-                                                                            } catch (JSONException var203) {
-                                                                                var255 = var203;
-                                                                                var256 = false;
-                                                                                break label744;
-                                                                            } catch (NoSuchMethodException var204) {
-                                                                                var254 = var204;
-                                                                                var256 = false;
-                                                                                break label743;
-                                                                            } catch (IllegalAccessException var205) {
-                                                                                var253 = var205;
-                                                                                var256 = false;
-                                                                                break label742;
-                                                                            } catch (InvocationTargetException var206) {
-                                                                                var252 = var206;
-                                                                                var256 = false;
-                                                                                break label709;
-                                                                            }
+                                                                        label709:
+                                                                        {
+                                                                            var266 = var5.getType();
+                                                                            var260 = String.class;
 
                                                                             if (var266 == var260) {
-                                                                                label759: {
-                                                                                    try {
-                                                                                        var268 = var244;
-                                                                                        var10001 = this;
-                                                                                        var258 = new Object[1];
-                                                                                    } catch (JSONException var59) {
-                                                                                        var255 = var59;
-                                                                                        var256 = false;
-                                                                                        break label744;
-                                                                                    } catch (NoSuchMethodException var60) {
-                                                                                        var254 = var60;
-                                                                                        var256 = false;
-                                                                                        break label743;
-                                                                                    } catch (IllegalAccessException var61) {
-                                                                                        var253 = var61;
-                                                                                        var256 = false;
-                                                                                        break label742;
-                                                                                    } catch (InvocationTargetException var62) {
-                                                                                        var252 = var62;
-                                                                                        var256 = false;
-                                                                                        break label759;
-                                                                                    }
+                                                                                label759:
+                                                                                {
+                                                                                    var268 = var244;
+                                                                                    var10001 = this;
+                                                                                    var258 = new Object[1];
 
                                                                                     var259 = var258;
                                                                                     var261 = var1;
@@ -2872,10 +2036,6 @@ public class TSConfig {
                                                                                         var255 = var55;
                                                                                         var256 = false;
                                                                                         break label744;
-                                                                                    } catch (NoSuchMethodException var56) {
-                                                                                        var254 = var56;
-                                                                                        var256 = false;
-                                                                                        break label743;
                                                                                     } catch (IllegalAccessException var57) {
                                                                                         var253 = var57;
                                                                                         var256 = false;
@@ -2886,51 +2046,17 @@ public class TSConfig {
                                                                                     }
                                                                                 }
                                                                             } else {
-                                                                                label705: {
-                                                                                    try {
-                                                                                        var266 = var5.getType();
-                                                                                        var260 = JSONObject.class;
-                                                                                    } catch (JSONException var199) {
-                                                                                        var255 = var199;
-                                                                                        var256 = false;
-                                                                                        break label744;
-                                                                                    } catch (NoSuchMethodException var200) {
-                                                                                        var254 = var200;
-                                                                                        var256 = false;
-                                                                                        break label743;
-                                                                                    } catch (IllegalAccessException var201) {
-                                                                                        var253 = var201;
-                                                                                        var256 = false;
-                                                                                        break label742;
-                                                                                    } catch (InvocationTargetException var202) {
-                                                                                        var252 = var202;
-                                                                                        var256 = false;
-                                                                                        break label705;
-                                                                                    }
+                                                                                label705:
+                                                                                {
+                                                                                    var266 = var5.getType();
+                                                                                    var260 = JSONObject.class;
 
                                                                                     if (var266 == var260) {
-                                                                                        label760: {
-                                                                                            try {
-                                                                                                var268 = var244;
-                                                                                                var10001 = this;
-                                                                                                var258 = new Object[1];
-                                                                                            } catch (JSONException var67) {
-                                                                                                var255 = var67;
-                                                                                                var256 = false;
-                                                                                                break label744;
-                                                                                            } catch (NoSuchMethodException var68) {
-                                                                                                var254 = var68;
-                                                                                                var256 = false;
-                                                                                                break label743;
-                                                                                            } catch (IllegalAccessException var69) {
-                                                                                                var253 = var69;
-                                                                                                var256 = false;
-                                                                                                break label742;
-                                                                                            } catch (InvocationTargetException var70) {
-                                                                                                var252 = var70;
-                                                                                                var256 = false;
-                                                                                                break label760;
-                                                                                            }
+                                                                                        label760:
+                                                                                        {
+                                                                                            var268 = var244;
+                                                                                            var10001 = this;
+                                                                                            var258 = new Object[1];
 
                                                                                             var259 = var258;
                                                                                             var261 = var1;
@@ -2945,10 +2071,6 @@ public class TSConfig {
                                                                                                 var255 = var63;
                                                                                                 var256 = false;
                                                                                                 break label744;
-                                                                                            } catch (NoSuchMethodException var64) {
-                                                                                                var254 = var64;
-                                                                                                var256 = false;
-                                                                                                break label743;
                                                                                             } catch (IllegalAccessException var65) {
                                                                                                 var253 = var65;
                                                                                                 var256 = false;
@@ -2959,51 +2081,17 @@ public class TSConfig {
                                                                                             }
                                                                                         }
                                                                                     } else {
-                                                                                        label701: {
-                                                                                            try {
-                                                                                                var266 = var5.getType();
-                                                                                                var260 = JSONArray.class;
-                                                                                            } catch (JSONException var195) {
-                                                                                                var255 = var195;
-                                                                                                var256 = false;
-                                                                                                break label744;
-                                                                                            } catch (NoSuchMethodException var196) {
-                                                                                                var254 = var196;
-                                                                                                var256 = false;
-                                                                                                break label743;
-                                                                                            } catch (IllegalAccessException var197) {
-                                                                                                var253 = var197;
-                                                                                                var256 = false;
-                                                                                                break label742;
-                                                                                            } catch (InvocationTargetException var198) {
-                                                                                                var252 = var198;
-                                                                                                var256 = false;
-                                                                                                break label701;
-                                                                                            }
+                                                                                        label701:
+                                                                                        {
+                                                                                            var266 = var5.getType();
+                                                                                            var260 = JSONArray.class;
 
                                                                                             if (var266 == var260) {
-                                                                                                label761: {
-                                                                                                    try {
-                                                                                                        var268 = var244;
-                                                                                                        var10001 = this;
-                                                                                                        var258 = new Object[1];
-                                                                                                    } catch (JSONException var75) {
-                                                                                                        var255 = var75;
-                                                                                                        var256 = false;
-                                                                                                        break label744;
-                                                                                                    } catch (NoSuchMethodException var76) {
-                                                                                                        var254 = var76;
-                                                                                                        var256 = false;
-                                                                                                        break label743;
-                                                                                                    } catch (IllegalAccessException var77) {
-                                                                                                        var253 = var77;
-                                                                                                        var256 = false;
-                                                                                                        break label742;
-                                                                                                    } catch (InvocationTargetException var78) {
-                                                                                                        var252 = var78;
-                                                                                                        var256 = false;
-                                                                                                        break label761;
-                                                                                                    }
+                                                                                                label761:
+                                                                                                {
+                                                                                                    var268 = var244;
+                                                                                                    var10001 = this;
+                                                                                                    var258 = new Object[1];
 
                                                                                                     var259 = var258;
                                                                                                     var261 = var1;
@@ -3018,10 +2106,6 @@ public class TSConfig {
                                                                                                         var255 = var71;
                                                                                                         var256 = false;
                                                                                                         break label744;
-                                                                                                    } catch (NoSuchMethodException var72) {
-                                                                                                        var254 = var72;
-                                                                                                        var256 = false;
-                                                                                                        break label743;
                                                                                                     } catch (IllegalAccessException var73) {
                                                                                                         var253 = var73;
                                                                                                         var256 = false;
@@ -3032,30 +2116,14 @@ public class TSConfig {
                                                                                                     }
                                                                                                 }
                                                                                             } else {
-                                                                                                label697: {
-                                                                                                    try {
-                                                                                                        var266 = var5.getType();
-                                                                                                        var260 = List.class;
-                                                                                                    } catch (JSONException var191) {
-                                                                                                        var255 = var191;
-                                                                                                        var256 = false;
-                                                                                                        break label744;
-                                                                                                    } catch (NoSuchMethodException var192) {
-                                                                                                        var254 = var192;
-                                                                                                        var256 = false;
-                                                                                                        break label743;
-                                                                                                    } catch (IllegalAccessException var193) {
-                                                                                                        var253 = var193;
-                                                                                                        var256 = false;
-                                                                                                        break label742;
-                                                                                                    } catch (InvocationTargetException var194) {
-                                                                                                        var252 = var194;
-                                                                                                        var256 = false;
-                                                                                                        break label697;
-                                                                                                    }
+                                                                                                label697:
+                                                                                                {
+                                                                                                    var266 = var5.getType();
+                                                                                                    var260 = List.class;
 
                                                                                                     if (var266 == var260) {
-                                                                                                        label762: {
+                                                                                                        label762:
+                                                                                                        {
                                                                                                             JSONArray var270;
                                                                                                             try {
                                                                                                                 var270 = var1.getJSONArray(var6);
@@ -3063,103 +2131,27 @@ public class TSConfig {
                                                                                                                 var255 = var99;
                                                                                                                 var256 = false;
                                                                                                                 break label744;
-                                                                                                            } catch (NoSuchMethodException var100) {
-                                                                                                                var254 = var100;
-                                                                                                                var256 = false;
-                                                                                                                break label743;
-                                                                                                            } catch (IllegalAccessException var101) {
-                                                                                                                var253 = var101;
-                                                                                                                var256 = false;
-                                                                                                                break label742;
-                                                                                                            } catch (InvocationTargetException var102) {
-                                                                                                                var252 = var102;
-                                                                                                                var256 = false;
-                                                                                                                break label762;
                                                                                                             }
 
                                                                                                             JSONArray var245 = var270;
 
-                                                                                                            ArrayList var271;
-                                                                                                            try {
-                                                                                                                var271 = new ArrayList;
-                                                                                                            } catch (JSONException var95) {
-                                                                                                                var255 = var95;
-                                                                                                                var256 = false;
-                                                                                                                break label744;
-                                                                                                            } catch (NoSuchMethodException var96) {
-                                                                                                                var254 = var96;
-                                                                                                                var256 = false;
-                                                                                                                break label743;
-                                                                                                            } catch (IllegalAccessException var97) {
-                                                                                                                var253 = var97;
-                                                                                                                var256 = false;
-                                                                                                                break label742;
-                                                                                                            } catch (InvocationTargetException var98) {
-                                                                                                                var252 = var98;
-                                                                                                                var256 = false;
-                                                                                                                break label762;
-                                                                                                            }
+                                                                                                            ArrayList var271 = new ArrayList();
+                                                                                                            var271 = new ArrayList();
 
                                                                                                             ArrayList var241 = var271;
 
-                                                                                                            try {
-                                                                                                                var271.<init>();
-                                                                                                            } catch (JSONException var91) {
-                                                                                                                var255 = var91;
-                                                                                                                var256 = false;
-                                                                                                                break label744;
-                                                                                                            } catch (NoSuchMethodException var92) {
-                                                                                                                var254 = var92;
-                                                                                                                var256 = false;
-                                                                                                                break label743;
-                                                                                                            } catch (IllegalAccessException var93) {
-                                                                                                                var253 = var93;
-                                                                                                                var256 = false;
-                                                                                                                break label742;
-                                                                                                            } catch (InvocationTargetException var94) {
-                                                                                                                var252 = var94;
-                                                                                                                var256 = false;
-                                                                                                                break label762;
-                                                                                                            }
-
                                                                                                             int var8 = 0;
 
-                                                                                                            while(true) {
+                                                                                                            while (true) {
                                                                                                                 int var272;
                                                                                                                 int var273;
-                                                                                                                try {
-                                                                                                                    var272 = var8;
-                                                                                                                    var273 = var245.length();
-                                                                                                                } catch (JSONException var83) {
-                                                                                                                    var255 = var83;
-                                                                                                                    var256 = false;
-                                                                                                                    break label744;
-                                                                                                                } catch (NoSuchMethodException var84) {
-                                                                                                                    var254 = var84;
-                                                                                                                    var256 = false;
-                                                                                                                    break label743;
-                                                                                                                } catch (IllegalAccessException var85) {
-                                                                                                                    var253 = var85;
-                                                                                                                    var256 = false;
-                                                                                                                    break label742;
-                                                                                                                } catch (InvocationTargetException var86) {
-                                                                                                                    var252 = var86;
-                                                                                                                    var256 = false;
-                                                                                                                    break;
-                                                                                                                }
+                                                                                                                var272 = var8;
+                                                                                                                var273 = var245.length();
 
                                                                                                                 if (var272 >= var273) {
                                                                                                                     try {
                                                                                                                         var244.invoke(this, var241);
                                                                                                                         continue label749;
-                                                                                                                    } catch (JSONException var79) {
-                                                                                                                        var255 = var79;
-                                                                                                                        var256 = false;
-                                                                                                                        break label744;
-                                                                                                                    } catch (NoSuchMethodException var80) {
-                                                                                                                        var254 = var80;
-                                                                                                                        var256 = false;
-                                                                                                                        break label743;
                                                                                                                     } catch (IllegalAccessException var81) {
                                                                                                                         var253 = var81;
                                                                                                                         var256 = false;
@@ -3177,49 +2169,21 @@ public class TSConfig {
                                                                                                                     var255 = var87;
                                                                                                                     var256 = false;
                                                                                                                     break label744;
-                                                                                                                } catch (NoSuchMethodException var88) {
-                                                                                                                    var254 = var88;
-                                                                                                                    var256 = false;
-                                                                                                                    break label743;
-                                                                                                                } catch (IllegalAccessException var89) {
-                                                                                                                    var253 = var89;
-                                                                                                                    var256 = false;
-                                                                                                                    break label742;
-                                                                                                                } catch (InvocationTargetException var90) {
-                                                                                                                    var252 = var90;
-                                                                                                                    var256 = false;
-                                                                                                                    break;
                                                                                                                 }
 
                                                                                                                 ++var8;
                                                                                                             }
                                                                                                         }
                                                                                                     } else {
-                                                                                                        label693: {
-                                                                                                            try {
-                                                                                                                var266 = var5.getType();
-                                                                                                                var260 = Map.class;
-                                                                                                            } catch (JSONException var187) {
-                                                                                                                var255 = var187;
-                                                                                                                var256 = false;
-                                                                                                                break label744;
-                                                                                                            } catch (NoSuchMethodException var188) {
-                                                                                                                var254 = var188;
-                                                                                                                var256 = false;
-                                                                                                                break label743;
-                                                                                                            } catch (IllegalAccessException var189) {
-                                                                                                                var253 = var189;
-                                                                                                                var256 = false;
-                                                                                                                break label742;
-                                                                                                            } catch (InvocationTargetException var190) {
-                                                                                                                var252 = var190;
-                                                                                                                var256 = false;
-                                                                                                                break label693;
-                                                                                                            }
+                                                                                                        label693:
+                                                                                                        {
+                                                                                                            var266 = var5.getType();
+                                                                                                            var260 = Map.class;
 
                                                                                                             JSONObject var246;
                                                                                                             if (var266 == var260) {
-                                                                                                                label764: {
+                                                                                                                label764:
+                                                                                                                {
                                                                                                                     JSONObject var274;
                                                                                                                     try {
                                                                                                                         var274 = var1.getJSONObject(var6);
@@ -3227,103 +2191,26 @@ public class TSConfig {
                                                                                                                         var255 = var127;
                                                                                                                         var256 = false;
                                                                                                                         break label744;
-                                                                                                                    } catch (NoSuchMethodException var128) {
-                                                                                                                        var254 = var128;
-                                                                                                                        var256 = false;
-                                                                                                                        break label743;
-                                                                                                                    } catch (IllegalAccessException var129) {
-                                                                                                                        var253 = var129;
-                                                                                                                        var256 = false;
-                                                                                                                        break label742;
-                                                                                                                    } catch (InvocationTargetException var130) {
-                                                                                                                        var252 = var130;
-                                                                                                                        var256 = false;
-                                                                                                                        break label764;
                                                                                                                     }
 
                                                                                                                     var246 = var274;
 
-                                                                                                                    HashMap var275;
-                                                                                                                    try {
-                                                                                                                        var275 = new HashMap;
-                                                                                                                    } catch (JSONException var123) {
-                                                                                                                        var255 = var123;
-                                                                                                                        var256 = false;
-                                                                                                                        break label744;
-                                                                                                                    } catch (NoSuchMethodException var124) {
-                                                                                                                        var254 = var124;
-                                                                                                                        var256 = false;
-                                                                                                                        break label743;
-                                                                                                                    } catch (IllegalAccessException var125) {
-                                                                                                                        var253 = var125;
-                                                                                                                        var256 = false;
-                                                                                                                        break label742;
-                                                                                                                    } catch (InvocationTargetException var126) {
-                                                                                                                        var252 = var126;
-                                                                                                                        var256 = false;
-                                                                                                                        break label764;
-                                                                                                                    }
+                                                                                                                    HashMap var275 = new HashMap();
 
                                                                                                                     HashMap var242 = var275;
 
-                                                                                                                    Iterator var276;
-                                                                                                                    try {
-                                                                                                                        var275.<init>();
-                                                                                                                        var276 = var274.keys();
-                                                                                                                    } catch (JSONException var119) {
-                                                                                                                        var255 = var119;
-                                                                                                                        var256 = false;
-                                                                                                                        break label744;
-                                                                                                                    } catch (NoSuchMethodException var120) {
-                                                                                                                        var254 = var120;
-                                                                                                                        var256 = false;
-                                                                                                                        break label743;
-                                                                                                                    } catch (IllegalAccessException var121) {
-                                                                                                                        var253 = var121;
-                                                                                                                        var256 = false;
-                                                                                                                        break label742;
-                                                                                                                    } catch (InvocationTargetException var122) {
-                                                                                                                        var252 = var122;
-                                                                                                                        var256 = false;
-                                                                                                                        break label764;
-                                                                                                                    }
+                                                                                                                    Iterator var276 = var274.keys();
 
                                                                                                                     Iterator var247 = var276;
 
-                                                                                                                    while(true) {
+                                                                                                                    while (true) {
                                                                                                                         boolean var277;
-                                                                                                                        try {
-                                                                                                                            var277 = var247.hasNext();
-                                                                                                                        } catch (JSONException var107) {
-                                                                                                                            var255 = var107;
-                                                                                                                            var256 = false;
-                                                                                                                            break label744;
-                                                                                                                        } catch (NoSuchMethodException var108) {
-                                                                                                                            var254 = var108;
-                                                                                                                            var256 = false;
-                                                                                                                            break label743;
-                                                                                                                        } catch (IllegalAccessException var109) {
-                                                                                                                            var253 = var109;
-                                                                                                                            var256 = false;
-                                                                                                                            break label742;
-                                                                                                                        } catch (InvocationTargetException var110) {
-                                                                                                                            var252 = var110;
-                                                                                                                            var256 = false;
-                                                                                                                            break;
-                                                                                                                        }
+                                                                                                                        var277 = var247.hasNext();
 
                                                                                                                         if (!var277) {
                                                                                                                             try {
                                                                                                                                 var244.invoke(this, var242);
                                                                                                                                 continue label749;
-                                                                                                                            } catch (JSONException var103) {
-                                                                                                                                var255 = var103;
-                                                                                                                                var256 = false;
-                                                                                                                                break label744;
-                                                                                                                            } catch (NoSuchMethodException var104) {
-                                                                                                                                var254 = var104;
-                                                                                                                                var256 = false;
-                                                                                                                                break label743;
                                                                                                                             } catch (IllegalAccessException var105) {
                                                                                                                                 var253 = var105;
                                                                                                                                 var256 = false;
@@ -3337,27 +2224,9 @@ public class TSConfig {
 
                                                                                                                         HashMap var278;
                                                                                                                         JSONObject var279;
-                                                                                                                        try {
-                                                                                                                            var278 = var242;
-                                                                                                                            var279 = var246;
-                                                                                                                            var10002 = (String)var247.next();
-                                                                                                                        } catch (JSONException var115) {
-                                                                                                                            var255 = var115;
-                                                                                                                            var256 = false;
-                                                                                                                            break label744;
-                                                                                                                        } catch (NoSuchMethodException var116) {
-                                                                                                                            var254 = var116;
-                                                                                                                            var256 = false;
-                                                                                                                            break label743;
-                                                                                                                        } catch (IllegalAccessException var117) {
-                                                                                                                            var253 = var117;
-                                                                                                                            var256 = false;
-                                                                                                                            break label742;
-                                                                                                                        } catch (InvocationTargetException var118) {
-                                                                                                                            var252 = var118;
-                                                                                                                            var256 = false;
-                                                                                                                            break;
-                                                                                                                        }
+                                                                                                                        var278 = var242;
+                                                                                                                        var279 = var246;
+                                                                                                                        var10002 = (String) var247.next();
 
                                                                                                                         String var9 = var10002;
 
@@ -3367,48 +2236,20 @@ public class TSConfig {
                                                                                                                             var255 = var111;
                                                                                                                             var256 = false;
                                                                                                                             break label744;
-                                                                                                                        } catch (NoSuchMethodException var112) {
-                                                                                                                            var254 = var112;
-                                                                                                                            var256 = false;
-                                                                                                                            break label743;
-                                                                                                                        } catch (IllegalAccessException var113) {
-                                                                                                                            var253 = var113;
-                                                                                                                            var256 = false;
-                                                                                                                            break label742;
-                                                                                                                        } catch (InvocationTargetException var114) {
-                                                                                                                            var252 = var114;
-                                                                                                                            var256 = false;
-                                                                                                                            break;
                                                                                                                         }
                                                                                                                     }
                                                                                                                 }
                                                                                                             } else {
-                                                                                                                label689: {
-                                                                                                                    try {
-                                                                                                                        var266 = var5.getType();
-                                                                                                                        var260 = TSNotification.class;
-                                                                                                                    } catch (JSONException var183) {
-                                                                                                                        var255 = var183;
-                                                                                                                        var256 = false;
-                                                                                                                        break label744;
-                                                                                                                    } catch (NoSuchMethodException var184) {
-                                                                                                                        var254 = var184;
-                                                                                                                        var256 = false;
-                                                                                                                        break label743;
-                                                                                                                    } catch (IllegalAccessException var185) {
-                                                                                                                        var253 = var185;
-                                                                                                                        var256 = false;
-                                                                                                                        break label742;
-                                                                                                                    } catch (InvocationTargetException var186) {
-                                                                                                                        var252 = var186;
-                                                                                                                        var256 = false;
-                                                                                                                        break label689;
-                                                                                                                    }
+                                                                                                                label689:
+                                                                                                                {
+                                                                                                                    var266 = var5.getType();
+                                                                                                                    var260 = TSNotification.class;
 
                                                                                                                     JSONObject var264;
                                                                                                                     byte var269;
                                                                                                                     if (var266 == var260) {
-                                                                                                                        label766: {
+                                                                                                                        label766:
+                                                                                                                        {
                                                                                                                             try {
                                                                                                                                 var268 = var244;
                                                                                                                                 var10001 = this;
@@ -3417,41 +2258,11 @@ public class TSConfig {
                                                                                                                                 var255 = var139;
                                                                                                                                 var256 = false;
                                                                                                                                 break label744;
-                                                                                                                            } catch (NoSuchMethodException var140) {
-                                                                                                                                var254 = var140;
-                                                                                                                                var256 = false;
-                                                                                                                                break label743;
-                                                                                                                            } catch (IllegalAccessException var141) {
-                                                                                                                                var253 = var141;
-                                                                                                                                var256 = false;
-                                                                                                                                break label742;
-                                                                                                                            } catch (InvocationTargetException var142) {
-                                                                                                                                var252 = var142;
-                                                                                                                                var256 = false;
-                                                                                                                                break label766;
                                                                                                                             }
 
                                                                                                                             var246 = var264;
 
-                                                                                                                            try {
-                                                                                                                                var258 = new Object[1];
-                                                                                                                            } catch (JSONException var135) {
-                                                                                                                                var255 = var135;
-                                                                                                                                var256 = false;
-                                                                                                                                break label744;
-                                                                                                                            } catch (NoSuchMethodException var136) {
-                                                                                                                                var254 = var136;
-                                                                                                                                var256 = false;
-                                                                                                                                break label743;
-                                                                                                                            } catch (IllegalAccessException var137) {
-                                                                                                                                var253 = var137;
-                                                                                                                                var256 = false;
-                                                                                                                                break label742;
-                                                                                                                            } catch (InvocationTargetException var138) {
-                                                                                                                                var252 = var138;
-                                                                                                                                var256 = false;
-                                                                                                                                break label766;
-                                                                                                                            }
+                                                                                                                            var258 = new Object[1];
 
                                                                                                                             var259 = var258;
                                                                                                                             var269 = 0;
@@ -3460,14 +2271,6 @@ public class TSConfig {
                                                                                                                                 var259[var269] = new TSNotification(var246, false);
                                                                                                                                 var268.invoke(var10001, var258);
                                                                                                                                 continue;
-                                                                                                                            } catch (JSONException var131) {
-                                                                                                                                var255 = var131;
-                                                                                                                                var256 = false;
-                                                                                                                                break label744;
-                                                                                                                            } catch (NoSuchMethodException var132) {
-                                                                                                                                var254 = var132;
-                                                                                                                                var256 = false;
-                                                                                                                                break label743;
                                                                                                                             } catch (IllegalAccessException var133) {
                                                                                                                                 var253 = var133;
                                                                                                                                 var256 = false;
@@ -3478,30 +2281,14 @@ public class TSConfig {
                                                                                                                             }
                                                                                                                         }
                                                                                                                     } else {
-                                                                                                                        label685: {
-                                                                                                                            try {
-                                                                                                                                var266 = var5.getType();
-                                                                                                                                var260 = TSAuthorization.class;
-                                                                                                                            } catch (JSONException var179) {
-                                                                                                                                var255 = var179;
-                                                                                                                                var256 = false;
-                                                                                                                                break label744;
-                                                                                                                            } catch (NoSuchMethodException var180) {
-                                                                                                                                var254 = var180;
-                                                                                                                                var256 = false;
-                                                                                                                                break label743;
-                                                                                                                            } catch (IllegalAccessException var181) {
-                                                                                                                                var253 = var181;
-                                                                                                                                var256 = false;
-                                                                                                                                break label742;
-                                                                                                                            } catch (InvocationTargetException var182) {
-                                                                                                                                var252 = var182;
-                                                                                                                                var256 = false;
-                                                                                                                                break label685;
-                                                                                                                            }
+                                                                                                                        label685:
+                                                                                                                        {
+                                                                                                                            var266 = var5.getType();
+                                                                                                                            var260 = TSAuthorization.class;
 
                                                                                                                             if (var266 == var260) {
-                                                                                                                                label767: {
+                                                                                                                                label767:
+                                                                                                                                {
                                                                                                                                     try {
                                                                                                                                         var268 = var244;
                                                                                                                                         var10001 = this;
@@ -3510,41 +2297,11 @@ public class TSConfig {
                                                                                                                                         var255 = var151;
                                                                                                                                         var256 = false;
                                                                                                                                         break label744;
-                                                                                                                                    } catch (NoSuchMethodException var152) {
-                                                                                                                                        var254 = var152;
-                                                                                                                                        var256 = false;
-                                                                                                                                        break label743;
-                                                                                                                                    } catch (IllegalAccessException var153) {
-                                                                                                                                        var253 = var153;
-                                                                                                                                        var256 = false;
-                                                                                                                                        break label742;
-                                                                                                                                    } catch (InvocationTargetException var154) {
-                                                                                                                                        var252 = var154;
-                                                                                                                                        var256 = false;
-                                                                                                                                        break label767;
                                                                                                                                     }
 
                                                                                                                                     var246 = var264;
 
-                                                                                                                                    try {
-                                                                                                                                        var258 = new Object[1];
-                                                                                                                                    } catch (JSONException var147) {
-                                                                                                                                        var255 = var147;
-                                                                                                                                        var256 = false;
-                                                                                                                                        break label744;
-                                                                                                                                    } catch (NoSuchMethodException var148) {
-                                                                                                                                        var254 = var148;
-                                                                                                                                        var256 = false;
-                                                                                                                                        break label743;
-                                                                                                                                    } catch (IllegalAccessException var149) {
-                                                                                                                                        var253 = var149;
-                                                                                                                                        var256 = false;
-                                                                                                                                        break label742;
-                                                                                                                                    } catch (InvocationTargetException var150) {
-                                                                                                                                        var252 = var150;
-                                                                                                                                        var256 = false;
-                                                                                                                                        break label767;
-                                                                                                                                    }
+                                                                                                                                    var258 = new Object[1];
 
                                                                                                                                     var259 = var258;
                                                                                                                                     var269 = 0;
@@ -3553,14 +2310,6 @@ public class TSConfig {
                                                                                                                                         var259[var269] = new TSAuthorization(var246, false);
                                                                                                                                         var268.invoke(var10001, var258);
                                                                                                                                         continue;
-                                                                                                                                    } catch (JSONException var143) {
-                                                                                                                                        var255 = var143;
-                                                                                                                                        var256 = false;
-                                                                                                                                        break label744;
-                                                                                                                                    } catch (NoSuchMethodException var144) {
-                                                                                                                                        var254 = var144;
-                                                                                                                                        var256 = false;
-                                                                                                                                        break label743;
                                                                                                                                     } catch (IllegalAccessException var145) {
                                                                                                                                         var253 = var145;
                                                                                                                                         var256 = false;
@@ -3571,30 +2320,14 @@ public class TSConfig {
                                                                                                                                     }
                                                                                                                                 }
                                                                                                                             } else {
-                                                                                                                                label681: {
-                                                                                                                                    try {
-                                                                                                                                        var266 = var5.getType();
-                                                                                                                                        var260 = TSBackgroundPermissionRationale.class;
-                                                                                                                                    } catch (JSONException var175) {
-                                                                                                                                        var255 = var175;
-                                                                                                                                        var256 = false;
-                                                                                                                                        break label744;
-                                                                                                                                    } catch (NoSuchMethodException var176) {
-                                                                                                                                        var254 = var176;
-                                                                                                                                        var256 = false;
-                                                                                                                                        break label743;
-                                                                                                                                    } catch (IllegalAccessException var177) {
-                                                                                                                                        var253 = var177;
-                                                                                                                                        var256 = false;
-                                                                                                                                        break label742;
-                                                                                                                                    } catch (InvocationTargetException var178) {
-                                                                                                                                        var252 = var178;
-                                                                                                                                        var256 = false;
-                                                                                                                                        break label681;
-                                                                                                                                    }
+                                                                                                                                label681:
+                                                                                                                                {
+                                                                                                                                    var266 = var5.getType();
+                                                                                                                                    var260 = TSBackgroundPermissionRationale.class;
 
                                                                                                                                     if (var266 == var260) {
-                                                                                                                                        label768: {
+                                                                                                                                        label768:
+                                                                                                                                        {
                                                                                                                                             try {
                                                                                                                                                 var268 = var244;
                                                                                                                                                 var10001 = this;
@@ -3603,41 +2336,11 @@ public class TSConfig {
                                                                                                                                                 var255 = var163;
                                                                                                                                                 var256 = false;
                                                                                                                                                 break label744;
-                                                                                                                                            } catch (NoSuchMethodException var164) {
-                                                                                                                                                var254 = var164;
-                                                                                                                                                var256 = false;
-                                                                                                                                                break label743;
-                                                                                                                                            } catch (IllegalAccessException var165) {
-                                                                                                                                                var253 = var165;
-                                                                                                                                                var256 = false;
-                                                                                                                                                break label742;
-                                                                                                                                            } catch (InvocationTargetException var166) {
-                                                                                                                                                var252 = var166;
-                                                                                                                                                var256 = false;
-                                                                                                                                                break label768;
                                                                                                                                             }
 
                                                                                                                                             var246 = var264;
 
-                                                                                                                                            try {
-                                                                                                                                                var258 = new Object[1];
-                                                                                                                                            } catch (JSONException var159) {
-                                                                                                                                                var255 = var159;
-                                                                                                                                                var256 = false;
-                                                                                                                                                break label744;
-                                                                                                                                            } catch (NoSuchMethodException var160) {
-                                                                                                                                                var254 = var160;
-                                                                                                                                                var256 = false;
-                                                                                                                                                break label743;
-                                                                                                                                            } catch (IllegalAccessException var161) {
-                                                                                                                                                var253 = var161;
-                                                                                                                                                var256 = false;
-                                                                                                                                                break label742;
-                                                                                                                                            } catch (InvocationTargetException var162) {
-                                                                                                                                                var252 = var162;
-                                                                                                                                                var256 = false;
-                                                                                                                                                break label768;
-                                                                                                                                            }
+                                                                                                                                            var258 = new Object[1];
 
                                                                                                                                             var259 = var258;
                                                                                                                                             var269 = 0;
@@ -3646,14 +2349,6 @@ public class TSConfig {
                                                                                                                                                 var259[var269] = new TSBackgroundPermissionRationale(var246, false);
                                                                                                                                                 var268.invoke(var10001, var258);
                                                                                                                                                 continue;
-                                                                                                                                            } catch (JSONException var155) {
-                                                                                                                                                var255 = var155;
-                                                                                                                                                var256 = false;
-                                                                                                                                                break label744;
-                                                                                                                                            } catch (NoSuchMethodException var156) {
-                                                                                                                                                var254 = var156;
-                                                                                                                                                var256 = false;
-                                                                                                                                                break label743;
                                                                                                                                             } catch (IllegalAccessException var157) {
                                                                                                                                                 var253 = var157;
                                                                                                                                                 var256 = false;
@@ -3664,28 +2359,11 @@ public class TSConfig {
                                                                                                                                             }
                                                                                                                                         }
                                                                                                                                     } else {
-                                                                                                                                        label769: {
-                                                                                                                                            try {
-                                                                                                                                                var268 = var244;
-                                                                                                                                                var10001 = this;
-                                                                                                                                                var258 = new Object[1];
-                                                                                                                                            } catch (JSONException var171) {
-                                                                                                                                                var255 = var171;
-                                                                                                                                                var256 = false;
-                                                                                                                                                break label744;
-                                                                                                                                            } catch (NoSuchMethodException var172) {
-                                                                                                                                                var254 = var172;
-                                                                                                                                                var256 = false;
-                                                                                                                                                break label743;
-                                                                                                                                            } catch (IllegalAccessException var173) {
-                                                                                                                                                var253 = var173;
-                                                                                                                                                var256 = false;
-                                                                                                                                                break label742;
-                                                                                                                                            } catch (InvocationTargetException var174) {
-                                                                                                                                                var252 = var174;
-                                                                                                                                                var256 = false;
-                                                                                                                                                break label769;
-                                                                                                                                            }
+                                                                                                                                        label769:
+                                                                                                                                        {
+                                                                                                                                            var268 = var244;
+                                                                                                                                            var10001 = this;
+                                                                                                                                            var258 = new Object[1];
 
                                                                                                                                             var259 = var258;
                                                                                                                                             var261 = var1;
@@ -3700,10 +2378,6 @@ public class TSConfig {
                                                                                                                                                 var255 = var167;
                                                                                                                                                 var256 = false;
                                                                                                                                                 break label744;
-                                                                                                                                            } catch (NoSuchMethodException var168) {
-                                                                                                                                                var254 = var168;
-                                                                                                                                                var256 = false;
-                                                                                                                                                break label743;
                                                                                                                                             } catch (IllegalAccessException var169) {
                                                                                                                                                 var253 = var169;
                                                                                                                                                 var256 = false;
@@ -3762,73 +2436,21 @@ public class TSConfig {
 
         }
 
-        private void a(String var1) {
-            TSConfig.Builder var10000 = this;
-            List var2;
-            synchronized(var2 = this.dirtyFields){}
-
-            boolean var10001;
-            Throwable var23;
-            boolean var24;
-            try {
-                var24 = var10000.dirtyFields.contains(var1);
-            } catch (Throwable var22) {
-                var23 = var22;
-                var10001 = false;
-                throw var23;
-            }
-
-            if (var24) {
-                try {
-                    ;
-                } catch (Throwable var19) {
-                    var23 = var19;
-                    var10001 = false;
-                    throw var23;
+        private void a(String string) {
+            Builder builder = this;
+            synchronized (builder.dirtyFields) {
+                if (builder.dirtyFields.contains(string)) {
+                    return;
                 }
-            } else {
-                List var25;
-                try {
-                    var25 = var2;
-                    this.dirtyFields.add(var1);
-                } catch (Throwable var21) {
-                    var23 = var21;
-                    var10001 = false;
-                    throw var23;
-                }
-
-                try {
-                    ;
-                } catch (Throwable var20) {
-                    var23 = var20;
-                    var10001 = false;
-                    throw var23;
-                }
+                this.dirtyFields.add(string);
             }
         }
 
-        private void a(List<String> var1) {
-            List var2;
-            List var10000 = var2 = this.dirtyFields;
-            TSConfig.Builder var10001 = this;
-            synchronized(var2){}
-
-            Throwable var9;
-            boolean var10;
-            try {
-                var10001.dirtyFields.addAll(var1);
-            } catch (Throwable var8) {
-                var9 = var8;
-                var10 = false;
-                throw var9;
-            }
-
-            try {
-                ;
-            } catch (Throwable var7) {
-                var9 = var7;
-                var10 = false;
-                throw var9;
+        private void a(List<String> list) {
+            List<String> list2 = this.dirtyFields;
+            synchronized (list2) {
+                this.dirtyFields.addAll(list);
+                return;
             }
         }
 
@@ -3921,106 +2543,54 @@ public class TSConfig {
         private JSONObject b(boolean var1) {
             TSConfig.Builder var10000 = this;
             JSONObject var2;
-            var2 = new JSONObject.<init>();
+            var2 = new JSONObject();
 
             JSONException var78;
-            label290: {
+            label290:
+            {
                 IllegalAccessException var77;
-                label272: {
+                label272:
+                {
                     boolean var10001;
                     Field[] var79;
-                    try {
-                        var79 = var10000.getClass().getDeclaredFields();
-                    } catch (JSONException var71) {
-                        var78 = var71;
-                        var10001 = false;
-                        break label290;
-                    } catch (IllegalAccessException var72) {
-                        var77 = var72;
-                        var10001 = false;
-                        break label272;
-                    }
+                    var79 = var10000.getClass().getDeclaredFields();
 
                     Field[] var3 = var79;
 
                     int var80;
-                    try {
-                        var80 = var79.length;
-                    } catch (JSONException var69) {
-                        var78 = var69;
-                        var10001 = false;
-                        break label290;
-                    } catch (IllegalAccessException var70) {
-                        var77 = var70;
-                        var10001 = false;
-                        break label272;
-                    }
+                    var80 = var79.length;
 
                     int var4 = var80;
                     int var5 = 0;
 
                     label258:
-                    while(true) {
+                    while (true) {
                         if (var5 >= var4) {
                             return var2;
                         }
 
                         Field var82;
-                        try {
-                            var10000 = this;
-                            var82 = var3[var5];
-                        } catch (JSONException var67) {
-                            var78 = var67;
-                            var10001 = false;
-                            break label290;
-                        } catch (IllegalAccessException var68) {
-                            var77 = var68;
-                            var10001 = false;
-                            break;
-                        }
+                        var10000 = this;
+                        var82 = var3[var5];
 
                         Field var6 = var82;
 
                         boolean var84;
-                        try {
-                            var84 = var10000.a(var82);
-                        } catch (JSONException var65) {
-                            var78 = var65;
-                            var10001 = false;
-                            break label290;
-                        } catch (IllegalAccessException var66) {
-                            var77 = var66;
-                            var10001 = false;
-                            break;
-                        }
+                        var84 = var10000.a(var82);
 
                         if (var84) {
                             String var10002;
                             TSConfig.Builder var85;
                             Field var86;
-                            try {
-                                var86 = var6;
-                                var85 = this;
-                                var10002 = var6.getName();
-                            } catch (JSONException var63) {
-                                var78 = var63;
-                                var10001 = false;
-                                break label290;
-                            } catch (IllegalAccessException var64) {
-                                var77 = var64;
-                                var10001 = false;
-                                break;
-                            }
+                            var86 = var6;
+                            var85 = this;
+                            var10002 = var6.getName();
 
                             String var7 = var10002;
 
                             Object var87;
                             try {
                                 var87 = var86.get(var85);
-                            } catch (JSONException var61) {
-                                var78 = var61;
-                                var10001 = false;
-                                break label290;
                             } catch (IllegalAccessException var62) {
                                 var77 = var62;
                                 var10001 = false;
@@ -4031,104 +2601,38 @@ public class TSConfig {
                             if (var87 != null) {
                                 Class var88;
                                 Class var89;
-                                try {
-                                    var89 = var6.getType();
-                                    var88 = Map.class;
-                                } catch (JSONException var59) {
-                                    var78 = var59;
-                                    var10001 = false;
-                                    break label290;
-                                } catch (IllegalAccessException var60) {
-                                    var77 = var60;
-                                    var10001 = false;
-                                    break;
-                                }
+                                var89 = var6.getType();
+                                var88 = Map.class;
 
                                 if (var89 == var88) {
                                     try {
-                                        var2.put(var7, new JSONObject((Map)var8));
+                                        var2.put(var7, new JSONObject((Map) var8));
                                     } catch (JSONException var57) {
                                         var78 = var57;
                                         var10001 = false;
                                         break label290;
-                                    } catch (IllegalAccessException var58) {
-                                        var77 = var58;
-                                        var10001 = false;
-                                        break;
                                     }
                                 } else {
-                                    try {
-                                        var89 = var6.getType();
-                                        var88 = List.class;
-                                    } catch (JSONException var55) {
-                                        var78 = var55;
-                                        var10001 = false;
-                                        break label290;
-                                    } catch (IllegalAccessException var56) {
-                                        var77 = var56;
-                                        var10001 = false;
-                                        break;
-                                    }
+                                    var89 = var6.getType();
+                                    var88 = List.class;
 
                                     if (var89 == var88) {
-                                        JSONArray var90;
-                                        try {
-                                            var87 = var8;
-                                            var90 = new JSONArray;
-                                        } catch (JSONException var53) {
-                                            var78 = var53;
-                                            var10001 = false;
-                                            break label290;
-                                        } catch (IllegalAccessException var54) {
-                                            var77 = var54;
-                                            var10001 = false;
-                                            break;
-                                        }
+                                        JSONArray var90 = new JSONArray();
+                                        var87 = var8;
 
                                         JSONArray var75 = var90;
 
-                                        try {
-                                            var90.<init>();
-                                            var89 = var87.getClass();
-                                            var88 = ArrayList.class;
-                                        } catch (JSONException var51) {
-                                            var78 = var51;
-                                            var10001 = false;
-                                            break label290;
-                                        } catch (IllegalAccessException var52) {
-                                            var77 = var52;
-                                            var10001 = false;
-                                            break;
-                                        }
+                                        var89 = var87.getClass();
+                                        var88 = ArrayList.class;
 
                                         if (var89 == var88) {
                                             Iterator var91;
-                                            try {
-                                                var91 = ((List)var8).iterator();
-                                            } catch (JSONException var49) {
-                                                var78 = var49;
-                                                var10001 = false;
-                                                break label290;
-                                            } catch (IllegalAccessException var50) {
-                                                var77 = var50;
-                                                var10001 = false;
-                                                break;
-                                            }
+                                            var91 = ((List) var8).iterator();
 
                                             Iterator var76 = var91;
 
-                                            while(true) {
-                                                try {
-                                                    var84 = var76.hasNext();
-                                                } catch (JSONException var45) {
-                                                    var78 = var45;
-                                                    var10001 = false;
-                                                    break label290;
-                                                } catch (IllegalAccessException var46) {
-                                                    var77 = var46;
-                                                    var10001 = false;
-                                                    break label258;
-                                                }
+                                            while (true) {
+                                                var84 = var76.hasNext();
 
                                                 if (!var84) {
                                                     try {
@@ -4138,194 +2642,73 @@ public class TSConfig {
                                                         var78 = var43;
                                                         var10001 = false;
                                                         break label290;
-                                                    } catch (IllegalAccessException var44) {
-                                                        var77 = var44;
-                                                        var10001 = false;
-                                                        break label258;
                                                     }
                                                 }
 
-                                                try {
-                                                    var75.put(var76.next());
-                                                } catch (JSONException var47) {
-                                                    var78 = var47;
-                                                    var10001 = false;
-                                                    break label290;
-                                                } catch (IllegalAccessException var48) {
-                                                    var77 = var48;
-                                                    var10001 = false;
-                                                    break label258;
-                                                }
+                                                var75.put(var76.next());
                                             }
                                         }
                                     } else {
-                                        try {
-                                            var89 = var6.getType();
-                                            var88 = Integer.class;
-                                        } catch (JSONException var41) {
-                                            var78 = var41;
-                                            var10001 = false;
-                                            break label290;
-                                        } catch (IllegalAccessException var42) {
-                                            var77 = var42;
-                                            var10001 = false;
-                                            break;
-                                        }
+                                        var89 = var6.getType();
+                                        var88 = Integer.class;
 
                                         if (var89 == var88) {
                                             try {
-                                                var2.put(var7, (Integer)var8);
+                                                var2.put(var7, (Integer) var8);
                                             } catch (JSONException var39) {
                                                 var78 = var39;
                                                 var10001 = false;
                                                 break label290;
-                                            } catch (IllegalAccessException var40) {
-                                                var77 = var40;
-                                                var10001 = false;
-                                                break;
                                             }
                                         } else {
-                                            try {
-                                                var89 = var6.getType();
-                                                var88 = Long.class;
-                                            } catch (JSONException var37) {
-                                                var78 = var37;
-                                                var10001 = false;
-                                                break label290;
-                                            } catch (IllegalAccessException var38) {
-                                                var77 = var38;
-                                                var10001 = false;
-                                                break;
-                                            }
+                                            var89 = var6.getType();
+                                            var88 = Long.class;
 
                                             if (var89 == var88) {
                                                 try {
-                                                    var2.put(var7, (Long)var8);
+                                                    var2.put(var7, (Long) var8);
                                                 } catch (JSONException var35) {
                                                     var78 = var35;
                                                     var10001 = false;
                                                     break label290;
-                                                } catch (IllegalAccessException var36) {
-                                                    var77 = var36;
-                                                    var10001 = false;
-                                                    break;
                                                 }
                                             } else {
-                                                label278: {
-                                                    try {
-                                                        var89 = var6.getType();
-                                                        var88 = Double.class;
-                                                    } catch (JSONException var33) {
-                                                        var78 = var33;
-                                                        var10001 = false;
-                                                        break label290;
-                                                    } catch (IllegalAccessException var34) {
-                                                        var77 = var34;
-                                                        var10001 = false;
-                                                        break;
-                                                    }
+                                                label278:
+                                                {
+                                                    var89 = var6.getType();
+                                                    var88 = Double.class;
 
                                                     double var81;
                                                     String var92;
                                                     JSONObject var93;
                                                     if (var89 == var88) {
-                                                        try {
-                                                            var93 = var2;
-                                                            var92 = var7;
-                                                            var81 = (Double)var8;
-                                                        } catch (JSONException var29) {
-                                                            var78 = var29;
-                                                            var10001 = false;
-                                                            break label290;
-                                                        } catch (IllegalAccessException var30) {
-                                                            var77 = var30;
-                                                            var10001 = false;
-                                                            break;
-                                                        }
+                                                        var93 = var2;
+                                                        var92 = var7;
+                                                        var81 = (Double) var8;
                                                     } else {
-                                                        try {
-                                                            var89 = var6.getType();
-                                                            var88 = Float.class;
-                                                        } catch (JSONException var31) {
-                                                            var78 = var31;
-                                                            var10001 = false;
-                                                            break label290;
-                                                        } catch (IllegalAccessException var32) {
-                                                            var77 = var32;
-                                                            var10001 = false;
-                                                            break;
-                                                        }
+                                                        var89 = var6.getType();
+                                                        var88 = Float.class;
 
                                                         if (var89 != var88) {
-                                                            try {
-                                                                var89 = var6.getType();
-                                                                var88 = TSNotification.class;
-                                                            } catch (JSONException var23) {
-                                                                var78 = var23;
-                                                                var10001 = false;
-                                                                break label290;
-                                                            } catch (IllegalAccessException var24) {
-                                                                var77 = var24;
-                                                                var10001 = false;
-                                                                break;
-                                                            }
+                                                            var89 = var6.getType();
+                                                            var88 = TSNotification.class;
 
                                                             JSONObject var83;
                                                             if (var89 == var88) {
-                                                                try {
-                                                                    var93 = var2;
-                                                                    var92 = var7;
-                                                                    var83 = ((TSNotification)var8).toJson(var1);
-                                                                } catch (JSONException var17) {
-                                                                    var78 = var17;
-                                                                    var10001 = false;
-                                                                    break label290;
-                                                                } catch (IllegalAccessException var18) {
-                                                                    var77 = var18;
-                                                                    var10001 = false;
-                                                                    break;
-                                                                }
+                                                                var93 = var2;
+                                                                var92 = var7;
+                                                                var83 = ((TSNotification) var8).toJson(var1);
                                                             } else {
-                                                                try {
-                                                                    var89 = var6.getType();
-                                                                    var88 = TSAuthorization.class;
-                                                                } catch (JSONException var21) {
-                                                                    var78 = var21;
-                                                                    var10001 = false;
-                                                                    break label290;
-                                                                } catch (IllegalAccessException var22) {
-                                                                    var77 = var22;
-                                                                    var10001 = false;
-                                                                    break;
-                                                                }
+                                                                var89 = var6.getType();
+                                                                var88 = TSAuthorization.class;
 
                                                                 if (var89 == var88) {
-                                                                    try {
-                                                                        var93 = var2;
-                                                                        var92 = var7;
-                                                                        var83 = ((TSAuthorization)var8).toJson(var1);
-                                                                    } catch (JSONException var15) {
-                                                                        var78 = var15;
-                                                                        var10001 = false;
-                                                                        break label290;
-                                                                    } catch (IllegalAccessException var16) {
-                                                                        var77 = var16;
-                                                                        var10001 = false;
-                                                                        break;
-                                                                    }
+                                                                    var93 = var2;
+                                                                    var92 = var7;
+                                                                    var83 = ((TSAuthorization) var8).toJson(var1);
                                                                 } else {
-                                                                    try {
-                                                                        var89 = var6.getType();
-                                                                        var88 = TSBackgroundPermissionRationale.class;
-                                                                    } catch (JSONException var19) {
-                                                                        var78 = var19;
-                                                                        var10001 = false;
-                                                                        break label290;
-                                                                    } catch (IllegalAccessException var20) {
-                                                                        var77 = var20;
-                                                                        var10001 = false;
-                                                                        break;
-                                                                    }
+                                                                    var89 = var6.getType();
+                                                                    var88 = TSBackgroundPermissionRationale.class;
 
                                                                     if (var89 != var88) {
                                                                         try {
@@ -4335,26 +2718,12 @@ public class TSConfig {
                                                                             var78 = var9;
                                                                             var10001 = false;
                                                                             break label290;
-                                                                        } catch (IllegalAccessException var10) {
-                                                                            var77 = var10;
-                                                                            var10001 = false;
-                                                                            break;
                                                                         }
                                                                     }
 
-                                                                    try {
-                                                                        var93 = var2;
-                                                                        var92 = var7;
-                                                                        var83 = ((TSBackgroundPermissionRationale)var8).toJson(var1);
-                                                                    } catch (JSONException var13) {
-                                                                        var78 = var13;
-                                                                        var10001 = false;
-                                                                        break label290;
-                                                                    } catch (IllegalAccessException var14) {
-                                                                        var77 = var14;
-                                                                        var10001 = false;
-                                                                        break;
-                                                                    }
+                                                                    var93 = var2;
+                                                                    var92 = var7;
+                                                                    var83 = ((TSBackgroundPermissionRationale) var8).toJson(var1);
                                                                 }
                                                             }
 
@@ -4365,26 +2734,12 @@ public class TSConfig {
                                                                 var78 = var11;
                                                                 var10001 = false;
                                                                 break label290;
-                                                            } catch (IllegalAccessException var12) {
-                                                                var77 = var12;
-                                                                var10001 = false;
-                                                                break;
                                                             }
                                                         }
 
-                                                        try {
-                                                            var93 = var2;
-                                                            var92 = var7;
-                                                            var81 = ((Float)var8).doubleValue();
-                                                        } catch (JSONException var27) {
-                                                            var78 = var27;
-                                                            var10001 = false;
-                                                            break label290;
-                                                        } catch (IllegalAccessException var28) {
-                                                            var77 = var28;
-                                                            var10001 = false;
-                                                            break;
-                                                        }
+                                                        var93 = var2;
+                                                        var92 = var7;
+                                                        var81 = ((Float) var8).doubleValue();
                                                     }
 
                                                     try {
@@ -4393,10 +2748,6 @@ public class TSConfig {
                                                         var78 = var25;
                                                         var10001 = false;
                                                         break label290;
-                                                    } catch (IllegalAccessException var26) {
-                                                        var77 = var26;
-                                                        var10001 = false;
-                                                        break;
                                                     }
                                                 }
                                             }
@@ -4673,7 +3024,7 @@ public class TSConfig {
         }
 
         public TSConfig.Builder setPersistMode(Integer var1) {
-            switch(var1) {
+            switch (var1) {
                 default:
                     TSLog.logger.warn(TSLog.warn(Application.B("榭踏\uf447鳈ਗ뭧錁뜽\uf0b0胦谒ﳉ흶ἠࠦ᳚ᣝ᭴钾\uddd5\uda51섫\uf072㧽⮇\ude16ѕἷⷬᆅ졽") + var1 + Application.B("槊蹁\uf411鳼ਈ뭧錋띺\uf0e6胣谛ﳚ흲ήࠬ᳁ᢏᬢ钯\udddc\uda56섽\uf021㦮") + 2));
                     var1 = 2;
@@ -4764,7 +3115,7 @@ public class TSConfig {
 
         public TSConfig.Builder setParams(JSONObject var1) {
             if (var1 == null) {
-                var1 = new JSONObject.<init>();
+                var1 = new JSONObject();
             }
 
             TSConfig.Builder var10000 = this;
@@ -4778,12 +3129,13 @@ public class TSConfig {
         public TSConfig.Builder setHeader(String var1, String var2) {
             if (this.headers == null) {
                 JSONObject var3;
-                var3 = new JSONObject.<init>();
+                var3 = new JSONObject();
                 this.headers = var3;
             }
 
             JSONException var10000;
-            label28: {
+            label28:
+            {
                 boolean var10001;
                 TSConfig.Builder var7;
                 try {
@@ -4795,13 +3147,8 @@ public class TSConfig {
                     break label28;
                 }
 
-                try {
-                    var7.a(Application.B("熗ꔖْ\ue1bd\u2068蒬\ufe6d"));
-                    return this;
-                } catch (JSONException var4) {
-                    var10000 = var4;
-                    var10001 = false;
-                }
+                var7.a(Application.B("熗ꔖْ\ue1bd\u2068蒬\ufe6d"));
+                return this;
             }
 
             JSONException var6 = var10000;
@@ -4811,7 +3158,7 @@ public class TSConfig {
 
         public TSConfig.Builder setHeaders(JSONObject var1) {
             if (var1 == null) {
-                var1 = new JSONObject.<init>();
+                var1 = new JSONObject();
             }
 
             TSConfig.Builder var10000 = this;
@@ -4824,7 +3171,7 @@ public class TSConfig {
 
         public TSConfig.Builder setExtras(JSONObject var1) {
             if (var1 == null) {
-                var1 = new JSONObject.<init>();
+                var1 = new JSONObject();
             }
 
             TSConfig.Builder var10000 = this;
