@@ -152,7 +152,7 @@ public class LocationProviderChangeEvent {
 
     public JSONObject toJson() {
         JSONObject var1;
-        JSONObject var10000 = var1 = new JSONObject;
+        JSONObject var10000 = var1 = new JSONObject();
         LocationProviderChangeEvent var10001 = this;
         JSONObject var10002 = var1;
         LocationProviderChangeEvent var10003 = this;
@@ -164,7 +164,6 @@ public class LocationProviderChangeEvent {
         LocationProviderChangeEvent var10009 = this;
         JSONObject var10010 = var1;
         LocationProviderChangeEvent var10011 = this;
-        var1.<init>();
         String var8 = Application.B("䖟駄뿴幤땮Ù捝");
 
         JSONException var10;
@@ -237,8 +236,7 @@ public class LocationProviderChangeEvent {
 
     public Map<String, Object> toMap() {
         HashMap var1;
-        HashMap var10000 = var1 = new HashMap;
-        var1.<init>();
+        HashMap var10000 = var1 = new HashMap();
         var1.put(Application.B("팘漰夈畀\u2bf7ｃ䡕"), this.mNetworkEnabled);
         var1.put(Application.B("팑漥夏"), this.mGpsEnabled);
         var1.put(Application.B("팓漻夝畕\u2bf4ｔ䡚"), this.isEnabled());

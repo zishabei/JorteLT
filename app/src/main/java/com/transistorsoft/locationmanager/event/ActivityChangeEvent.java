@@ -30,10 +30,10 @@ public class ActivityChangeEvent {
     }
 
     public JSONObject toJson() {
-        JSONObject var10000 = new JSONObject;
+        JSONObject var10000 = new JSONObject();
         JSONObject var1;
         JSONObject var10001 = var1 = var10000;
-        var10000.<init>();
+
         String var10002 = Application.B("\ue640퉨蜝謍\ua4cd鼪䨣阅");
 
         JSONException var5;

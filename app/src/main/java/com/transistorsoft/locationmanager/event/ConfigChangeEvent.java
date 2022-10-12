@@ -16,8 +16,7 @@ public class ConfigChangeEvent {
 
     public ConfigChangeEvent(Context var1, List<String> var2) {
         ArrayList var3;
-        ArrayList var10001 = var3 = new ArrayList;
-        var3.<init>();
+        ArrayList var10001 = var3 = new ArrayList();
         this.mDirtyFields = var3;
         var10001.addAll(var2);
         this.mContext = var1;

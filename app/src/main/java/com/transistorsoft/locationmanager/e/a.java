@@ -70,8 +70,7 @@ public class a {
 
         TSMediaPlayer.getInstance().debug(this.a, var3);
         StringBuilder var12;
-        StringBuilder var10001 = var12 = new StringBuilder;
-        var10001.<init>();
+        StringBuilder var10001 = var12 = new StringBuilder();
         var10001.append(TSLog.header(Application.B("\ud941닑ꨫ㉱\uf5ecļ氨賈\uf178뮳\u1f58\ue1be위陏碉输˦椑") + var2));
         Iterator var9 = var1.getTriggeringGeofences().iterator();
 
@@ -106,10 +105,9 @@ public class a {
                     TSLog.logger.error(Application.B("\ud940닕ꨭ㉻\uf5ecĶ汫爛\uf179믴\u1f1e\ue192윜陎磇辀ʹ楞괟䱥浣酀\uf35d䫔⻖\uda8eꓕઈ稰쯽舧憖㸼\udff6⡚ᶴ慞摺\udcf3\uf465膐^ં钼") + var16.getRequestId());
                 } else {
                     TSLocation var17;
-                    var17 = new TSLocation.<init>(this.a, var10, ActivityRecognitionService.getMostProbableActivity());
+                    var17 = new TSLocation(this.a, var10, ActivityRecognitionService.getMostProbableActivity());
                     GeofenceEvent var8;
-                    GeofenceEvent var22 = var8 = new GeofenceEvent;
-                    var22.<init>(var1, var18, var17);
+                    GeofenceEvent var22 = var8 = new GeofenceEvent(var1, var18, var17);
                     this.a(var22.getLocation());
                     EventBus.getDefault().post(var8);
                 }
@@ -176,14 +174,14 @@ public class a {
         Bundle var10000 = var2 = var1.getExtras();
         TSConfig var3 = TSConfig.getInstance(this.a);
         if (var10000 == null) {
-            var2 = new Bundle.<init>();
+            var2 = new Bundle();
         }
 
         var2.putString(Application.B("\ud967닗ꨰ㉾\uf5e6ļ"), Application.B("\ud969닚ꨃ㉲\uf5e6Ĵ氮滑\uf175뮱"));
         var2.putFloat(Application.B("\ud969닐ꨫ㉺\uf5ecĦ氮落"), var3.getOdometer());
         Context var8 = this.a;
         IntentFilter var4;
-        var4 = new IntentFilter.<init>(Application.B("\ud967닚ꨠ㉥\uf5e6Ļ氯籠\uf17f뮺Ἄ\ue19e윜陞磉辆ʿ楅괐䱯浣鄍\uf37a䪵⻰\udabfꓳવ稛쯆艄憷㸓\udf98⡹ᶐ慮"));
+        var4 = new IntentFilter(Application.B("\ud967닚ꨠ㉥\uf5e6Ļ氯籠\uf17f뮺Ἄ\ue19e윜陞磉辆ʿ楅괐䱯浣鄍\uf37a䪵⻰\udabfꓳવ稛쯆艄憷㸓\udf98⡹ᶐ慮"));
         Intent var5;
         if ((var5 = var8.registerReceiver((BroadcastReceiver)null, var4)) != null) {
             Intent var9 = var5;

@@ -22,19 +22,14 @@ public class GeofencesChangeEvent {
     private final List<String> mOff;
 
     public GeofencesChangeEvent() {
-        GeofencesChangeEvent var10000 = this;
-        GeofencesChangeEvent var10001 = this;
         super();
-        ArrayList var1;
-        var1 = new ArrayList.<init>();
-        var10001.mOn = var1;
-        var1 = new ArrayList.<init>();
-        var10000.mOff = var1;
+        mOn = new ArrayList<>();
+        mOff = new ArrayList<>();
     }
 
     public GeofencesChangeEvent(List<TSGeofence> var1, List<String> var2) {
-        this.mOn = var1;
-        this.mOff = var2;
+        mOn = var1;
+        mOff = var2;
     }
 
     public List<TSGeofence> getActivatedGeofences() {
@@ -48,56 +43,32 @@ public class GeofencesChangeEvent {
     public JSONObject toJson() {
         GeofencesChangeEvent var10000 = this;
         JSONArray var1;
-        var1 = new JSONArray.<init>();
+        var1 = new JSONArray();
         JSONArray var2;
-        var2 = new JSONArray.<init>();
+        var2 = new JSONArray();
         JSONObject var3;
-        var3 = new JSONObject.<init>();
+        var3 = new JSONObject();
 
         JSONException var15;
         label77: {
             Iterator var16;
             boolean var10001;
-            try {
-                var16 = var10000.mOff.iterator();
-            } catch (JSONException var12) {
-                var15 = var12;
-                var10001 = false;
-                break label77;
-            }
+            var16 = var10000.mOff.iterator();
 
             Iterator var4 = var16;
 
             label67:
             while(true) {
                 boolean var17;
-                try {
-                    var17 = var4.hasNext();
-                } catch (JSONException var10) {
-                    var15 = var10;
-                    var10001 = false;
-                    break;
-                }
+                var17 = var4.hasNext();
 
                 if (!var17) {
-                    try {
-                        var16 = this.mOn.iterator();
-                    } catch (JSONException var9) {
-                        var15 = var9;
-                        var10001 = false;
-                        break;
-                    }
+                    var16 = this.mOn.iterator();
 
                     Iterator var13 = var16;
 
                     while(true) {
-                        try {
-                            var17 = var13.hasNext();
-                        } catch (JSONException var7) {
-                            var15 = var7;
-                            var10001 = false;
-                            break label67;
-                        }
+                        var17 = var13.hasNext();
 
                         if (!var17) {
                             JSONObject var18;
@@ -120,23 +91,11 @@ public class GeofencesChangeEvent {
                             }
                         }
 
-                        try {
-                            var1.put(((TSGeofence)var13.next()).toJson());
-                        } catch (JSONException var8) {
-                            var15 = var8;
-                            var10001 = false;
-                            break label67;
-                        }
+                        var1.put(((TSGeofence)var13.next()).toJson());
                     }
                 }
 
-                try {
-                    var2.put((String)var4.next());
-                } catch (JSONException var11) {
-                    var15 = var11;
-                    var10001 = false;
-                    break;
-                }
+                var2.put((String)var4.next());
             }
         }
 
@@ -148,12 +107,11 @@ public class GeofencesChangeEvent {
 
     public Map<String, List> toMap() {
         HashMap var1;
-        HashMap var10001 = var1 = new HashMap;
-        var10001.<init>();
+        HashMap var10001 = var1 = new HashMap();
         ArrayList var2;
-        var2 = new ArrayList.<init>();
+        var2 = new ArrayList();
         ArrayList var3;
-        var3 = new ArrayList.<init>(this.mOff);
+        var3 = new ArrayList(this.mOff);
         var10001.put(Application.B("伊뫻걊"), var3);
         var10001.put(Application.B("伊뫳"), var2);
         Iterator var4 = this.mOn.iterator();

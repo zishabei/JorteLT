@@ -7,6 +7,7 @@ package com.transistorsoft.locationmanager.event;
 
 import android.content.Context;
 import com.transistorsoft.locationmanager.adapter.BackgroundGeolocation;
+import com.transistorsoft.locationmanager.http.HttpService;
 import com.transistorsoft.locationmanager.adapter.TSConfig;
 import com.transistorsoft.tslocationmanager.Application;
 

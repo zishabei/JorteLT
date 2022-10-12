@@ -31,9 +31,8 @@ public class ConnectivityChangeEvent {
 
     public JSONObject toJson() {
         JSONObject var1;
-        JSONObject var10000 = var1 = new JSONObject;
+        JSONObject var10000 = var1 = new JSONObject();
         ConnectivityChangeEvent var10001 = this;
-        var1.<init>();
         String var3 = Application.B("쎴\uab6bࠞ䦚\uec32⬹됄\udce8憳");
 
         try {

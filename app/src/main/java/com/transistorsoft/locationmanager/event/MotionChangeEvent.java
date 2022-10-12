@@ -29,10 +29,9 @@ public class MotionChangeEvent {
     }
 
     public JSONObject toJson() {
-        JSONObject var10000 = new JSONObject;
+        JSONObject var10000 = new JSONObject();
         JSONObject var1;
         JSONObject var10001 = var1 = var10000;
-        var10000.<init>();
         String var10002 = Application.B("梹햕\uef54飲鶥㌁\ue294\ua7d0");
 
         JSONException var5;

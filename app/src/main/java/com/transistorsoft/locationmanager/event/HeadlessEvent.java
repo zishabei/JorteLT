@@ -8,6 +8,7 @@ package com.transistorsoft.locationmanager.event;
 import android.content.Context;
 
 import com.transistorsoft.locationmanager.location.TSLocation;
+import com.transistorsoft.locationmanager.http.HttpResponse;
 import org.json.JSONObject;
 
 public class HeadlessEvent {

@@ -30,19 +30,13 @@ public class HeartbeatEvent {
     public JSONObject toJson() {
         HeartbeatEvent var10000 = this;
         JSONObject var1;
-        var1 = new JSONObject.<init>();
+        var1 = new JSONObject();
 
         JSONException var5;
         label32: {
             boolean var10001;
             TSLocation var6;
-            try {
-                var6 = var10000.mLocation;
-            } catch (JSONException var3) {
-                var5 = var3;
-                var10001 = false;
-                break label32;
-            }
+            var6 = var10000.mLocation;
 
             if (var6 == null) {
                 return var1;
@@ -69,19 +63,14 @@ public class HeartbeatEvent {
     public Map<String, Object> toMap() {
         HeartbeatEvent var10000 = this;
         HashMap var3;
-        var3 = new HashMap.<init>();
+        var3 = new HashMap();
         TSLocation var1;
         if ((var1 = var10000.mLocation) != null) {
             HashMap var4 = var3;
             TSLocation var10001 = var1;
             String var5 = Application.B("Šﲻ籶糦ᰮꩨ겐\uf85f");
 
-            try {
-                var4.put(var5, var10001.toMap());
-            } catch (JSONException var2) {
-                TSLog.logger.warn(TSLog.warn(var2.getMessage()));
-                var2.printStackTrace();
-            }
+            var4.put(var5, var10001.toMap());
         }
 
         return var3;

@@ -42,11 +42,10 @@ public class GeofenceEvent {
 
     public JSONObject toJson() {
         GeofenceEvent var10000 = this;
-        JSONObject var10001 = new JSONObject;
+        JSONObject var10001 = new JSONObject();
         JSONObject var10002 = var10001;
         JSONObject var1;
         JSONObject var10003 = var1 = var10001;
-        var10001.<init>();
         String var10004 = Application.B("얲䪭䚾ꁀٹ\uef8c\udb2aｱ");
 
         JSONException var9;
@@ -81,13 +80,7 @@ public class GeofenceEvent {
             }
 
             JSONObject var11;
-            try {
-                var11 = var10000.mLocation.getGeofenceExtras();
-            } catch (JSONException var3) {
-                var9 = var3;
-                var10 = false;
-                break label54;
-            }
+            var11 = var10000.mLocation.getGeofenceExtras();
 
             JSONObject var7 = var11;
             if (var11 == null) {
@@ -112,8 +105,7 @@ public class GeofenceEvent {
     public Map<String, Object> toMap() {
         GeofenceEvent var10000 = this;
         HashMap var1;
-        HashMap var10001 = var1 = new HashMap;
-        var1.<init>();
+        HashMap var10001 = var1 = new HashMap();
         var1.put(Application.B("썝\ud93e뼁െ僢㗸\uda28ꘊȤ匈"), this.mGeofenceRecord.getIdentifier());
         var10001.put(Application.B("썕\ud939뼐ു價㗿"), this.mLocation.getGeofenceAction());
         String var10002 = Application.B("썘\ud935뼇\u0d49僢㗸\uda21꘍");
@@ -121,22 +113,10 @@ public class GeofenceEvent {
         JSONException var8;
         label40: {
             boolean var10;
-            try {
-                var10001.put(var10002, this.mLocation.toMap());
-            } catch (JSONException var4) {
-                var8 = var4;
-                var10 = false;
-                break label40;
-            }
+            var10001.put(var10002, this.mLocation.toMap());
 
             JSONObject var9;
-            try {
-                var9 = var10000.mLocation.getGeofenceExtras();
-            } catch (JSONException var3) {
-                var8 = var3;
-                var10 = false;
-                break label40;
-            }
+            var9 = var10000.mLocation.getGeofenceExtras();
 
             JSONObject var5 = var9;
             if (var9 == null) {
@@ -147,18 +127,8 @@ public class GeofenceEvent {
             JSONObject var12 = var5;
             String var6 = Application.B("썑\ud922뼐൚僷㗢");
 
-            try {
-                var11.put(var6, Util.toMap(var12));
-                return var1;
-            } catch (JSONException var2) {
-                var8 = var2;
-                var10 = false;
-            }
+            var11.put(var6, Util.toMap(var12));
+            return var1;
         }
-
-        JSONException var7 = var8;
-        TSLog.logger.warn(TSLog.warn(var7.getMessage()));
-        var7.printStackTrace();
-        return var1;
     }
 }

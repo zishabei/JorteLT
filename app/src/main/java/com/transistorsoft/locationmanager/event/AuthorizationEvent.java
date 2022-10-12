@@ -39,8 +39,7 @@ public class AuthorizationEvent {
 
     public Map<String, Object> toMap() {
         HashMap var1;
-        HashMap var10001 = var1 = new HashMap;
-        var1.<init>();
+        HashMap var10001 = var1 = new HashMap();
         String var10005 = this.mError;
         var1.put(Application.B("ץ\ue2ca嘾䞍ꥨ"), var10005);
         var10001.put(Application.B("׳\ue2cd嘯䞁\ua97fﵝ\uf009"), this.isSuccessful());
@@ -51,11 +50,7 @@ public class AuthorizationEvent {
             JSONObject var5 = var3;
             String var4 = Application.B("ײ\ue2dd嘿䞒ꥵ\ufd40\uf009ｔ");
 
-            try {
-                var10000.put(var4, Util.toMap(var5));
-            } catch (JSONException var2) {
-                TSLog.logger.error(TSLog.error(var2.getMessage()), var2);
-            }
+            var10000.put(var4, Util.toMap(var5));
         }
 
         return var1;
@@ -63,13 +58,12 @@ public class AuthorizationEvent {
 
     public JSONObject toJson() {
         JSONObject var1;
-        JSONObject var10000 = var1 = new JSONObject;
+        JSONObject var10000 = var1 = new JSONObject();
         AuthorizationEvent var10001 = this;
         JSONObject var10002 = var1;
         AuthorizationEvent var10003 = this;
         JSONObject var10004 = var1;
         AuthorizationEvent var10005 = this;
-        var1.<init>();
         String var5 = Application.B("\udc47鞐즂䴝ᑐꏈ냙");
 
         JSONException var7;
