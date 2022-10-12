@@ -5,6 +5,7 @@
 
 package com.transistorsoft.locationmanager.data.sqlite;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -68,9 +69,10 @@ public class b implements LocationDAO {
         }
     }
 
+    @SuppressLint("Range")
     private LocationModel a(Cursor var1) {
         String var2;
-        var2 = new String.<init>(var1.getBlob(var1.getColumnIndex(Application.B("醣\ueea7ↈល"))));
+        var2 = new String(var1.getBlob(var1.getColumnIndex(Application.B("醣\ueea7ↈល"))));
         b var10002 = this;
         Cursor var10003 = var1;
         Cursor var10004 = var1;
@@ -82,35 +84,22 @@ public class b implements LocationDAO {
 
     private ContentValues a(JSONObject var1) {
         TSConfig.getInstance(this.a);
-        ContentValues var10000 = new ContentValues;
+        ContentValues var10000 = new ContentValues();
         ContentValues var6;
         ContentValues var10001 = var6 = var10000;
         JSONObject var10002 = var1;
         ContentValues var10003 = var6;
         ContentValues var10004 = var6;
-        var6.<init>();
         String var10005 = Application.B("醣\ueea7ↈល");
 
         JSONException var9;
         label42: {
             boolean var10;
-            try {
-                var10004.put(var10005, var1.toString().getBytes());
-            } catch (JSONException var5) {
-                var9 = var5;
-                var10 = false;
-                break label42;
-            }
+            var10004.put(var10005, var1.toString().getBytes());
 
             String var12 = Application.B("醢\ueea8↟ឈ䉷癚耢㱙岮");
 
-            try {
-                var10003.put(var12, 0);
-            } catch (JSONException var4) {
-                var9 = var4;
-                var10 = false;
-                break label42;
-            }
+            var10003.put(var12, 0);
 
             String var7 = Application.B("醳\ueeaf↑ស䉽癞耷㱑岺");
 
@@ -124,13 +113,8 @@ public class b implements LocationDAO {
 
             String var11 = Application.B("醫\ueea9↟ទ䉫癎");
 
-            try {
-                var10000.put(var11, 0);
-                return var6;
-            } catch (JSONException var2) {
-                var9 = var2;
-                var10 = false;
-            }
+            var10000.put(var11, 0);
+            return var6;
         }
 
         JSONException var8 = var9;
@@ -154,8 +138,7 @@ public class b implements LocationDAO {
         }
 
         ContentValues var5;
-        ContentValues var10000 = var5 = new ContentValues;
-        var5.<init>();
+        ContentValues var10000 = var5 = new ContentValues();
         var5.put(Application.B("醣\ueea7ↈល"), var4.getBytes());
         var5.put(Application.B("醢\ueea8↟ឈ䉷癚耢㱙岮"), 0);
         var5.put(Application.B("醲\ueeb3↕ឞ"), var1.getUUID());
@@ -170,8 +153,7 @@ public class b implements LocationDAO {
 
     public List<LocationModel> all() {
         Cursor var1 = null;
-        ArrayList var2;
-        var2 = new ArrayList.<init>();
+        ArrayList var2 = new ArrayList();
         SQLiteDatabase var3;
         if ((var3 = this.a()) == null) {
             return var2;
@@ -243,14 +225,14 @@ public class b implements LocationDAO {
                 var1.close();
             }
 
-            throw var24;
+            return null;
         }
     }
 
     public List<LocationModel> allWithLocking(Integer var1) {
         Cursor var2 = null;
         ArrayList var3;
-        var3 = new ArrayList.<init>();
+        var3 = new ArrayList();
         SQLiteDatabase var4;
         if ((var4 = this.a()) == null) {
             return var3;
@@ -274,7 +256,7 @@ public class b implements LocationDAO {
                 Throwable var167;
                 label1401: {
                     try {
-                        var168 = var10000.query(var10001, var10002, var10003, var10004, (String[])var10005, (String)var10006, (String)var10007, Application.B("狄㓉鈤") + TSConfig.getInstance(this.a).getLocationsOrderDirection(), var5);
+                        var168 = var10000.query(var10001, var10002, new String[]{""}, var10004, (String[])var10005, (String)var10006, (String)var10007, Application.B("狄㓉鈤") + TSConfig.getInstance(this.a).getLocationsOrderDirection(), var5);
                     } catch (Throwable var161) {
                         var167 = var161;
                         var10001 = false;
@@ -285,7 +267,7 @@ public class b implements LocationDAO {
 
                     ArrayList var169;
                     try {
-                        var169 = new ArrayList;
+                        var169 = new ArrayList();
                     } catch (Throwable var160) {
                         var167 = var160;
                         var10001 = false;
@@ -293,14 +275,6 @@ public class b implements LocationDAO {
                     }
 
                     ArrayList var165 = var169;
-
-                    try {
-                        var169.<init>();
-                    } catch (Throwable var159) {
-                        var167 = var159;
-                        var10001 = false;
-                        break label1401;
-                    }
 
                     while(true) {
                         boolean var170;
@@ -318,7 +292,7 @@ public class b implements LocationDAO {
                             try {
                                 var168 = var2;
                                 var174 = var4;
-                                var171 = new ContentValues;
+                                var171 = new ContentValues();
                             } catch (Throwable var154) {
                                 var167 = var154;
                                 var10001 = false;
@@ -327,14 +301,6 @@ public class b implements LocationDAO {
 
                             ContentValues var162;
                             var10003 = var162 = var171;
-
-                            try {
-                                var10003.<init>();
-                            } catch (Throwable var153) {
-                                var167 = var153;
-                                var10001 = false;
-                                break;
-                            }
 
                             String var173 = Application.B("狁㓂鉧\uf8f4\uab6d큣");
 
@@ -404,8 +370,7 @@ public class b implements LocationDAO {
                 if (var2 != null) {
                     var2.close();
                 }
-
-                throw var164;
+return  null;
             }
 
             if (var168 != null) {
@@ -416,6 +381,7 @@ public class b implements LocationDAO {
         }
     }
 
+    @SuppressLint("Range")
     @Nullable
     public LocationModel first() {
         Cursor var1 = null;
@@ -437,7 +403,7 @@ public class b implements LocationDAO {
             label1144: {
                 Cursor var119;
                 try {
-                    var119 = var10000.query(var10001, var10002, var10003, var10004, (String[])var10005, (String)var10006, (String)var10007, Application.B("\ueab8硻ᇼ") + TSConfig.getInstance(this.a).getLocationsOrderDirection(), Application.B("\ueae0"));
+                    var119 = var10000.query(var10001, var10002, new String[]{""}, var10004, (String[])var10005, (String)var10006, (String)var10007, Application.B("\ueab8硻ᇼ") + TSConfig.getInstance(this.a).getLocationsOrderDirection(), Application.B("\ueae0"));
                 } catch (Throwable var114) {
                     var118 = var114;
                     var10001 = false;
@@ -460,8 +426,6 @@ public class b implements LocationDAO {
                     if (var1 != null) {
                         var1.close();
                     }
-
-                    return var115;
                 }
 
                 LocationModel var121;
@@ -490,7 +454,7 @@ public class b implements LocationDAO {
 
                 ContentValues var124;
                 try {
-                    var124 = new ContentValues;
+                    var124 = new ContentValues();
                 } catch (Throwable var110) {
                     var118 = var110;
                     var10001 = false;
@@ -499,14 +463,6 @@ public class b implements LocationDAO {
 
                 ContentValues var4;
                 var10003 = var4 = var124;
-
-                try {
-                    var10003.<init>();
-                } catch (Throwable var109) {
-                    var118 = var109;
-                    var10001 = false;
-                    break label1144;
-                }
 
                 String var125 = Application.B("\ueabd硰ᆿ讃슠崇");
 
@@ -570,7 +526,12 @@ public class b implements LocationDAO {
                 var1.close();
             }
 
-            throw var115;
+            try {
+                throw var115;
+            } catch (Throwable ex) {
+                ex.printStackTrace();
+            }
+            return null;
         }
     }
 
@@ -581,8 +542,7 @@ public class b implements LocationDAO {
         } else {
             var4.beginTransaction();
             ContentValues var2;
-            ContentValues var10001 = var2 = new ContentValues;
-            var10001.<init>();
+            ContentValues var10001 = var2 = new ContentValues();
             var10001.put(Application.B("ꈇ说䶅ೂ俻澛"), 0);
             String[] var3;
             (var3 = new String[1])[0] = var1.id.toString();
@@ -600,7 +560,7 @@ public class b implements LocationDAO {
             return false;
         } else {
             ArrayList var2;
-            var2 = new ArrayList.<init>();
+            var2 = new ArrayList();
             Iterator var3 = var1.iterator();
 
             while(var3.hasNext()) {
@@ -608,8 +568,7 @@ public class b implements LocationDAO {
             }
 
             ContentValues var8;
-            ContentValues var10002 = var8 = new ContentValues;
-            var10002.<init>();
+            ContentValues var10002 = var8 = new ContentValues();
             var10002.put(Application.B("ꈇ说䶅ೂ俻澛"), 0);
             var4.beginTransaction();
             String var6 = Application.B("ꈂ诿䷆ೠ俐濟辙") + TextUtils.join(Application.B("ꉇ"), var2) + Application.B("ꉂ");
@@ -640,8 +599,7 @@ public class b implements LocationDAO {
         } else {
             var2.beginTransaction();
             ContentValues var1;
-            ContentValues var10001 = var1 = new ContentValues;
-            var10001.<init>();
+            ContentValues var10001 = var1 = new ContentValues();
             var10001.put(Application.B("ꈇ说䶅ೂ俻澛"), 0);
             int var10000 = var2.update(Application.B("ꈇ说䶅ೈ俪澖连銽壿"), var1, (String)null, (String[])null);
             var2.setTransactionSuccessful();
@@ -850,7 +808,7 @@ public class b implements LocationDAO {
         SQLiteDatabase var4;
         if ((var4 = this.a()) != null) {
             ArrayList var2;
-            var2 = new ArrayList.<init>();
+            var2 = new ArrayList();
             Iterator var3 = var1.iterator();
 
             while(var3.hasNext()) {
@@ -859,14 +817,14 @@ public class b implements LocationDAO {
 
             var4.beginTransaction();
             Integer var6;
-            if (var6 = var4.delete(Application.B("⛎朚伭ᝏ酂糍೯\uab17峔"), Application.B("⛋朑佮ᝧ酸粄ನ") + TextUtils.join(Application.B("⚎"), var2) + Application.B("⚋"), (String[])null) == var1.size()) {
-                TSLog.logger.debug(TSLog.ok(Application.B("⛦朰伂ᝫ酢糡ೄꭃ岇咣") + var6 + Application.B("⚋")));
-
-                for(Iterator var5 = var1.iterator(); var5.hasNext(); ((LocationModel)var5.next()).destroyed = true) {
-                }
-            } else {
-                TSLog.logger.error(TSLog.error(Application.B("⛦朰伂ᝫ酢糡ಠꬿ峦哂矟⭇ᥫ摦ѣ⧅") + var6 + Application.B("⚋")));
-            }
+//            if (var6 = var4.delete(Application.B("⛎朚伭ᝏ酂糍೯\uab17峔"), Application.B("⛋朑佮ᝧ酸粄ನ") + TextUtils.join(Application.B("⚎"), var2) + Application.B("⚋"), (String[])null) == var1.size()) {
+//                TSLog.logger.debug(TSLog.ok(Application.B("⛦朰伂ᝫ酢糡ೄꭃ岇咣") + var6 + Application.B("⚋")));
+//
+//                for(Iterator var5 = var1.iterator(); var5.hasNext(); ((LocationModel)var5.next()).destroyed = true) {
+//                }
+//            } else {
+//                TSLog.logger.error(TSLog.error(Application.B("⛦朰伂ᝫ酢糡ಠꬿ峦哂矟⭇ᥫ摦ѣ⧅") + var6 + Application.B("⚋")));
+//            }
 
             var4.setTransactionSuccessful();
             var4.endTransaction();
@@ -899,7 +857,7 @@ public class b implements LocationDAO {
             }
 
             Cursor var20;
-            int var22;
+            int var22 = 0;
             label183: {
                 Throwable var19;
                 label184: {
@@ -939,15 +897,13 @@ public class b implements LocationDAO {
                     var18.close();
                 }
 
-                throw var16;
+                try {
+                    throw var16;
+                } catch (Throwable ex) {
+                    ex.printStackTrace();
+                }
             }
-
-            int var17 = var22;
-            if (var20 != null) {
-                var18.close();
-            }
-
-            return var17;
+            return var22;
         }
     }
 
