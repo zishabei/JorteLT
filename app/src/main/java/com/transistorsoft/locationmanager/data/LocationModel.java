@@ -20,8 +20,8 @@ public class LocationModel {
     private final LocationDAO c;
 
     public LocationModel(LocationDAO var1, Integer var2, String var3, String var4, String var5) {
-        String var10000 = var5;
         super();
+        String var10000 = var5;
         this.json = null;
         this.destroyed = false;
         this.c = var1;
@@ -33,13 +33,7 @@ public class LocationModel {
         label33: {
             char var13;
             boolean var10001;
-            try {
-                var13 = var10000.charAt(0);
-            } catch (JSONException var9) {
-                var12 = var9;
-                var10001 = false;
-                break label33;
-            }
+            var13 = var10000.charAt(0);
 
             char var11 = var13;
             if (var13 == '{') {

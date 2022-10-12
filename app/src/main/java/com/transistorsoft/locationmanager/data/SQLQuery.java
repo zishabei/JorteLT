@@ -33,7 +33,7 @@ public class SQLQuery {
 
     public static SQLQuery fromMap(Map var0) {
         SQLQuery var1;
-        var1 = new SQLQuery.<init>();
+        var1 = new SQLQuery();
         if (var0.containsKey(FIELD_START)) {
             var1.setStart((Long)var0.get(FIELD_START));
         }
@@ -103,7 +103,7 @@ public class SQLQuery {
             return null;
         } else {
             ArrayList var2;
-            var2 = new ArrayList.<init>();
+            var2 = new ArrayList();
             if (this.a > 0L) {
                 var2.add(var1.getColumnName(ColumnName.TIMESTMP) + Application.B("ﮜ\ud92a\ued1d峖") + this.a);
             }
