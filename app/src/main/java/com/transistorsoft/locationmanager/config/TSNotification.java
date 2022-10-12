@@ -6,14 +6,17 @@
 package com.transistorsoft.locationmanager.config;
 
 import android.util.Log;
+
 import com.transistorsoft.locationmanager.logger.TSLog;
 import com.transistorsoft.tslocationmanager.Application;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +45,7 @@ public class TSNotification extends a implements IModule {
     }
 
     public TSNotification(JSONObject param1, boolean param2) {
+        this();
         // $FF: Couldn't be decompiled
     }
 
@@ -80,13 +84,13 @@ public class TSNotification extends a implements IModule {
 
         if (this.mStrings == null) {
             HashMap var1;
-            var1 = new HashMap.<init>();
+            var1 = new HashMap();
             this.mStrings = var1;
         }
 
         if (this.mActions == null) {
             ArrayList var2;
-            var2 = new ArrayList.<init>();
+            var2 = new ArrayList();
             this.mActions = var2;
         }
 
@@ -225,7 +229,7 @@ public class TSNotification extends a implements IModule {
     }
 
     public String getString(String var1) {
-        return !this.mStrings.containsKey(var1) ? null : (String)this.mStrings.get(var1);
+        return !this.mStrings.containsKey(var1) ? null : (String) this.mStrings.get(var1);
     }
 
     public Map<String, String> getStrings() {
@@ -250,8 +254,7 @@ public class TSNotification extends a implements IModule {
 
     public Map<String, Object> toMap() {
         HashMap var1;
-        HashMap var10000 = var1 = new HashMap;
-        var1.<init>();
+        HashMap var10000 = var1 = new HashMap();
         String var10022 = this.mLayout;
         var1.put(Application.B("첋懁\ud920ⷸ\u17ea\uaaf8"), var10022);
         String var10020 = this.mTitle;
@@ -280,7 +283,7 @@ public class TSNotification extends a implements IModule {
     public JSONObject toJson(boolean var1) {
         TSNotification var10000 = this;
         JSONObject var29;
-        JSONObject var10001 = var29 = new JSONObject;
+        JSONObject var10001 = var29 = new JSONObject();
         TSNotification var10002 = this;
         JSONObject var10003 = var29;
         TSNotification var10004 = this;
@@ -298,49 +301,18 @@ public class TSNotification extends a implements IModule {
         TSNotification var10016 = this;
         JSONObject var10017 = var29;
         TSNotification var10018 = this;
-        var29.<init>();
 
         JSONException var31;
-        label180: {
-            boolean var32;
-            JSONObject var10019;
-            try {
-                var10019 = new JSONObject;
-            } catch (JSONException var26) {
-                var31 = var26;
-                var32 = false;
-                break label180;
-            }
-
-            JSONObject var2 = var10019;
-
-            JSONArray var38;
-            try {
-                var10019.<init>();
-                var38 = new JSONArray;
-            } catch (JSONException var25) {
-                var31 = var25;
-                var32 = false;
-                break label180;
-            }
-
-            JSONArray var3 = var38;
-
-            try {
-                var38.<init>();
-            } catch (JSONException var24) {
-                var31 = var24;
-                var32 = false;
-                break label180;
-            }
-
+        label180:
+        {
+            JSONObject var2 = new JSONObject();
+            JSONArray var3 = new JSONArray();
             String var4 = Application.B("壄᠅嬘\ue5c8嘥棷");
 
             try {
                 var10017.put(var4, var10018.mLayout);
             } catch (JSONException var23) {
                 var31 = var23;
-                var32 = false;
                 break label180;
             }
 
@@ -350,7 +322,6 @@ public class TSNotification extends a implements IModule {
                 var10015.put(var4, var10016.mTitle);
             } catch (JSONException var22) {
                 var31 = var22;
-                var32 = false;
                 break label180;
             }
 
@@ -360,7 +331,6 @@ public class TSNotification extends a implements IModule {
                 var10013.put(var4, var10014.mText);
             } catch (JSONException var21) {
                 var31 = var21;
-                var32 = false;
                 break label180;
             }
 
@@ -370,7 +340,6 @@ public class TSNotification extends a implements IModule {
                 var10011.put(var4, var10012.mColor);
             } catch (JSONException var20) {
                 var31 = var20;
-                var32 = false;
                 break label180;
             }
 
@@ -380,7 +349,6 @@ public class TSNotification extends a implements IModule {
                 var10009.put(var4, var10010.mChannelName);
             } catch (JSONException var19) {
                 var31 = var19;
-                var32 = false;
                 break label180;
             }
 
@@ -390,7 +358,6 @@ public class TSNotification extends a implements IModule {
                 var10007.put(var4, var10008.mSmallIcon);
             } catch (JSONException var18) {
                 var31 = var18;
-                var32 = false;
                 break label180;
             }
 
@@ -400,7 +367,6 @@ public class TSNotification extends a implements IModule {
                 var10005.put(var4, var10006.mLargeIcon);
             } catch (JSONException var17) {
                 var31 = var17;
-                var32 = false;
                 break label180;
             }
 
@@ -410,7 +376,6 @@ public class TSNotification extends a implements IModule {
                 var10003.put(var4, var10004.mPriority);
             } catch (JSONException var16) {
                 var31 = var16;
-                var32 = false;
                 break label180;
             }
 
@@ -420,31 +385,18 @@ public class TSNotification extends a implements IModule {
                 var10001.put(var4, var10002.mSticky);
             } catch (JSONException var15) {
                 var31 = var15;
-                var32 = false;
                 break label180;
             }
 
             Iterator var34;
-            try {
-                var34 = var10000.mStrings.entrySet().iterator();
-            } catch (JSONException var14) {
-                var31 = var14;
-                var32 = false;
-                break label180;
-            }
+            var34 = var10000.mStrings.entrySet().iterator();
 
             Iterator var30 = var34;
 
             label122:
-            while(true) {
+            while (true) {
                 boolean var35;
-                try {
-                    var35 = var30.hasNext();
-                } catch (JSONException var11) {
-                    var31 = var11;
-                    var32 = false;
-                    break;
-                }
+                var35 = var30.hasNext();
 
                 if (!var35) {
                     try {
@@ -452,28 +404,15 @@ public class TSNotification extends a implements IModule {
                         var29.put(Application.B("壛᠐嬓\ue5ce嘾棤㇠"), var2);
                     } catch (JSONException var10) {
                         var31 = var10;
-                        var32 = false;
                         break;
                     }
 
-                    try {
-                        var34 = var10000.mActions.iterator();
-                    } catch (JSONException var9) {
-                        var31 = var9;
-                        var32 = false;
-                        break;
-                    }
+                    var34 = var10000.mActions.iterator();
 
                     Iterator var27 = var34;
 
-                    while(true) {
-                        try {
-                            var35 = var27.hasNext();
-                        } catch (JSONException var7) {
-                            var31 = var7;
-                            var32 = false;
-                            break label122;
-                        }
+                    while (true) {
+                        var35 = var27.hasNext();
 
                         if (!var35) {
                             try {
@@ -481,33 +420,20 @@ public class TSNotification extends a implements IModule {
                                 return var29;
                             } catch (JSONException var6) {
                                 var31 = var6;
-                                var32 = false;
                                 break label122;
                             }
                         }
 
-                        try {
-                            var3.put((String)var27.next());
-                        } catch (JSONException var8) {
-                            var31 = var8;
-                            var32 = false;
-                            break label122;
-                        }
+                        var3.put((String) var27.next());
                     }
                 }
 
                 String var33;
                 JSONObject var36;
                 Entry var37;
-                try {
-                    var36 = var2;
-                    var37 = (Entry)var30.next();
-                    var33 = (String)var37.getKey();
-                } catch (JSONException var13) {
-                    var31 = var13;
-                    var32 = false;
-                    break;
-                }
+                var36 = var2;
+                var37 = (Entry) var30.next();
+                var33 = (String) var37.getKey();
 
                 String var5 = var33;
 
@@ -515,7 +441,6 @@ public class TSNotification extends a implements IModule {
                     var36.put(var5, var37.getValue());
                 } catch (JSONException var12) {
                     var31 = var12;
-                    var32 = false;
                     break;
                 }
             }
