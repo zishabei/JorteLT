@@ -6,21 +6,17 @@
 package com.transistorsoft.locationmanager.config;
 
 import com.transistorsoft.tslocationmanager.Application;
+
 import java.util.ArrayList;
 import java.util.List;
 
 class a {
-    private final List<String> mDirtyFields;
+    private final List<String> mDirtyFields = new ArrayList();
     private final String mModuleName;
 
     a(String var1) {
-        a var10000 = this;
-        a var10001 = this;
         super();
-        ArrayList var2;
-        var2 = new ArrayList.<init>();
-        var10001.mDirtyFields = var2;
-        var10000.mModuleName = var1;
+        mModuleName = var1;
     }
 
     public List<String> getDirtyFields() {
