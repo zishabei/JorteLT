@@ -44,6 +44,7 @@ import com.transistorsoft.locationmanager.service.ActivityRecognitionService;
 import com.transistorsoft.locationmanager.service.TrackingService;
 import com.transistorsoft.locationmanager.util.c;
 import com.transistorsoft.tslocationmanager.Application;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,6 +56,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -128,7 +130,7 @@ public class TSLocationManager {
     public static float speedBetween(Location var0, Location var1) {
         Location var10000 = var0;
         long var2 = elapsedTimeMillis(var0, var1);
-        return var10000.distanceTo(var1) / (float)var2 * 1000.0F;
+        return var10000.distanceTo(var1) / (float) var2 * 1000.0F;
     }
 
     private TSLocationManager(Context var1) {
@@ -176,40 +178,41 @@ public class TSLocationManager {
         TSLocationManager var10000 = this;
         TSLocationManager var10001 = this;
         Location var2;
-        synchronized(var2 = this.mLastOdometerLocation){}
+        synchronized (var2 = this.mLastOdometerLocation) {
+        }
 
         Throwable var61;
         boolean var62;
         boolean var63;
-            var62 = var10000.hasLocation(var10001.mLastOdometerLocation);
+        var62 = var10000.hasLocation(var10001.mLastOdometerLocation);
 
         if (!var62) {
-                this.persistLastOdometerLocation(var1);
+            this.persistLastOdometerLocation(var1);
         } else {
             float var64;
-                var64 = var1.distanceTo(this.mLastOdometerLocation);
+            var64 = var1.distanceTo(this.mLastOdometerLocation);
 
             float var3 = var64;
 
             float var66;
             float var10002;
-                var66 = var1.getAccuracy();
-                var10002 = this.mLastOdometerLocation.getAccuracy();
+            var66 = var1.getAccuracy();
+            var10002 = this.mLastOdometerLocation.getAccuracy();
 
             if (var64 < (var66 + var10002) / 2.0F) {
             } else {
                 Location var65;
                 Location var67;
                 Float var10003;
-                    var67 = var2;
-                    var10001 = this;
-                    var65 = var1;
-                    var10003 = TSConfig.getInstance(this.mContext).incrementOdometer(var3);
+                var67 = var2;
+                var10001 = this;
+                var65 = var1;
+                var10003 = TSConfig.getInstance(this.mContext).incrementOdometer(var3);
 
                 Float var60 = var10003;
 
-                    TSLog.logger.debug(Application.B("蠌\ue46e瓅迗韼棳쪠ꁬ\u0878悄") + var60);
-                    var10001.persistLastOdometerLocation(var65);
+                TSLog.logger.debug(Application.B("蠌\ue46e瓅迗韼棳쪠ꁬ\u0878悄") + var60);
+                var10001.persistLastOdometerLocation(var65);
             }
         }
     }
@@ -217,31 +220,32 @@ public class TSLocationManager {
     private void setLastLocation(Location var1) {
         TSLocationManager var10000 = this;
         TSLocationManager var10001 = this;
-        synchronized(this.mLastLocation){}
+        synchronized (this.mLastLocation) {
+        }
 
         Throwable var152;
         boolean var153;
         boolean var154;
-            var153 = var10000.hasLocation(var10001.mLastLocation);
+        var153 = var10000.hasLocation(var10001.mLastLocation);
 
 
         if (var153) {
             long var155;
             long var156;
-                var155 = TSLocation.getTime(var1);
-                var156 = TSLocation.getTime(this.mLastLocation);
+            var155 = TSLocation.getTime(var1);
+            var156 = TSLocation.getTime(this.mLastLocation);
 
 
             if (var155 < var156) {
-                    return;
+                return;
             }
         }
 
         Location var10002;
         Location var157;
-            var157 = var1;
-            var10001 = this;
-            var10002 = var1;
+        var157 = var1;
+        var10001 = this;
+        var10002 = var1;
 
         float var2;
         var10001.calculateMedianAccuracy(var2 = var10002.getAccuracy());
@@ -258,13 +262,14 @@ public class TSLocationManager {
                 if (!var151.getIsMoving() && !var3) {
                     var10000 = this;
                     var10001 = this;
-                    synchronized(this.mLastOdometerLocation){}
+                    synchronized (this.mLastOdometerLocation) {
+                    }
 
-                        var153 = var10000.hasLocation(var10001.mLastOdometerLocation);
+                    var153 = var10000.hasLocation(var10001.mLastOdometerLocation);
 
 
                     if (!var153) {
-                            this.persistLastOdometerLocation(var1);
+                        this.persistLastOdometerLocation(var1);
                     }
 
                 } else {
@@ -274,28 +279,30 @@ public class TSLocationManager {
 
             var10000 = this;
             var10001 = this;
-            synchronized(this.mLastGoodLocation){}
+            synchronized (this.mLastGoodLocation) {
+            }
 
-                var153 = var10000.hasLocation(var10001.mLastGoodLocation);
+            var153 = var10000.hasLocation(var10001.mLastGoodLocation);
 
-            label1403: {
+            label1403:
+            {
                 if (var153) {
                     float var158;
                     float var159;
-                        var159 = var2;
-                        var158 = TSConfig.MAXIMUM_LOCATION_ACCURACY;
+                    var159 = var2;
+                    var158 = TSConfig.MAXIMUM_LOCATION_ACCURACY;
                     if (!(var159 <= var158)) {
                         break label1403;
                     }
                 }
-                    this.mLastGoodLocation.set(var1);
+                this.mLastGoodLocation.set(var1);
             }
         }
 
         Location var150;
         var157 = var150 = this.mLastLocation;
         var10001 = this;
-        synchronized(var150) {
+        synchronized (var150) {
             var10001.mLastLocation.set(var1);
         }
     }
@@ -303,19 +310,20 @@ public class TSLocationManager {
     private void calculateMedianAccuracy(float var1) {
         TSLocationManager var10000 = this;
         TSLocationManager var10001 = this;
-        synchronized(this.mAccuracyQueue){}
+        synchronized (this.mAccuracyQueue) {
+        }
 
         Throwable var187;
         boolean var189;
-            var10001.mAccuracyQueue.add(var1);
+        var10001.mAccuracyQueue.add(var1);
 
 
         int var188;
-            var188 = var10000.mAccuracyQueue.size();
+        var188 = var10000.mAccuracyQueue.size();
 
 
         if (var188 > 11) {
-                this.mAccuracyQueue.remove(0);
+            this.mAccuracyQueue.remove(0);
 
         }
 
@@ -328,73 +336,74 @@ public class TSLocationManager {
         ArrayList var10003 = var186 = var190;
 
         int var193;
-            Collections.sort(var10002, new Comparator<Float>() {
-                public int compare(Float var1, Float var2) {
-                    return (int)(var1 - var2);
-                }
-            });
-            var193 = var191.size() / 2;
+        Collections.sort(var10002, new Comparator<Float>() {
+            public int compare(Float var1, Float var2) {
+                return (int) (var1 - var2);
+            }
+        });
+        var193 = var191.size() / 2;
 
         int var3 = var193;
 
-            var188 = var190.size();
+        var188 = var190.size();
 
         float var195;
         if (var188 == 1) {
-                var10000 = this;
-                var195 = (Float)var186.get(0);
+            var10000 = this;
+            var195 = (Float) var186.get(0);
         } else {
-                var188 = var186.size() % 2;
+            var188 = var186.size() % 2;
 
             if (var188 > 0) {
-                    var10000 = this;
-                    var195 = (Float)var186.get(var3);
+                var10000 = this;
+                var195 = (Float) var186.get(var3);
             } else {
-                    var10000 = this;
-                    var195 = (Float)var186.get(var3);
+                var10000 = this;
+                var195 = (Float) var186.get(var3);
 
                 var10002 = var186;
                 int var194 = var3 - 1;
 
                 float var192;
-                    var192 = (Float)var10002.get(var194);
+                var192 = (Float) var10002.get(var194);
 
                 var195 = (var195 + var192) / 2.0F;
             }
         }
 
-            var10000.mMedianLocationAccuracy = var195;
+        var10000.mMedianLocationAccuracy = var195;
 
-            TSLog.logger.debug(Application.B("ゐ毘鵧ꑶ鍢է捤\uf434撓聱뱟菴숹葨䳂\uf46d\udeac") + this.mMedianLocationAccuracy);
+        TSLog.logger.debug(Application.B("ゐ毘鵧ꑶ鍢է捤\uf434撓聱뱟菴숹葨䳂\uf46d\udeac") + this.mMedianLocationAccuracy);
     }
 
     private void stopSingleLocationRequests() {
         TSLocationManager var10000 = this;
-        synchronized(this.locationRequests){}
+        synchronized (this.locationRequests) {
+        }
 
         Iterator var34;
         boolean var10001;
-            var34 = var10000.locationRequests.entrySet().iterator();
+        var34 = var10000.locationRequests.entrySet().iterator();
 
         Iterator var1 = var34;
 
-        while(true) {
+        while (true) {
             boolean var35;
-                var35 = var1.hasNext();
+            var35 = var1.hasNext();
 
             if (!var35) {
-                    return;
+                return;
             }
 
             SingleLocationRequest var36;
-                var34 = var1;
-                var36 = (SingleLocationRequest)((Entry)var1.next()).getValue();
+            var34 = var1;
+            var36 = (SingleLocationRequest) ((Entry) var1.next()).getValue();
 
             SingleLocationRequest var2 = var36;
 
-                var36.finish();
-                TSLog.logger.debug(TSLog.off(Application.B("،될Τᝯ㥖\uf254顖ꡗ蘵➕㎚ԍ䙍䞭᧫貿௷鄑⊽\uf166푣侫") + var2.getId()));
-                var34.remove();
+            var36.finish();
+            TSLog.logger.debug(TSLog.off(Application.B("،될Τᝯ㥖\uf254顖ꡗ蘵➕㎚ԍ䙍䞭᧫貿௷鄑⊽\uf166푣侫") + var2.getId()));
+            var34.remove();
         }
     }
 
@@ -410,43 +419,44 @@ public class TSLocationManager {
     private boolean locationSameAsLast(Location var1) {
         TSLocationManager var10000 = this;
         TSLocationManager var10001 = this;
-        synchronized(this.mLastLocation){}
+        synchronized (this.mLastLocation) {
+        }
 
         Throwable var59;
         boolean var60;
         boolean var61;
-            var60 = var10000.hasLocation(var10001.mLastLocation);
+        var60 = var10000.hasLocation(var10001.mLastLocation);
 
         if (!var60) {
             var60 = false;
 
-                return var60;
+            return var60;
         } else {
             long var62;
             long var63;
-                var62 = this.mLastLocation.getTime();
-                var63 = var1.getTime();
+            var62 = this.mLastLocation.getTime();
+            var63 = var1.getTime();
 
             if (var62 == var63) {
                 double var64;
                 double var65;
-                    var64 = this.mLastLocation.getLatitude();
-                    var65 = var1.getLatitude();
+                var64 = this.mLastLocation.getLatitude();
+                var65 = var1.getLatitude();
 
                 if (var64 == var65) {
-                        var64 = this.mLastLocation.getLongitude();
-                        var65 = var1.getLongitude();
+                    var64 = this.mLastLocation.getLongitude();
+                    var65 = var1.getLongitude();
 
                     if (var64 == var65) {
                         var60 = true;
 
-                            return var60;
+                        return var60;
                     }
                 }
             }
 
             Location var66;
-                var66 = var1;
+            var66 = var1;
 
             if (var66.getLatitude() == this.mLastLocation.getLatitude() && var1.getLongitude() == this.mLastLocation.getLongitude() && var1.getSpeed() == this.mLastLocation.getSpeed() && var1.getBearing() == this.mLastLocation.getBearing()) {
                 return true;
@@ -459,73 +469,75 @@ public class TSLocationManager {
     private boolean locationIsInvalid(Location var1) {
         TSLocationManager var10000 = this;
         TSLocationManager var10001 = this;
-        synchronized(this.mLastLocation){}
+        synchronized (this.mLastLocation) {
+        }
 
         Throwable var387;
         boolean var388;
         boolean var389;
-            var388 = var10000.hasLocation(var10001.mLastLocation);
+        var388 = var10000.hasLocation(var10001.mLastLocation);
 
         if (!var388) {
             var388 = false;
 
-                return var388;
+            return var388;
         } else {
             float var390;
-                var10000 = this;
-                var390 = speedBetween(var1, this.mLastLocation);
+            var10000 = this;
+            var390 = speedBetween(var1, this.mLastLocation);
 
             float var3 = var390;
 
             float var391;
-                var391 = var10000.mLastLocation.distanceTo(var1);
+            var391 = var10000.mLastLocation.distanceTo(var1);
 
             float var4 = var391;
 
             Location var392;
             long var10002;
-                var392 = var1;
-                var10002 = elapsedTimeMillis(var1, this.mLastLocation);
-            float var5 = (float)var10002;
+            var392 = var1;
+            var10002 = elapsedTimeMillis(var1, this.mLastLocation);
+            float var5 = (float) var10002;
 
-                var390 = var392.getAccuracy();
+            var390 = var392.getAccuracy();
 
             if (var391 < var390) {
                 var388 = false;
 
-                    return var388;
+                return var388;
             } else {
                 int var393;
-                    var391 = var3;
-                    TSLog.logger.debug(Application.B("揞芞驪۫\u2fda壘\uf376ﮁ\u0a5d㨍\uf22d䕼騤髯\uf2a5燇㱎秮\ue8ab拯☫균㱭㤨⚃㰬搙\uea56؋") + var4 + Application.B("掶苗驸ۯ⿋壗\uf367ﮁਓ㨟\uf27f䕠騹骪\uf2ac燂㰇禺") + var3);
-                    var393 = TSConfig.getInstance(this.mContext).getSpeedJumpFilter();
+                var391 = var3;
+                TSLog.logger.debug(Application.B("揞芞驪۫\u2fda壘\uf376ﮁ\u0a5d㨍\uf22d䕼騤髯\uf2a5燇㱎秮\ue8ab拯☫균㱭㤨⚃㰬搙\uea56؋") + var4 + Application.B("掶苗驸ۯ⿋壗\uf367ﮁਓ㨟\uf27f䕠騹骪\uf2ac燂㰇禺") + var3);
+                var393 = TSConfig.getInstance(this.mContext).getSpeedJumpFilter();
 
-                if (var391 > (float)var393) {
+                if (var391 > (float) var393) {
                     StringBuffer var394 = new StringBuffer();
 
                     StringBuffer var6;
                     StringBuffer var395 = var6 = var394;
 
 
-                        var394.append(TSLog.warn(Application.B("揞芒驭ۺ\u2fd8壂\uf370ﮀ\u0a5d㨂\uf231䕥騨骣\uf2a0燂㰝秶\ue8e4拠☥귷㱥㤳⚄㱣摟\uea18َ\udcfd皜搡◣♨㶀⋈䛄쟃ṻꢃ뫍㍉춒痠ႆ뉙攳遾뙨껬딂屡尻羶\ud808ဍⲅ䚘롈ᤅ") + var3 + Application.B("掺芚驼۫\u2fde壄\uf366\ufbcb\u0a0e㩋\uf277䕷騠骼\uf2bd燇㱓秹\ue8ee抣☢귱㱣㤱⛊㰯搖\uea1fٟ\udcb1皕搾◯♻㶀⊈䚋쟚Ḩ꣗") + var4 + Application.B("掺芚驼۫\u2fde壄\uf366\ufbc8\u0a5d㨏\uf22b䔩驩") + var5 + Application.B("掳")));
+                    var394.append(TSLog.warn(Application.B("揞芒驭ۺ\u2fd8壂\uf370ﮀ\u0a5d㨂\uf231䕥騨骣\uf2a0燂㰝秶\ue8e4拠☥귷㱥㤳⚄㱣摟\uea18َ\udcfd皜搡◣♨㶀⋈䛄쟃ṻꢃ뫍㍉춒痠ႆ뉙攳遾뙨껬딂屡尻羶\ud808ဍⲅ䚘롈ᤅ") + var3 + Application.B("掺芚驼۫\u2fde壄\uf366\ufbcb\u0a0e㩋\uf277䕷騠骼\uf2bd燇㱓秹\ue8ee抣☢귱㱣㤱⛊㰯搖\uea1fٟ\udcb1皕搾◯♻㶀⊈䚋쟚Ḩ꣗") + var4 + Application.B("掺芚驼۫\u2fde壄\uf366\ufbc8\u0a5d㨏\uf22b䔩驩") + var5 + Application.B("掳")));
 
 
                     int var396;
 
-                        var396 = VERSION.SDK_INT;
+                    var396 = VERSION.SDK_INT;
 
 
-                    label2818: {
+                    label2818:
+                    {
                         if (var396 >= 18) {
 
-                                var388 = var1.isFromMockProvider();
+                            var388 = var1.isFromMockProvider();
 
 
                             if (var388) {
                                 break label2818;
                             }
 
-                                var388 = this.mLastLocation.isFromMockProvider();
+                            var388 = this.mLastLocation.isFromMockProvider();
 
 
                             if (var388) {
@@ -533,30 +545,30 @@ public class TSLocationManager {
                             }
                         }
 
-                            TSLog.logger.warn(var6.toString());
+                        TSLog.logger.warn(var6.toString());
 
 
                         var388 = true;
 
 
-                            return var388;
+                        return var388;
 
                     }
 
-                        var6.append(TSLog.warn(Application.B("插芘驮ۺ⿍壓\uf367\ufbc8\u0a5d㨇\uf230䕰騨骻\uf2a0燉㱓禺\ue8e6括☧귨㱥㤲⚍㱣搞\uea1f؋\udcf5皜搥◩♹㶀⊄䚀잚Ḳ꣗뫫㌆춁痽႗뉔攭遢똪꺸땖屺尢羠\ud84dစⳊ䚔롏ᥑ뚙\uf02b쮓쀪敼\ue295렉覡\uf81dᨐ鱳鮍풆⅒债⌀䖈\ufadf餉⊀\uda41䋧茅⋾尠ีѧჷ넜됉櫎톂閳祆ᆊ")));
+                    var6.append(TSLog.warn(Application.B("插芘驮ۺ⿍壓\uf367\ufbc8\u0a5d㨇\uf230䕰騨骻\uf2a0燉㱓禺\ue8e6括☧귨㱥㤲⚍㱣搞\uea1f؋\udcf5皜搥◩♹㶀⊄䚀잚Ḳ꣗뫫㌆춁痽႗뉔攭遢똪꺸땖屺尢羠\ud84dစⳊ䚔롏ᥑ뚙\uf02b쮓쀪敼\ue295렉覡\uf81dᨐ鱳鮍풆⅒债⌀䖈\ufadf餉⊀\uda41䋧茅⋾尠ีѧჷ넜됉櫎톂閳祆ᆊ")));
 
 
-                        TSLog.logger.warn(var6.toString());
+                    TSLog.logger.warn(var6.toString());
 
 
                     var388 = false;
 
-                        return var388;
+                    return var388;
 
                 } else {
                     var388 = false;
 
-                        return var388;
+                    return var388;
 
                 }
             }
@@ -588,7 +600,7 @@ public class TSLocationManager {
                         TSLog.logger.debug(TSLog.info(Application.B("\ued16\udd87뇀侸봗ꈂǟ㦲φ톼ᠩ鏕쒮\uf684ힷ扻퉉\ueeb1貉㤬⑦芄ཝ뼙饔痩䒰鳹､") + var6));
                         Location var9;
                         var11 = var9 = TSLocationManager.this.mLastOdometerLocation;
-                        synchronized(var9) {
+                        synchronized (var9) {
                             TSLocationManager.this.mLastOdometerLocation.set(var6);
                         }
                     }
@@ -608,7 +620,7 @@ public class TSLocationManager {
             Location var2;
             Location var10001 = var2 = this.mLastOdometerLocation;
             TSLocationManager var10002 = this;
-            synchronized(var2) {
+            synchronized (var2) {
                 var10002.mLastOdometerLocation.set(var1);
             }
 
@@ -627,7 +639,7 @@ public class TSLocationManager {
         Location var1;
         Location var10001 = var1 = this.mLastOdometerLocation;
         TSLocationManager var10002 = this;
-        synchronized(var1) {
+        synchronized (var1) {
             var10002.mLastOdometerLocation.reset();
         }
 
@@ -667,17 +679,18 @@ public class TSLocationManager {
 
     public void flush() {
         TSLocationManager var10000 = this;
-        synchronized(this.locationRequests){}
+        synchronized (this.locationRequests) {
+        }
 
         boolean var10001;
         Throwable var22;
         Iterator var23;
-            var23 = var10000.locationRequests.entrySet().iterator();
+        var23 = var10000.locationRequests.entrySet().iterator();
 
 
         Iterator var1 = var23;
 
-        while(true) {
+        while (true) {
             boolean var24;
             try {
                 var24 = var1.hasNext();
@@ -698,7 +711,7 @@ public class TSLocationManager {
             }
 
             try {
-                ((SingleLocationRequest)((Entry)var1.next()).getValue()).start();
+                ((SingleLocationRequest) ((Entry) var1.next()).getValue()).start();
             } catch (Throwable var20) {
                 var22 = var20;
                 var10001 = false;
@@ -713,52 +726,53 @@ public class TSLocationManager {
         TSLog.logger.info(TSLog.info(Application.B("Ƨᙖ拀ⴽ溝靦ᧁ铱㒐ዖꔩ価ᔝ") + var1 + Application.B("Ǹᘓ拝ⴁ溴靦᧚铽㒊ዔꕡ侻") + var3.getIsMoving()));
         Location var77 = this.mLastOdometerLocation;
         TSConfig var10000 = var3;
-        synchronized(var77){}
+        synchronized (var77) {
+        }
 
         Throwable var79;
         boolean var80;
         boolean var10001;
-            var80 = var10000.getIsMoving();
+        var80 = var10000.getIsMoving();
 
 
-        label541: {
+        label541:
+        {
             if (!var80) {
 
-                    var80 = this.hasLocation(this.mLastOdometerLocation);
+                var80 = this.hasLocation(this.mLastOdometerLocation);
 
 
                 if (var80) {
                     Location var83;
-                        var83 = new Location(Application.B("ƀᙠ拸ⴝ溚靨᧘铽㒋ዝꔖ俺ᕓ\uec4a萩\udf79ࣝ"));
+                    var83 = new Location(Application.B("ƀᙠ拸ⴝ溚靨᧘铽㒋ዝꔖ俺ᕓ\uec4a萩\udf79ࣝ"));
 
 
                     Location var78 = var83;
 
                     TSLocation var84;
-                        var83.set(this.mLastOdometerLocation);
-                        if (VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                            var84 = new TSLocation(this.mContext, var78, ActivityRecognitionService.getMostProbableActivity());
-                            final TSLocation var4 = var84;
+                    var83.set(this.mLastOdometerLocation);
+                    if (VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        var84 = new TSLocation(this.mContext, var78, ActivityRecognitionService.getMostProbableActivity());
+                        final TSLocation var4 = var84;
 
-                            BackgroundGeolocation.getUiHandler().post(new Runnable() {
-                                public void run() {
-                                    var2.onLocation(var4);
-                                }
-                            });
-                            break label541;
-                        }
-
+                        BackgroundGeolocation.getUiHandler().post(new Runnable() {
+                            public void run() {
+                                var2.onLocation(var4);
+                            }
+                        });
+                        break label541;
+                    }
 
 
                 }
             }
             TSLocationManager var81;
             Builder var82;
-                var81 = this;
-                this.clearLastOdometerLocation();
-                var82 = new Builder(this.mContext);
+            var81 = this;
+            this.clearLastOdometerLocation();
+            var82 = new Builder(this.mContext);
             Builder var10002 = var82;
-                var81.getCurrentPosition(((Builder)((Builder)((Builder)((Builder)var82.setCallback(var2)).setPersist(false)).setDesiredAccuracy(var3.getDesiredOdometerAccuracy().intValue())).setSamples(3)).build());
+            var81.getCurrentPosition(((Builder) ((Builder) ((Builder) ((Builder) var82.setCallback(var2)).setPersist(false)).setDesiredAccuracy(var3.getDesiredOdometerAccuracy().intValue())).setSamples(3)).build());
 
         }
     }
@@ -794,26 +808,27 @@ public class TSLocationManager {
     public Location getLastGoodLocation() {
         TSLocationManager var10000 = this;
         TSLocationManager var10001 = this;
-        synchronized(this.mLastGoodLocation){}
+        synchronized (this.mLastGoodLocation) {
+        }
 
         Throwable var23;
         boolean var24;
         boolean var25;
-            var24 = var10000.hasLocation(var10001.mLastGoodLocation);
+        var24 = var10000.hasLocation(var10001.mLastGoodLocation);
 
 
         if (var24) {
             Location var26;
-                var26 = new Location(Application.B("䇚ᘍ蠟܀螹ꓣꑓ侅\uf556䡉蠟ㄩ牥댻뽣\uf29cꝫ"));
+            var26 = new Location(Application.B("䇚ᘍ蠟܀螹ꓣꑓ侅\uf556䡉蠟ㄩ牥댻뽣\uf29cꝫ"));
 
 
             Location var2 = var26;
 
-                var2.set(this.mLastGoodLocation);
-                return var26;
+            var2.set(this.mLastGoodLocation);
+            return var26;
 
         } else {
-                return this.getLastLocation();
+            return this.getLastLocation();
 
         }
     }
@@ -821,26 +836,28 @@ public class TSLocationManager {
     public Location getLastOdometerLocation() {
         TSLocationManager var10000 = this;
         TSLocationManager var10001 = this;
-        synchronized(this.mLastOdometerLocation){}
+        synchronized (this.mLastOdometerLocation) {
+        }
 
         Throwable var23;
         boolean var24;
         boolean var25;
-            var24 = var10000.hasLocation(var10001.mLastOdometerLocation);
+        var24 = var10000.hasLocation(var10001.mLastOdometerLocation);
 
 
         if (!var24) {
-                return null;
+            return null;
         } else {
             Location var26;
-                var26 = new Location(Application.B("\udb43\uf796袗펥邊㫩굇芧┕꣮\uf1d2왜撀凲⁺䢂꽽"));
+            var26 = new Location(Application.B("\udb43\uf796袗펥邊㫩굇芧┕꣮\uf1d2왜撀凲⁺䢂꽽"));
             Location var2 = var26;
-                var2.set(this.mLastOdometerLocation);
-                return var26;
+            var2.set(this.mLastOdometerLocation);
+            return var26;
         }
     }
 
     private static final String TAG = "TSLocationManager";
+
     public Location getLastLocation() {
         // $FF: Couldn't be decompiled
         Log.i(TAG, "getLastLocation: ");
@@ -850,17 +867,18 @@ public class TSLocationManager {
     public void cancelRequest(SingleLocationRequest var1) {
         if (var1 != null) {
             TSLocationManager var10000 = this;
-            synchronized(this.locationRequests){}
+            synchronized (this.locationRequests) {
+            }
 
             boolean var16;
             boolean var10001;
             Throwable var15;
-                var16 = var10000.locationRequests.containsKey(var1.getId());
+            var16 = var10000.locationRequests.containsKey(var1.getId());
 
             if (var16) {
-                    var1.finish();
-                    var1.onError(499);
-                    this.locationRequests.remove(var1.getId());
+                var1.finish();
+                var1.onError(499);
+                this.locationRequests.remove(var1.getId());
             }
 
         }
@@ -876,8 +894,8 @@ public class TSLocationManager {
 
     public SingleLocationRequest getRequest(int var1) {
         TSLocationManager var10000 = this;
-        synchronized(this.locationRequests) {
-            return (SingleLocationRequest)var10000.locationRequests.get(var1);
+        synchronized (this.locationRequests) {
+            return (SingleLocationRequest) var10000.locationRequests.get(var1);
         }
     }
 
@@ -888,7 +906,7 @@ public class TSLocationManager {
             TSGeofenceManager var3 = TSGeofenceManager.getInstance(this.mContext);
             if (var1.isEnabled()) {
                 if (!var3.isMonitoringStationaryRegion() && !this.isUpdatingLocation()) {
-                    TrackingService.changePace(this.mContext, var2.getIsMoving(), (TSLocationCallback)null);
+                    TrackingService.changePace(this.mContext, var2.getIsMoving(), (TSLocationCallback) null);
                 }
             } else {
                 var3.stopMonitoringStationaryRegion();
@@ -908,7 +926,8 @@ public class TSLocationManager {
 
                     var10000 = this;
                     Location var10002 = var11 = this.mLastLocation;
-                    synchronized(var10002){}
+                    synchronized (var10002) {
+                    }
 
                     Throwable var14;
                     boolean var15;
@@ -916,7 +935,7 @@ public class TSLocationManager {
                     final Location var13 = var10003;
 
 
-                    this.mProviderChangeRequest = var10 = ((com.transistorsoft.locationmanager.location.TSProviderChangeRequest.Builder)((com.transistorsoft.locationmanager.location.TSProviderChangeRequest.Builder)(new com.transistorsoft.locationmanager.location.TSProviderChangeRequest.Builder(this.mContext)).setSamples(3)).setCallback(new TSLocationCallback() {
+                    this.mProviderChangeRequest = var10 = ((com.transistorsoft.locationmanager.location.TSProviderChangeRequest.Builder) ((com.transistorsoft.locationmanager.location.TSProviderChangeRequest.Builder) (new com.transistorsoft.locationmanager.location.TSProviderChangeRequest.Builder(this.mContext)).setSamples(3)).setCallback(new TSLocationCallback() {
                         public void onLocation(TSLocation var1) {
                             Location var3;
                             Location var10000 = var3 = var1.getLocation();
@@ -959,7 +978,7 @@ public class TSLocationManager {
 
                 var10000 = this;
                 TSLocationManager var10001 = this;
-                this.register(var10 = ((com.transistorsoft.locationmanager.location.TSProviderChangeRequest.Builder)(new com.transistorsoft.locationmanager.location.TSProviderChangeRequest.Builder(this.mContext)).setSamples(0)).build());
+                this.register(var10 = ((com.transistorsoft.locationmanager.location.TSProviderChangeRequest.Builder) (new com.transistorsoft.locationmanager.location.TSProviderChangeRequest.Builder(this.mContext)).setSamples(0)).build());
                 var11 = buildLocation(var10001.mLastLocation);
                 var10000.onSingleLocationResult(new SingleLocationResult(var10.getId(), var11));
             }
@@ -974,22 +993,23 @@ public class TSLocationManager {
         boolean var124;
         if ((var2 = TSConfig.getInstance(this.mContext)).isLocationTrackingMode() && !var2.getUseSignificantChangesOnly() && !var2.getDisableElasticity() && var2.getDistanceFilter() > 0.0F) {
             List var10001 = var1.getLocations();
-            Location var3 = (Location)var10001.get(var10001.size() - 1);
+            Location var3 = (Location) var10001.get(var10001.size() - 1);
             if (this.mIsUpdatingLocation.get() && var3.hasSpeed() && !Float.isNaN(var3.getSpeed()) && var3.getAccuracy() <= TSConfig.MAXIMUM_LOCATION_ACCURACY) {
                 float var117;
                 float var10000 = var117 = var2.calculateDistanceFilter(var3.getSpeed());
                 TSLocationManager var123 = this;
-                synchronized(this.mLocationRequest){}
+                synchronized (this.mLocationRequest) {
+                }
 
                 Throwable var121;
                 float var125 = var123.mLocationRequest.getSmallestDisplacement();
 
 
                 if (var10000 != var125) {
-                        var122 = this;
-                        TSLog.logger.info(TSLog.notice(Application.B("撨\uf654荖廨㐽\u0cf3ϖכ歰郗ᶭ\ue2dc魻\u0fe9듾\ue719鏅㔶ࢹ\ue629\uddb8Ⴖ斊⚢挆⑾") + this.mLocationRequest.getSmallestDisplacement() + Application.B("擗\uf60f") + var117 + Application.B("擓")));
-                        this.mLocationRequest.setSmallestDisplacement(var117);
-                        var122.updateLocationRequest();
+                    var122 = this;
+                    TSLog.logger.info(TSLog.notice(Application.B("撨\uf654荖廨㐽\u0cf3ϖכ歰郗ᶭ\ue2dc魻\u0fe9듾\ue719鏅㔶ࢹ\ue629\uddb8Ⴖ斊⚢挆⑾") + this.mLocationRequest.getSmallestDisplacement() + Application.B("擗\uf60f") + var117 + Application.B("擓")));
+                    this.mLocationRequest.setSmallestDisplacement(var117);
+                    var122.updateLocationRequest();
 
                 }
             }
@@ -999,7 +1019,8 @@ public class TSLocationManager {
             TSLog.logger.error(TSLog.warn(Application.B("撴\uf644茗廷㑾\u0cd1ϕא歠邒ᶱ\ue2c1鬨\u0ff4등\ue757鏵㔺\u0891\ue627\uddb8Ⴇ斣⚿损\u243fኽ꡷ꍝ睔饚黿햦䈳‐쒷戇Ⓨ♒讫珤䅣")));
         } else {
             NullPointerException var126;
-            label964: {
+            label964:
+            {
                 ArrayList var129;
                 List var127;
                 try {
@@ -1014,11 +1035,11 @@ public class TSLocationManager {
                 ArrayList var116 = var129;
 
                 Iterator var128;
-                    var128 = var127.iterator();
+                var128 = var127.iterator();
 
                 Iterator var118 = var128;
 
-                while(true) {
+                while (true) {
                     boolean var130;
                     try {
                         var130 = var118.hasNext();
@@ -1092,7 +1113,7 @@ public class TSLocationManager {
                     Location var131;
                     try {
                         var122 = this;
-                        var131 = (Location)var118.next();
+                        var131 = (Location) var118.next();
                     } catch (NullPointerException var108) {
                         var126 = var108;
                         var124 = false;
@@ -1151,18 +1172,18 @@ public class TSLocationManager {
                     }
 
                     TSLocation var132;
-                        var133 = var2;
-                        if (VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                            var132 = this.buildTSLocation(var4);
-                            TSLocation var120 = var132;
-                            var130 = var133.shouldPersist(var132);
-                            if (var130) {
-                                var116.add(var120);
+                    var133 = var2;
+                    if (VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        var132 = this.buildTSLocation(var4);
+                        TSLocation var120 = var132;
+                        var130 = var133.shouldPersist(var132);
+                        if (var130) {
+                            var116.add(var120);
 
-                            }
-
-                            EventBus.getDefault().post(var120);
                         }
+
+                        EventBus.getDefault().post(var120);
+                    }
                 }
             }
 
@@ -1204,12 +1225,13 @@ public class TSLocationManager {
 
     public synchronized void onSingleLocationResult(SingleLocationResult var1) {
         TSLocationManager var10000 = this;
-        synchronized(this.locationRequests){}
+        synchronized (this.locationRequests) {
+        }
 
         Throwable var33;
         SingleLocationRequest var34;
         boolean var10001;
-            var34 = (SingleLocationRequest)var10000.locationRequests.get(var1.getRequestId());
+        var34 = (SingleLocationRequest) var10000.locationRequests.get(var1.getRequestId());
         final SingleLocationRequest var3 = var34;
 
         if (var34 == null) {
@@ -1223,7 +1245,8 @@ public class TSLocationManager {
                 var3.addLocation(var1.getLocation());
                 TSGeofenceManager.getInstance(this.mContext).setLocation(var1.getLocation(), var2.getIsMoving());
                 if (var3.mAction == 1) {
-                    label592: {
+                    label592:
+                    {
                         if (var3.getElapsed() <= 10000L) {
                             long var35 = var4;
                             Location var29 = var3.getBestLocation();
@@ -1241,9 +1264,10 @@ public class TSLocationManager {
                     Map var30;
                     Map var10002 = var30 = this.locationRequests;
                     TSLocationManager var10003 = this;
-                    synchronized(var30){}
+                    synchronized (var30) {
+                    }
 
-                        var10003.locationRequests.remove(var1.getRequestId());
+                    var10003.locationRequests.remove(var1.getRequestId());
 
                     Location var27;
                     Bundle var31 = (var27 = var3.getBestLocation()).getExtras();
@@ -1306,7 +1330,6 @@ public class TSLocationManager {
                     }
 
 
-
                 } else {
                     TSMediaPlayer.getInstance().debug(this.mContext, Application.B("鐑\udaf7깡㊡딥僡涘肺ෲ\uf2cc\ue69a礪ṛԊ\ufddb캘塱᭄ṅ䤲嗼ִ\u173b䉩ゅ鵃ྠ酻扪㳴⣋폱ᒙ詑⬰饅㫻ԃ쎬䵼괽錽詈㽻沧䑐ڸ뷏凼粦⎞"));
                     TSLocation var26 = null;
@@ -1364,12 +1387,13 @@ public class TSLocationManager {
             LocationRequest var10000 = var8 = this.mLocationRequest;
             TSLocationManager var10001 = this;
             TSLocationManager var10002 = this;
-            synchronized(var8){}
+            synchronized (var8) {
+            }
 
             Throwable var9;
             boolean var10;
-                var10002.mLocationRequest.setSmallestDisplacement(TSConfig.getInstance(this.mContext).getDistanceFilter());
-                var10001.updateLocationRequest();
+            var10002.mLocationRequest.setSmallestDisplacement(TSConfig.getInstance(this.mContext).getDistanceFilter());
+            var10001.updateLocationRequest();
 
         }
     }
@@ -1392,92 +1416,94 @@ public class TSLocationManager {
         Map var2;
         Map var10000 = var2 = this.locationRequests;
         TSLocationManager var10001 = this;
-        synchronized(var2){}
+        synchronized (var2) {
+        }
 
         Throwable var9;
         boolean var10;
-            var10001.locationRequests.put(var1.getId(), var1);
+        var10001.locationRequests.put(var1.getId(), var1);
     }
 
     public LocationRequest buildLocationRequest() {
         TSConfig var1 = TSConfig.getInstance(this.mContext);
         LocationRequest var2 = this.mLocationRequest;
         TSConfig var10000 = var1;
-        synchronized(var2){}
+        synchronized (var2) {
+        }
 
         boolean var10001;
         Throwable var276;
         float var277;
-            var277 = var10000.getDistanceFilter();
+        var277 = var10000.getDistanceFilter();
 
 
         float var3 = var277;
         if (var277 < 0.0F) {
-                TSLog.logger.warn(TSLog.warn(Application.B("좝ｃ襀쬷⍋뀐龲朼脛ꐞ䴵↦ݐ橪⧪攴쯘ẙ\ue0a3㯽瓎ꉚᆿ\ue3f7") + var3) + Application.B("죺－褖쬗⍗뀉龺来脖ꐙ䴡⇲ݕ橡⧯攰쯫ẜ\ue0bb㮩") + 10.0F);
+            TSLog.logger.warn(TSLog.warn(Application.B("좝ｃ襀쬷⍋뀐龲朼脛ꐞ䴵↦ݐ橪⧪攴쯘ẙ\ue0a3㯽瓎ꉚᆿ\ue3f7") + var3) + Application.B("죺－褖쬗⍗뀉龺来脖ꐙ䴡⇲ݕ橡⧯攰쯫ẜ\ue0bb㮩") + 10.0F);
 
 
             var3 = 10.0F;
         }
 
         long var278;
-            var278 = var1.getFastestLocationUpdateInterval();
+        var278 = var1.getFastestLocationUpdateInterval();
 
 
         if (var278 >= 0L) {
-                this.mLocationRequest.setFastestInterval(var1.getFastestLocationUpdateInterval());
+            this.mLocationRequest.setFastestInterval(var1.getFastestLocationUpdateInterval());
 
         }
 
         boolean var279;
-            var279 = var1.isLocationTrackingMode();
+        var279 = var1.isLocationTrackingMode();
 
         TSLocationManager var10002;
         TSLocationManager var280;
         TSLocationManager var281;
         if (var279) {
-                var279 = var1.getUseSignificantChangesOnly();
+            var279 = var1.getUseSignificantChangesOnly();
 
 
             if (var279 && var3 < 250.0F) {
                 var3 = 250.0F;
             }
 
-                var281 = this;
-                var280 = this;
-                var10002 = this;
-                this.mLocationRequest.setSmallestDisplacement(var3);
+            var281 = this;
+            var280 = this;
+            var10002 = this;
+            this.mLocationRequest.setSmallestDisplacement(var3);
 
-                var10002.mLocationRequest.setInterval(var1.getLocationUpdateInterval());
+            var10002.mLocationRequest.setInterval(var1.getLocationUpdateInterval());
 
-                var280.mLocationRequest.setMaxWaitTime(var1.getDeferTime());
+            var280.mLocationRequest.setMaxWaitTime(var1.getDeferTime());
 
 
-                var281.mLocationRequest.setPriority(var1.getDesiredAccuracy());
+            var281.mLocationRequest.setPriority(var1.getDesiredAccuracy());
 
         } else {
             LocationRequest var10003;
             long var10004;
 
-                var281 = this;
-                var280 = this;
-                var10002 = this;
-                var10003 = this.mLocationRequest;
-                var10004 = var1.getGeofenceProximityRadius();
+            var281 = this;
+            var280 = this;
+            var10002 = this;
+            var10003 = this.mLocationRequest;
+            var10004 = var1.getGeofenceProximityRadius();
 
 
-            float var282 = (float)var10004 / 2.0F;
+            float var282 = (float) var10004 / 2.0F;
 
-                var10003.setSmallestDisplacement(var282);
+            var10003.setSmallestDisplacement(var282);
 
-                var10002.mLocationRequest.setInterval(var1.getLocationUpdateInterval());
+            var10002.mLocationRequest.setInterval(var1.getLocationUpdateInterval());
 
-                var280.mLocationRequest.setMaxWaitTime(0L);
+            var280.mLocationRequest.setMaxWaitTime(0L);
 
-                var281.mLocationRequest.setPriority(105);
+            var281.mLocationRequest.setPriority(105);
 
         }
-            var281 = this;
-            return var281.mLocationRequest;
+        var281 = this;
+        return var281.mLocationRequest;
 
     }
 
@@ -1492,7 +1518,8 @@ public class TSLocationManager {
             FusedLocationProviderClient var10001 = LocationServices.getFusedLocationProviderClient(this.mContext);
 
             SecurityException var4;
-            label38: {
+            label38:
+            {
                 boolean var5;
                 try {
                     var10001.requestLocationUpdates(this.buildLocationRequest(), TrackingService.getPendingIntent(this.mContext));
@@ -1529,12 +1556,13 @@ public class TSLocationManager {
             return false;
         } else {
             LocationManager var5;
-            LocationManager var10000 = var5 = (LocationManager)this.mContext.getSystemService(Application.B("渎졨୶㠭鯞ﭜ\ue4d3珇"));
+            LocationManager var10000 = var5 = (LocationManager) this.mContext.getSystemService(Application.B("渎졨୶㠭鯞ﭜ\ue4d3珇"));
             boolean var1 = false;
             boolean var2 = false;
 
             boolean var6;
-            label33: {
+            label33:
+            {
                 try {
                     var6 = var10000.isProviderEnabled(Application.B("清졷୦"));
                 } catch (Exception var4) {
@@ -1589,8 +1617,8 @@ public class TSLocationManager {
         }
 
         private void b() {
-            TSConfig var1 = TSConfig.getInstance((Context)this.a.get());
-            com.transistorsoft.locationmanager.data.sqlite.b var2 = com.transistorsoft.locationmanager.data.sqlite.b.a((Context)this.a.get());
+            TSConfig var1 = TSConfig.getInstance((Context) this.a.get());
+            com.transistorsoft.locationmanager.data.sqlite.b var2 = com.transistorsoft.locationmanager.data.sqlite.b.a((Context) this.a.get());
             TSLocation var3;
             if ((var3 = this.b) != null) {
                 var2.persist(var3);
@@ -1599,8 +1627,8 @@ public class TSLocationManager {
                 if ((var5 = this.c) != null) {
                     Iterator var6 = var5.iterator();
 
-                    while(var6.hasNext()) {
-                        var2.persist((TSLocation)var6.next());
+                    while (var6.hasNext()) {
+                        var2.persist((TSLocation) var6.next());
                     }
                 }
             }
@@ -1611,26 +1639,26 @@ public class TSLocationManager {
                     return;
                 }
 
-                HttpService.getInstance((Context)this.a.get()).flush(this.d);
+                HttpService.getInstance((Context) this.a.get()).flush(this.d);
             }
 
         }
 
         private void a() {
-            JSONObject var1 = TSConfig.getInstance((Context)this.a.get()).getParams();
+            JSONObject var1 = TSConfig.getInstance((Context) this.a.get()).getParams();
             if (this.b != null) {
                 EventBus var10000 = EventBus.getDefault();
                 TSLocationManager.f var10003 = this;
-                Context var4 = (Context)this.a.get();
+                Context var4 = (Context) this.a.get();
                 var10000.post(new PersistEvent(var4, var10003.b, var1));
             } else {
                 List var2;
                 if ((var2 = this.c) != null) {
                     Iterator var5 = var2.iterator();
 
-                    while(var5.hasNext()) {
-                        TSLocation var3 = (TSLocation)var5.next();
-                        EventBus.getDefault().post(new PersistEvent((Context)this.a.get(), var3, var1));
+                    while (var5.hasNext()) {
+                        TSLocation var3 = (TSLocation) var5.next();
+                        EventBus.getDefault().post(new PersistEvent((Context) this.a.get(), var3, var1));
                     }
                 }
             }
