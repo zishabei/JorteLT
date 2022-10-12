@@ -5,18 +5,23 @@
 
 package com.transistorsoft.locationmanager.data.sqlite;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.util.Log;
+
 import com.transistorsoft.locationmanager.geofence.TSGeofence;
 import com.transistorsoft.locationmanager.geofence.TSGeofence.Builder;
 import com.transistorsoft.locationmanager.logger.TSLog;
 import com.transistorsoft.tslocationmanager.Application;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import org.json.JSONObject;
 
 public class GeofenceDAO {
@@ -46,13 +51,11 @@ public class GeofenceDAO {
     }
 
     private GeofenceDAO(Context var1) {
+        super();
         GeofenceDAO var10000 = this;
         GeofenceDAO var10001 = this;
-        super();
-        ArrayList var2;
-        var2 = new ArrayList.<init>();
-        var10001.b = var2;
-        var10000.a = var1;
+        b = new ArrayList<>();
+        a = var1;
     }
 
     private void a() {
@@ -65,7 +68,7 @@ public class GeofenceDAO {
 
     private ContentValues a(TSGeofence var1) {
         ContentValues var3;
-        var3 = new ContentValues.<init>();
+        var3 = new ContentValues();
         JSONObject var2;
         JSONObject var10000 = var2 = var1.getExtras();
         var3.put(Application.B("\ud90b\udd63ᠸಐ높\ue574揬熜ಌ惰"), var1.getIdentifier());
@@ -92,6 +95,7 @@ public class GeofenceDAO {
         return var3;
     }
 
+    @SuppressLint("Range")
     private TSGeofence a(Cursor var1) {
         boolean var5;
         if (var1.getInt(var1.getColumnIndex(Application.B("\ud90c\udd68ᠩಗ놀\ue564揅熛ಬ惬侨य़셳"))) == 1) {
@@ -115,8 +119,7 @@ public class GeofenceDAO {
         }
 
         Builder var4;
-        Builder var10000 = var4 = new Builder;
-        var4.<init>();
+        Builder var10000 = var4 = new Builder();
         return var10000.setIdentifier(var1.getString(var1.getColumnIndex(Application.B("\ud90b\udd63ᠸಐ높\ue574揬熜ಌ惰")))).setRadius(var1.getFloat(var1.getColumnIndex(Application.B("\ud910\udd66ᠹಗ놓\ue56e")))).setLatitude(var1.getDouble(var1.getColumnIndex(Application.B("\ud90e\udd66ᠩಗ높\ue568揮熐")))).setLongitude(var1.getDouble(var1.getColumnIndex(Application.B("\ud90e\udd68ᠳಙ놏\ue569揿熑ಌ")))).setNotifyOnEntry(var5).setNotifyOnExit(var2).setNotifyOnDwell(var3).setLoiteringDelay(var1.getInt(var1.getColumnIndex(Application.B("\ud90e\udd68ᠴಊ놃\ue56f揣熛ಎ惆侹ु셫깟")))).setExtras(var1.getString(var1.getColumnIndex(Application.B("\ud907\udd7fᠩಌ놇\ue56e")))).build();
     }
 
@@ -130,13 +133,15 @@ public class GeofenceDAO {
         String var10001 = Application.B("\u2d9e⾟싘냩챬빁㰉쎮ꆣ\u2fef\udce3崈䎆砞\ue294砪䘽鬾鄷\uf779⤪\ue163䣛쇞\ueedc῟\u20f5ƨ帑ﲿ㸔\uf12cꯃ㐜큤㷼콻퇞蘨");
 
         Cursor var17;
-        int var20;
-        label159: {
+        int var20 = 0;
+        label159:
+        {
             Throwable var16;
-            label160: {
+            label160:
+            {
                 boolean var18;
                 try {
-                    var17 = var10000.rawQuery(var10001, (String[])null);
+                    var17 = var10000.rawQuery(var10001, (String[]) null);
                 } catch (Throwable var13) {
                     var16 = var13;
                     var18 = false;
@@ -170,15 +175,15 @@ public class GeofenceDAO {
                 var14.close();
             }
 
-            throw var1;
+            try {
+                throw var1;
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
         }
 
-        int var15 = var20;
-        if (var17 != null) {
-            var14.close();
-        }
-
-        return var15;
+        var14.close();
+        return var20;
     }
 
     public boolean create(TSGeofence var1) {
@@ -190,7 +195,8 @@ public class GeofenceDAO {
         long var2 = 0L;
 
         SQLiteException var14;
-        label63: {
+        label63:
+        {
             boolean var15;
             ContentValues var17;
             try {
@@ -235,7 +241,7 @@ public class GeofenceDAO {
 
             long var19;
             try {
-                var19 = var12.insertOrThrow(Application.B("᭐릓ਧ蚇삂\u1a9bꜽ巠\uffc8"), (String)null, var4);
+                var19 = var12.insertOrThrow(Application.B("᭐릓ਧ蚇삂\u1a9bꜽ巠\uffc8"), (String) null, var4);
             } catch (SQLiteException var7) {
                 var14 = var7;
                 var15 = false;
@@ -266,14 +272,16 @@ public class GeofenceDAO {
         (var2 = this.b()).beginTransaction();
         Iterator var3 = var1.iterator();
 
-        while(var3.hasNext()) {
+        while (var3.hasNext()) {
             GeofenceDAO var14 = this;
-            TSGeofence var10001 = (TSGeofence)var3.next();
+            TSGeofence var10001 = (TSGeofence) var3.next();
             TSGeofence var10002 = var10001;
 
-            label61: {
+            label61:
+            {
                 SQLiteException var15;
-                label69: {
+                label69:
+                {
                     boolean var16;
                     ContentValues var19;
                     try {
@@ -318,7 +326,7 @@ public class GeofenceDAO {
 
                     long var20;
                     try {
-                        var20 = var2.insertOrThrow(Application.B("᭐릓ਧ蚇삂\u1a9bꜽ巠\uffc8"), (String)null, var4);
+                        var20 = var2.insertOrThrow(Application.B("᭐릓ਧ蚇삂\u1a9bꜽ巠\uffc8"), (String) null, var4);
                     } catch (SQLiteException var7) {
                         var15 = var7;
                         var16 = false;
@@ -374,7 +382,7 @@ public class GeofenceDAO {
     public boolean destroyAll() {
         this.a();
         int var1;
-        if ((var1 = this.b().delete(Application.B("좏꼀⫹퓊仿㿂\uee89迮ꫪ"), (String)null, (String[])null)) >= 0) {
+        if ((var1 = this.b().delete(Application.B("좏꼀⫹퓊仿㿂\uee89迮ꫪ"), (String) null, (String[]) null)) >= 0) {
             TSLog.logger.info(Application.B("\uefed꽅⪶"));
         } else {
             this.b.add(Application.B("좬꼀⫥퓘仨㿃\uee93辫\uaaf8쯫噀䝬\ue47f쩯䴻↓뼃璷㹜Ὣ욈\ufb3d\ue278翮䣆뜺\uf6cbᶡ"));
@@ -384,25 +392,31 @@ public class GeofenceDAO {
         return var1 >= 0;
     }
 
+    private static final String TAG = "GeofenceDAO";
+
     public List<TSGeofence> all() {
         // $FF: Couldn't be decompiled
+        Log.i(TAG, "all: aaaaaa");
+        return null;
     }
 
+    @SuppressLint("Range")
     public List<String> getIdentifiers() {
         GeofenceDAO var10000 = this;
         this.a();
         ArrayList var14;
-        var14 = new ArrayList.<init>();
+        var14 = new ArrayList();
         Cursor var1 = null;
         SQLiteDatabase var16 = var10000.b();
         String var10001 = Application.B("乁ᜏ\udeb4\uf447阪᭑⦧ꮰ\ue673粺짰㕗㌦\uebcfቩ쯕ޠ豈靯蘹䚰穢䋾ࠈ톂㸇磞ᶻ迈\uf602䚽ແ");
 
         Throwable var17;
-        label175: {
+        label175:
+        {
             Cursor var18;
             boolean var19;
             try {
-                var18 = var16.rawQuery(var10001, (String[])null);
+                var18 = var16.rawQuery(var10001, (String[]) null);
             } catch (Throwable var13) {
                 var17 = var13;
                 var19 = false;
@@ -411,7 +425,7 @@ public class GeofenceDAO {
 
             var1 = var18;
 
-            while(true) {
+            while (true) {
                 boolean var20;
                 try {
                     var20 = var1.moveToNext();
@@ -444,20 +458,30 @@ public class GeofenceDAO {
             var1.close();
         }
 
-        throw var15;
+        try {
+            throw var15;
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        Log.i(TAG, "getIdentifiers: ");
+        return null;
     }
 
     public List<TSGeofence> allWithinRadius(double param1, double param3, double param5, int param7) {
         // $FF: Couldn't be decompiled
+        Log.i(TAG, "allWithinRadius: ");
+        return null;
     }
 
     public TSGeofence find(String param1) {
         // $FF: Couldn't be decompiled
+        Log.i(TAG, "find: ");
+        return null;
     }
 
-    public List<TSGeofence> find(List<String> param1) {
-        // $FF: Couldn't be decompiled
-    }
+//    public List<TSGeofence> find(List<String> param1) {
+//        // $FF: Couldn't be decompiled
+//    }
 
     public boolean exists(String var1) {
         SQLiteDatabase var10000 = this.b();
@@ -466,7 +490,7 @@ public class GeofenceDAO {
         String[] var2;
         (var2 = new String[1])[0] = var1;
         Cursor var4;
-        boolean var5 = (var4 = var10000.query(Application.B("㧊笨磉\ue8da徨\uedb1ㄦ㥦ࠛ"), var3, Application.B("㧄笩磃\ue8d2徹\uedb6ㄣ㥪ࠍ\ufbd1늩ᖨ"), var2, (String)null, (String)null, (String)null, Application.B("㦜"))).getCount() > 0;
+        boolean var5 = (var4 = var10000.query(Application.B("㧊笨磉\ue8da徨\uedb1ㄦ㥦ࠛ"), var3, Application.B("㧄笩磃\ue8d2徹\uedb6ㄣ㥪ࠍ\ufbd1늩ᖨ"), var2, (String) null, (String) null, (String) null, Application.B("㦜"))).getCount() > 0;
         var4.close();
         return var5;
     }
@@ -478,7 +502,7 @@ public class GeofenceDAO {
         String[] var2;
         (var2 = new String[1])[0] = Application.B("㧄笩");
         Cursor var4;
-        boolean var5 = (var4 = var10000.query(Application.B("㧊笨磉\ue8da徨\uedb1ㄦ㥦ࠛ"), var2, Application.B("㧄笩磃\ue8d2徹\uedb6ㄣ㥪ࠍ\ufbd1늴ᗞ쏿鵧䆶䎌"), var3, (String)null, (String)null, (String)null, Application.B("㦜"))).getCount() == var1.size();
+        boolean var5 = (var4 = var10000.query(Application.B("㧊笨磉\ue8da徨\uedb1ㄦ㥦ࠛ"), var2, Application.B("㧄笩磃\ue8d2徹\uedb6ㄣ㥪ࠍ\ufbd1늴ᗞ쏿鵧䆶䎌"), var3, (String) null, (String) null, (String) null, Application.B("㦜"))).getCount() == var1.size();
         var4.close();
         return var5;
     }
