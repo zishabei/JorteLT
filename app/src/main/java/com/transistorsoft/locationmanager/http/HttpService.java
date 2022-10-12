@@ -5,6 +5,7 @@
 
 package com.transistorsoft.locationmanager.http;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -108,7 +109,7 @@ public class HttpService {
             this.startMonitoringConnectivityChanges(this.a);
         }
 
-        LifecycleManager.f().a((var2x) -> {
+        LifecycleManager.f().a((LifecycleManager.b) (var2x) -> {
             if (var2x && var3.getEnabled() && var3.getAutoSync() && var3.hasUrl() && !var3.getIsMoving()) {
                 BackgroundGeolocation.getThreadPool().execute(() -> {
                     this.flush(true);
@@ -155,10 +156,6 @@ public class HttpService {
                     Object var36;
                     try {
                         var36 = var10001.getJson();
-                    } catch (JSONException var27) {
-                        var33 = var27;
-                        var34 = false;
-                        break label117;
                     } catch (IllegalArgumentException var28) {
                         var32 = var28;
                         var34 = false;
@@ -170,10 +167,6 @@ public class HttpService {
                     String var35;
                     try {
                         var35 = var10000.getHttpRootProperty();
-                    } catch (JSONException var25) {
-                        var33 = var25;
-                        var34 = false;
-                        break label117;
                     } catch (IllegalArgumentException var26) {
                         var32 = var26;
                         var34 = false;
@@ -185,10 +178,6 @@ public class HttpService {
                     JSONObject var38;
                     try {
                         var38 = var3.getParams();
-                    } catch (JSONException var23) {
-                        var33 = var23;
-                        var34 = false;
-                        break label117;
                     } catch (IllegalArgumentException var24) {
                         var32 = var24;
                         var34 = false;
@@ -200,10 +189,6 @@ public class HttpService {
                     boolean var37;
                     try {
                         var37 = var35.equalsIgnoreCase(Application.B("ꎻ"));
-                    } catch (JSONException var21) {
-                        var33 = var21;
-                        var34 = false;
-                        break label117;
                     } catch (IllegalArgumentException var22) {
                         var32 = var22;
                         var34 = false;
@@ -215,10 +200,6 @@ public class HttpService {
                     if (var37) {
                         try {
                             var37 = var4 instanceof JSONObject;
-                        } catch (JSONException var19) {
-                            var33 = var19;
-                            var34 = false;
-                            break label117;
                         } catch (IllegalArgumentException var20) {
                             var32 = var20;
                             var34 = false;
@@ -229,10 +210,6 @@ public class HttpService {
                             if (var31 != null) {
                                 try {
                                     var39 = Util.mergeJson((JSONObject)var4, var31);
-                                } catch (JSONException var17) {
-                                    var33 = var17;
-                                    var34 = false;
-                                    break label117;
                                 } catch (IllegalArgumentException var18) {
                                     var32 = var18;
                                     var34 = false;
@@ -244,10 +221,6 @@ public class HttpService {
                         } else if (var31 != null) {
                             try {
                                 TSLog.logger.warn(Application.B("ꏔ넫取㊚荋⻰\ue802䶯캾猐섧\uedd9鲵囌唴㶪\u139a\uec65\uf85b嗴륐굴䣮ⅱ遮秪悄덁䮺僞滱堈甃ᝲ찉ƙ抷뻮\uddc7ȏ狛娳⇌\ua7bd쥞苳㧍푃⻱̳က鞲婡⌑ံ㗵燰⢕\ud8bc৮櫄巯莝枋\ue473膠⇣蕅㇓꾣ๆ䭏덅册썶▋伻꾮⮍ﶚ\u0ee9ﴔ\uda61睘䯪⡍\ue0a9胋ᤨ쨤ᓓ\ue197〪㌲것쫪꿒㉴嚟ꈹピ\ue3ebᣃ툯䇖毝䊏䝊夊巩זּ訬胚\uf6a3聅䬦䵱ᴜ\ue4ad郞꣢鈏㢚ﺩ╮蹍\uec6fꋳ柳椮\uf0e3\u0fef扬"));
-                            } catch (JSONException var15) {
-                                var33 = var15;
-                                var34 = false;
-                                break label117;
                             } catch (IllegalArgumentException var16) {
                                 var32 = var16;
                                 var34 = false;
@@ -259,11 +232,7 @@ public class HttpService {
                     } else {
                         try {
                             var39 = var31;
-                            var38 = new JSONObject;
-                        } catch (JSONException var13) {
-                            var33 = var13;
-                            var34 = false;
-                            break label117;
+                            var38 = new JSONObject();
                         } catch (IllegalArgumentException var14) {
                             var32 = var14;
                             var34 = false;
@@ -273,7 +242,6 @@ public class HttpService {
                         var6 = var38;
 
                         try {
-                            var6.<init>();
                             var38.put(var5, var4);
                         } catch (JSONException var11) {
                             var33 = var11;
@@ -288,10 +256,6 @@ public class HttpService {
                         if (var39 != null) {
                             try {
                                 var39 = Util.mergeJson((JSONObject)var6, var31);
-                            } catch (JSONException var9) {
-                                var33 = var9;
-                                var34 = false;
-                                break label117;
                             } catch (IllegalArgumentException var10) {
                                 var32 = var10;
                                 var34 = false;
@@ -305,10 +269,6 @@ public class HttpService {
                     try {
                         this.g.newCall(this.a(var1, var6.toString())).enqueue(new HttpService.h(var2));
                         return;
-                    } catch (JSONException var7) {
-                        var33 = var7;
-                        var34 = false;
-                        break label117;
                     } catch (IllegalArgumentException var8) {
                         var32 = var8;
                         var34 = false;
@@ -335,7 +295,7 @@ public class HttpService {
         TSConfig var3 = TSConfig.getInstance(this.a);
         TSLog.logger.info(TSLog.notice(Application.B("ꏝ넏史㊯茅") + var3.getMethod().toUpperCase() + Application.B("ꎵ넹叇㊋荆\u2efc\ue84b䷩") + var2.size() + Application.B("ꎼ")));
         JSONArray var4;
-        var4 = new JSONArray.<init>();
+        var4 = new JSONArray();
         Iterator var5 = var2.iterator();
 
         while(var5.hasNext()) {
@@ -354,10 +314,6 @@ public class HttpService {
                     try {
                         var28 = var3;
                         var29 = var3.getParams();
-                    } catch (JSONException var21) {
-                        var27 = var21;
-                        var10001 = false;
-                        break label90;
                     } catch (IllegalArgumentException var22) {
                         var10000 = var22;
                         var10001 = false;
@@ -369,10 +325,6 @@ public class HttpService {
                     String var30;
                     try {
                         var30 = var28.getHttpRootProperty();
-                    } catch (JSONException var19) {
-                        var27 = var19;
-                        var10001 = false;
-                        break label90;
                     } catch (IllegalArgumentException var20) {
                         var10000 = var20;
                         var10001 = false;
@@ -384,10 +336,6 @@ public class HttpService {
                     boolean var31;
                     try {
                         var31 = var30.equalsIgnoreCase(Application.B("ꎻ"));
-                    } catch (JSONException var17) {
-                        var27 = var17;
-                        var10001 = false;
-                        break label90;
                     } catch (IllegalArgumentException var18) {
                         var10000 = var18;
                         var10001 = false;
@@ -399,10 +347,6 @@ public class HttpService {
                         if (var25 != null) {
                             try {
                                 TSLog.logger.warn(Application.B("ꏔ넫取㊚荋⻰\ue802䶯캾猐섧\uedd9鲵囌唴㶪\u139a\uec65\uf85b嗴륐굴䣮ⅱ遮秪悄덁䮺僞滱堈甃ᝲ찉ƙ抷뻮\uddc7ȏ狛娳⇌\ua7bd쥞苳㧍푃⻱̳က鞲婡⌑ံ㗵燰⢕\ud8bc৮櫄巯莝枋\ue473膠⇣蕅㇓꾣ๆ䭏덅册썶▋伻꾮⮍ﶚ\u0ee9ﴔ\uda61睘䯪⡍\ue0a9胋ᤨ쨤ᓓ\ue197〪㌲것쫪꿒㉴嚟ꈹピ\ue3ebᣃ툯䇖毝䊏䝊夊巩זּ訬胚\uf6a3聅䬦䵱ᴜ\ue4ad郞꣢鈏㢚ﺩ╮蹍\uec6fꋳ柳椮\uf0e3\u0fef扬"));
-                            } catch (JSONException var15) {
-                                var27 = var15;
-                                var10001 = false;
-                                break label90;
                             } catch (IllegalArgumentException var16) {
                                 var10000 = var16;
                                 var10001 = false;
@@ -415,11 +359,7 @@ public class HttpService {
                         JSONObject var32;
                         try {
                             var32 = var25;
-                            var29 = new JSONObject;
-                        } catch (JSONException var13) {
-                            var27 = var13;
-                            var10001 = false;
-                            break label90;
+                            var29 = new JSONObject();
                         } catch (IllegalArgumentException var14) {
                             var10000 = var14;
                             var10001 = false;
@@ -429,7 +369,6 @@ public class HttpService {
                         var6 = var29;
 
                         try {
-                            var6.<init>();
                             var29.put(var26, var4);
                         } catch (JSONException var11) {
                             var27 = var11;
@@ -444,10 +383,6 @@ public class HttpService {
                         if (var32 != null) {
                             try {
                                 var32 = Util.mergeJson((JSONObject)var6, var25);
-                            } catch (JSONException var9) {
-                                var27 = var9;
-                                var10001 = false;
-                                break label90;
                             } catch (IllegalArgumentException var10) {
                                 var10000 = var10;
                                 var10001 = false;
@@ -461,10 +396,6 @@ public class HttpService {
                     try {
                         this.g.newCall(this.a(var1, var6.toString())).enqueue(new HttpService.h(var2));
                         return;
-                    } catch (JSONException var7) {
-                        var27 = var7;
-                        var10001 = false;
-                        break label90;
                     } catch (IllegalArgumentException var8) {
                         var10000 = var8;
                         var10001 = false;
@@ -499,11 +430,19 @@ public class HttpService {
             while(var5.hasNext()) {
                 String var6;
                 if ((var6 = (String)var5.next()).equalsIgnoreCase(Application.B("ꏶ넴又㊋荀\u2efa\ue81f䷬캭獉셴\uedcc"))) {
-                    var3 = MediaType.parse(var4.getString(var6));
+                    try {
+                        var3 = MediaType.parse(var4.getString(var6));
+                    } catch (JSONException ex) {
+                        ex.printStackTrace();
+                    }
                 }
 
                 if (var6 != null) {
-                    var9.header(var6, var4.getString(var6));
+                    try {
+                        var9.header(var6, var4.getString(var6));
+                    } catch (JSONException ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         }
@@ -525,21 +464,8 @@ public class HttpService {
 
             Throwable var10000;
             boolean var10001;
-            try {
                 var10004.b.addAll(var2);
-            } catch (Throwable var10) {
-                var10000 = var10;
-                var10001 = false;
-                throw var10000;
-            }
 
-            try {
-                ;
-            } catch (Throwable var9) {
-                var10000 = var9;
-                var10001 = false;
-                throw var10000;
-            }
 
             var3.destroyAll(var2);
             this.e();
@@ -562,21 +488,9 @@ public class HttpService {
 
             Throwable var10000;
             boolean var10001;
-            try {
                 var10004.b.add(var2);
-            } catch (Throwable var10) {
-                var10000 = var10;
-                var10001 = false;
-                throw var10000;
-            }
 
-            try {
-                ;
-            } catch (Throwable var9) {
-                var10000 = var9;
-                var10001 = false;
-                throw var10000;
-            }
+
 
             var3.destroy(var2);
             this.f();
@@ -593,24 +507,13 @@ public class HttpService {
         if ((var2 = var1.responseText) != null && !var2.isEmpty()) {
             JSONObject var10000;
             boolean var10001;
-            try {
-                var10000 = new JSONObject;
-            } catch (JSONException var5) {
-                var10001 = false;
-                return;
-            }
+            var10000 = new JSONObject();
 
             JSONObject var6;
             JSONObject var8 = var6 = var10000;
 
             boolean var7;
-            try {
-                var8.<init>(var1.responseText);
-                var7 = var10000.has(Application.B("︙蒈\uf1e0莊癜븶弒꜓复坖䠊\uf1a9\uf877듘燭Ĵ뼵誥㒯䞓걅밨"));
-            } catch (JSONException var4) {
-                var10001 = false;
-                return;
-            }
+            var7 = var10000.has(Application.B("︙蒈\uf1e0莊癜븶弒꜓复坖䠊\uf1a9\uf877듘燭Ĵ뼵誥㒯䞓걅밨"));
 
             if (var7) {
                 try {
@@ -628,7 +531,7 @@ public class HttpService {
         this.g();
         if (this.d != null) {
             final ArrayList var1;
-            var1 = new ArrayList.<init>(this.b);
+            var1 = new ArrayList(this.b);
             BackgroundGeolocation.getUiHandler().post(new Runnable() {
                 public void run() {
                     HttpService.this.d.onSuccess(var1);
@@ -703,66 +606,24 @@ public class HttpService {
         BackgroundGeolocation.getUiHandler().post(new Runnable() {
             public void run() {
                 if (LifecycleManager.f().b()) {
-                    <undefinedtype> var10002 = this;
                     Context var33 = HttpService.this.a;
                     AuthorizationEvent var1x = var1;
                     com.transistorsoft.locationmanager.util.b.a(new HeadlessEvent(var33, Application.B("㲣ꪦꔥ⻤\udf4b\ue5c5멵㴯\ue9b3ꦾ\uddb0놦ၹ"), var1x));
                 } else {
-                    <undefinedtype> var10000 = this;
-                    synchronized(HttpService.this.j){}
+                    synchronized(HttpService.this.j){
+                        Iterator var35 = HttpService.this.j.iterator();
+                        Iterator var2 = var35;
 
-                    Throwable var34;
-                    Iterator var35;
-                    boolean var10001;
-                    try {
-                        var35 = HttpService.this.j.iterator();
-                    } catch (Throwable var32) {
-                        var34 = var32;
-                        var10001 = false;
-                        throw var34;
-                    }
-
-                    Iterator var2 = var35;
-
-                    boolean var36;
-                    try {
-                        var36 = var35.hasNext();
-                    } catch (Throwable var31) {
-                        var34 = var31;
-                        var10001 = false;
-                        throw var34;
-                    }
-
-                    if (var36) {
-                        while(true) {
-                            try {
+                        boolean var36 = var35.hasNext();
+                        if (var36) {
+                            while(true) {
                                 var36 = var2.hasNext();
-                            } catch (Throwable var29) {
-                                var34 = var29;
-                                var10001 = false;
-                                throw var34;
-                            }
-
-                            if (!var36) {
-                                break;
-                            }
-
-                            try {
+                                if (!var36) {
+                                    break;
+                                }
                                 ((TSAuthorizationCallback)var2.next()).onResponse(var1);
-                            } catch (Throwable var30) {
-                                var34 = var30;
-                                var10001 = false;
-                                throw var34;
                             }
                         }
-                    }
-
-                    try {
-                        ;
-                    } catch (Throwable var28) {
-                        var34 = var28;
-                        var10001 = false;
-                        throw var34;
                     }
                 }
             }
@@ -784,7 +645,7 @@ public class HttpService {
             }
 
             ConnectivityChangeEvent var3;
-            var3 = new ConnectivityChangeEvent.<init>(var1);
+            var3 = new ConnectivityChangeEvent(var1);
             EventBus.getDefault().post(var3);
         }
     }
@@ -891,7 +752,7 @@ public class HttpService {
             return false;
         } else if (VERSION.SDK_INT >= 23) {
             NetworkCapabilities var3;
-            return (var3 = var1.getNetworkCapabilities(var1.getActiveNetwork())) != null && var3.hasTransport(0);
+            return (var3 = var1.getNetworkCapabilities(var1.getActiveNetwork())) != null && var3.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR);
         } else {
             NetworkInfo var2;
             return (var2 = var1.getActiveNetworkInfo()) != null && var2.isConnected() && var2.getType() == 0;
@@ -904,7 +765,7 @@ public class HttpService {
             return false;
         } else if (VERSION.SDK_INT >= 23) {
             NetworkCapabilities var3;
-            return (var3 = var1.getNetworkCapabilities(var1.getActiveNetwork())) != null && var3.hasTransport(1);
+            return (var3 = var1.getNetworkCapabilities(var1.getActiveNetwork())) != null && var3.hasTransport(NetworkCapabilities.TRANSPORT_WIFI);
         } else {
             NetworkInfo var2;
             return (var2 = var1.getActiveNetworkInfo()) != null && var2.getType() == 1;
@@ -923,16 +784,14 @@ public class HttpService {
                 var10000.isDefaultNetworkActive();
                 NetworkRequest var4 = (new android.net.NetworkRequest.Builder()).build();
                 HttpService.i var2;
-                HttpService.i var10002 = var2 = new HttpService.i;
-                var10002.<init>();
+                HttpService.i var10002 = var2 = new HttpService.i();
                 this.i = var10002;
                 var10000.registerNetworkCallback(var4, var2);
             } else {
                 HttpService var10001 = this;
                 this.h = new HttpService.f();
                 IntentFilter var3;
-                IntentFilter var5 = var3 = new IntentFilter;
-                var5.<init>();
+                IntentFilter var5 = var3 = new IntentFilter();
                 var5.addAction(Application.B("煌蒼픣ꑜ잊ӈജ∃幋啈ﴆ䋖\udaee葶盗\ue605\udd22ꏒꍅ鳌㳦\uedfc菾䦙\ue49b䯄\ue158뉞\uf86a槸牫䖥̺\u0cd2㟞㧳"));
                 var1.registerReceiver(var10001.h, var3);
             }
@@ -957,30 +816,15 @@ public class HttpService {
             boolean var16;
             boolean var10001;
             Throwable var15;
-            try {
                 var16 = var10000.j.contains((TSAuthorizationCallback)var2);
-            } catch (Throwable var14) {
-                var15 = var14;
-                var10001 = false;
-                throw var15;
-            }
+
 
             if (var16) {
-                try {
                     return this.j.remove(var2);
-                } catch (Throwable var12) {
-                    var15 = var12;
-                    var10001 = false;
-                    throw var15;
-                }
+
             } else {
-                try {
                     return null;
-                } catch (Throwable var13) {
-                    var15 = var13;
-                    var10001 = false;
-                    throw var15;
-                }
+
             }
         } else {
             return null;
@@ -988,27 +832,8 @@ public class HttpService {
     }
 
     public void onAuthorization(TSAuthorizationCallback var1) {
-        List var2;
-        List var10000 = var2 = this.j;
-        HttpService var10001 = this;
-        synchronized(var2){}
-
-        Throwable var9;
-        boolean var10;
-        try {
-            var10001.j.add(var1);
-        } catch (Throwable var8) {
-            var9 = var8;
-            var10 = false;
-            throw var9;
-        }
-
-        try {
-            ;
-        } catch (Throwable var7) {
-            var9 = var7;
-            var10 = false;
-            throw var9;
+        synchronized(this.j){
+            j.add(var1);
         }
     }
 
@@ -1122,7 +947,6 @@ public class HttpService {
                                             }
 
                                             BackgroundTaskManager var10000 = BackgroundTaskManager.getInstance();
-                                            <undefinedtype> var10001 = this;
                                             Context var2 = HttpService.this.a;
                                             var10000.stopBackgroundTask(var2, var1);
                                         }
@@ -1141,7 +965,7 @@ public class HttpService {
                 }
 
                 HttpResponse var8;
-                var8 = new HttpResponse.<init>(HttpService.this.a, var6, var3);
+                var8 = new HttpResponse(HttpService.this.a, var6, var3);
                 var7 = var8;
             } else {
                 if (HttpService.this.b(var2)) {
@@ -1157,10 +981,9 @@ public class HttpService {
                 }
 
                 TSLog.logger.error(TSLog.warn(Application.B("袅縘쵾›ರ❺睕犟쯋萏") + var2.code() + Application.B("裷繕쵅„ಋ❄眆狉쯁萞秥缲䝔ሀ賳㻹\ue2c6Ｏ\uf05c᧑聱컓좼惤ﷃ\udd06韔횚ᤦ蹵㻾䏢ꆨ愔⁜ﴝ픽ᯰ묍頧섏铜⫊Ꝧ쥿郀\ue8cf\udbaeཙ\u2e6dꯘ혗䔕邦龆ľἍ鶢⬾ꡑ爥헫\ufb07疞쓮累壈\ue730㋡\ud7ab")));
-                HttpResponse var14 = var7 = new HttpResponse;
                 Context var10 = HttpService.this.a;
                 int var12 = var2.code();
-                var14.<init>(var10, var12, var2.code() + Application.B("裷縏쵨\u202eಶ❦睃犙쮅萏禣署䝄ቜ貼㻿\ue283［\uf050᧑聹컙좼惣ﶆ\udd03"));
+                HttpResponse var14 = var7 = new HttpResponse(var10, var12, var2.code() + Application.B("裷縏쵨\u202eಶ❦睃犙쮅萏禣署䝄ቜ貼㻿\ue283［\uf050᧑聹컙좼惣ﶆ\udd03"));
             }
 
             if (this.c) {
@@ -1192,7 +1015,7 @@ public class HttpService {
 
             String var6 = var2.getMessage();
             HttpResponse var7;
-            var7 = new HttpResponse.<init>(HttpService.this.a, var3, var6);
+            var7 = new HttpResponse(HttpService.this.a, var3, var6);
             if (this.c) {
                 HttpService.this.a(var7, this.b);
             } else {
@@ -1208,15 +1031,11 @@ public class HttpService {
             Context var10001 = HttpService.this.a;
             TSBackgroundTaskCallback var2;
             var2 = new TSBackgroundTaskCallback() {
-                {
-                    this.a = var2;
-                }
-
                 public void onStart(int var1) {
                     HttpService.this.e.set(var1);
                     BackgroundGeolocation.getThreadPool().execute(g.this);
                 }
-            }.<init>(HttpService.this);
+            };
             var10000.startBackgroundTask(var10001, true, var2);
         }
 

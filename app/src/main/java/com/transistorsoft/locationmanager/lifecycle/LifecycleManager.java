@@ -46,7 +46,7 @@ public class LifecycleManager implements DefaultLifecycleObserver, Runnable {
     }
 
     private LifecycleManager() {
-        this.a((var0) -> {
+        this.a((LifecycleManager.b) (var0) -> {
             if (var0) {
                 TSLog.logger.debug(TSLog.header(Application.B("쥬敪ꚿ윎㗬튇⬙\ue361量끭\uddb7㥬⢢돪\ua97d⩳钗挺") + var0));
             }
@@ -60,15 +60,7 @@ public class LifecycleManager implements DefaultLifecycleObserver, Runnable {
 
         boolean var10001;
         Throwable var23;
-        Iterator var24;
-        try {
-            var24 = var10000.b.iterator();
-        } catch (Throwable var22) {
-            var23 = var22;
-            var10001 = false;
-            throw var23;
-        }
-
+        Iterator var24 = var10000.b.iterator();
         Iterator var2 = var24;
 
         while(true) {
@@ -99,8 +91,6 @@ public class LifecycleManager implements DefaultLifecycleObserver, Runnable {
                 break;
             }
         }
-
-        throw var23;
     }
 
     private void e() {
@@ -116,14 +106,7 @@ public class LifecycleManager implements DefaultLifecycleObserver, Runnable {
         boolean var10001;
         Throwable var23;
         Iterator var24;
-        try {
             var24 = var10000.a.iterator();
-        } catch (Throwable var22) {
-            var23 = var22;
-            var10001 = false;
-            throw var23;
-        }
-
         Iterator var2 = var24;
 
         while(true) {
@@ -155,8 +138,6 @@ public class LifecycleManager implements DefaultLifecycleObserver, Runnable {
                 break;
             }
         }
-
-        throw var23;
     }
 
     public void c() {
@@ -194,53 +175,15 @@ public class LifecycleManager implements DefaultLifecycleObserver, Runnable {
         if (this.g.get()) {
             var1.a(this.f.get());
         } else {
-            List var2;
-            List var10000 = var2 = this.a;
-            LifecycleManager var10001 = this;
-            synchronized(var2){}
-
-            Throwable var9;
-            boolean var10;
-            try {
-                var10001.a.add(var1);
-            } catch (Throwable var8) {
-                var9 = var8;
-                var10 = false;
-                throw var9;
-            }
-
-            try {
-                ;
-            } catch (Throwable var7) {
-                var9 = var7;
-                var10 = false;
-                throw var9;
+            synchronized(this.a){
+                a.add(var1);
             }
         }
     }
 
     public void a(LifecycleManager.c var1) {
-        List var2;
-        List var10000 = var2 = this.b;
-        LifecycleManager var10001 = this;
-        synchronized(var2){}
-
-        Throwable var9;
-        boolean var10;
-        try {
-            var10001.b.add(var1);
-        } catch (Throwable var8) {
-            var9 = var8;
-            var10 = false;
-            throw var9;
-        }
-
-        try {
-            ;
-        } catch (Throwable var7) {
-            var9 = var7;
-            var10 = false;
-            throw var9;
+        synchronized(this.b){
+            b.add(var1);
         }
     }
 
@@ -257,7 +200,6 @@ public class LifecycleManager implements DefaultLifecycleObserver, Runnable {
                 LifecycleManager.this.e();
             }
         };
-        var10004.<init>();
         this.d = var10004;
         this.c.postDelayed(var2, 50L);
         this.f.set(true);
