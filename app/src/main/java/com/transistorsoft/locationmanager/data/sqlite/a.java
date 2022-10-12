@@ -5,6 +5,7 @@
 
 package com.transistorsoft.locationmanager.data.sqlite;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -67,6 +68,7 @@ public class a extends SQLiteOpenHelper {
         TSLog.logger.debug(Application.B("蹣뛂삒쭭軔欔탈Ⲣ浔俓뭎ɂ璓倜椈ꡲ\u2b75⼩滹멢䃿뎇퐔黗\uf032\udb32厩평䔰▹곶᎘頟苘柇\uf771冟壩▲胅髼鼸緧Đ\uda90\uf19f哥燇㾢違㸫幨ᦺ껧㝦첧彾냽ᶜ踲턋쾷쐝너皶鲧㱈玅ₖ蓗햔䦝д庄椗\uda29럺\ue071断㼢\u206f苾曒풦继\uef71鋝ᬅ㱐鮋魨鉴䠩㦶\ue234蛆瓍金⩶篂ꅲ샣䴜勁ꨢЇ⎙㛦넧怜\u2d79ᅄ兴痻ꌣェ⍫鏎薱ݲ恞\u3098ꀕ⏊Ｗﳱ\ud7ad벟곰\ue689\ued63妹뜞渑䶰悐\ue343桩皘\uf343ṣ㽟媘鯈칞ꞔ쎧먉ꐅ⠬㑙鞃梲\udd5e\uefba\uf804媐핵盔雐僜⼚툜軹驡㯂調\u2d74᭺莦䡟\ue30e১ʌ鉼妦㏮뫭鴔頻쌎雃ମ鬹門魘\ud8cc㮰\uebaa茺\ue73d㮙ϋ\u0ac6嵭禇ㅜ⠋뗿⢲嵭揅ꇜ㋌뛌䖪䵿駼缓\ud8a3境ᴽ\uf257奎\ue2c6㤶၇\ud8b5컸ᆸ磕엽캘\ue404\ueb4b迤脎출硘驔촧鈉涵\ue268ᆍ䄇粩″廊騃냽᠊昩\u4db9렙\uf720\ueabe쵿\udfe2垃雿\udf95楮犨곊㰺矢웬샏烳뷭밽琗ጯΉ\u177b鸞뷫覤\uda13ப쨃礯蒸㤹鷲삞Ꮲ\ue166ⶲ┗\uf776륍啨ꏕ耼\ue8b2∲邫\u0a63躎䷑挐藻\uf346\ue227\ue46dĞ멁絙㼉⠸紭朤\uf1bd\u2061\ue465䅆ᏻྲྀ隄팬\uf6a3\ue719\uf60dሞ唻凄䝳බڐ噀ら\ue512ᖸ绺홗줚揋䟔\udad5更妔蛼趌伷絝﬩뼧戮\uf232啓༬疇◸뉨舟ḓ闣Á쒸箊覜븤癡髻襺㫥樃ƫ瑡ᝄሄᵊ檈㊲똆ꕎṼ靃ක㝁\ue2c3ሲ礯맚䷬︤뤙籞퉠攏퐵᭣\ued0d㶴ꬄ欃쮷㘘즺ⶇ繁틐錁䯒橭픃➮⽽४槶繽ਿﺄ둉쨟悥볅䄤ﱚ퇲줐з㷨\uef30\ue9dd叽ᯀꮭ\udac0쪺\uedca韵Ͼ쌿僙㞣반ލ霷\uf089ᤪ䶦镘긱刿遣뽉魶햪쓡铷숚뤰獂뇕붠輌⇦勐᱄\uf17c勵첻㵥\ue891\u0a00苿筍\u19aeﳎ\ud8b2ᴈ燦䐈쳼酬髂钗⟣㒒枯\uf85c╁볽䌏㷀䜬쳽력⍎⥼뚗咋එ\uea3c♄蝐"));
     }
 
+    @SuppressLint("Range")
     public void onUpgrade(SQLiteDatabase var1, int var2, int var3) {
         Log.i(Application.B("ᦢ䮸ۦ줌쭼낈┗᧭炶ᎏ짆瘗亞Ԯ\uedd4\uea5b"), Application.B("ᦙ䮅ۿ줓쭸낛│᧠炼Ꮑ짯瘗亄Ԩ\uedd3\uea48䒅\udf13睹\uf64b") + var2 + Application.B("\u19db䯕") + var3);
         SQLiteDatabase var10000;
@@ -207,7 +209,7 @@ public class a extends SQLiteOpenHelper {
                             ContentValues var221;
                             try {
                                 TSLog.logger.debug(TSLog.ok(Application.B("ᦻ䮂ۍ중쭾낝┆ᦤ") + var4 + Application.B("᧖䮡۹줬쭑냉┗᧫烹ᎅ짪瘂云թ\uedf3\uea65䒹\udf34")));
-                                var221 = new ContentValues;
+                                var221 = new ContentValues();
                             } catch (Throwable var194) {
                                 var210 = var194;
                                 var10001 = false;
@@ -221,7 +223,6 @@ public class a extends SQLiteOpenHelper {
                             String var220;
                             try {
                                 var220 = var206;
-                                var207.<init>();
                             } catch (Throwable var193) {
                                 var210 = var193;
                                 var10001 = false;
@@ -273,15 +274,19 @@ public class a extends SQLiteOpenHelper {
                     }
 
                     try {
-                        throw var205;
+                        try {
+                            throw var205;
+                        } catch (Throwable ex) {
+                            ex.printStackTrace();
+                        }
                     } catch (SQLiteException var187) {
                         var208 = var187;
                         var10001 = false;
                     }
                 }
-
-                SQLiteException var204 = var208;
-                Log.i(Application.B("ᦢ䮸ۦ줌쭼낈┗᧭炶ᎏ짆瘗亞Ԩ\uedd6\uea4c䒄"), Application.B("ᦿ䮌ۄ줌쭭낌┇ᦤ炊Ꮀ짇瘿交Ԍ\ued91\uea4c䒄\udf04眬\uf619\uf664核") + var204.getMessage());
+//
+//                SQLiteException var204 = var208;
+//                Log.i(Application.B("ᦢ䮸ۦ줌쭼낈┗᧭炶ᎏ짆瘗亞Ԩ\uedd6\uea4c䒄"), Application.B("ᦿ䮌ۄ줌쭭낌┇ᦤ炊Ꮀ짇瘿交Ԍ\ued91\uea4c䒄\udf04眬\uf619\uf664核") + var204.getMessage());
         }
 
     }
