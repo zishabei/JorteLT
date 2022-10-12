@@ -10,9 +10,11 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Build.VERSION;
 import android.util.Log;
+
 import com.transistorsoft.locationmanager.event.SettingsFailureEvent;
 import com.transistorsoft.locationmanager.logger.TSLog;
 import com.transistorsoft.tslocationmanager.Application;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -21,6 +23,7 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -175,8 +178,8 @@ public class b {
     private static void v0() {
         Editor var0 = g.edit();
 
-        for(int var1 = 0; var1 < e.size(); ++var1) {
-            a var2 = (a)e.get(var1);
+        for (int var1 = 0; var1 < e.size(); ++var1) {
+            a var2 = (a) e.get(var1);
             if (!g.contains(var2.b) || !var2.g) {
                 b(a(var2.c, var2), var2);
                 a(var2.c, var2, var0);
@@ -190,46 +193,28 @@ public class b {
         f.clear();
         Editor var1 = g.edit();
 
-        for(int var2 = 0; var2 < e.size(); ++var2) {
+        for (int var2 = 0; var2 < e.size(); ++var2) {
             a var3;
-            if (!(var3 = (a)e.get(var2)).h && var0.has(var3.b)) {
+            if (!(var3 = (a) e.get(var2)).h && var0.has(var3.b)) {
                 JSONException var10000;
-                label47: {
+                label47:
+                {
                     JSONObject var8;
                     a var10;
                     boolean var10001;
-                    try {
-                        var8 = var0;
-                        var10 = var3;
-                        f.add(var3.b);
-                    } catch (JSONException var7) {
-                        var10000 = var7;
-                        var10001 = false;
-                        break label47;
-                    }
+                    var8 = var0;
+                    var10 = var3;
+                    f.add(var3.b);
 
                     Object var9;
-                    try {
-                        var9 = a(var8, var10);
-                    } catch (JSONException var6) {
-                        var10000 = var6;
-                        var10001 = false;
-                        break label47;
-                    }
+                    var9 = a(var8, var10);
 
                     Object var4 = var9;
 
-                    try {
-                        b(a(var4, var3), var3);
-                        a(var9, var3, var1);
-                        continue;
-                    } catch (JSONException var5) {
-                        var10000 = var5;
-                        var10001 = false;
-                    }
+                    b(a(var4, var3), var3);
+                    a(var9, var3, var1);
+                    continue;
                 }
-
-                var10000.printStackTrace();
             }
         }
 
@@ -245,8 +230,7 @@ public class b {
 
     private static void u0() {
         StringBuffer var0;
-        StringBuffer var10000 = var0 = new StringBuffer;
-        var10000.<init>(4096);
+        StringBuffer var10000 = var0 = new StringBuffer(4096);
         var10000.append(TSLog.header(Application.B("娅솣ꠠ㲜삀ᙤ⏛㶝\uf5d7ض㦜魡껷ꩀ視袼超鼥팉쬕ቹ\ued22貎峐徳\ueeb4䘶౮슺臅")));
 
         try {
@@ -261,10 +245,10 @@ public class b {
 
     private static JSONObject i0() {
         JSONObject var0;
-        var0 = new JSONObject.<init>();
+        var0 = new JSONObject();
 
-        for(int var1 = 0; var1 < e.size(); ++var1) {
-            a var2 = (a)e.get(var1);
+        for (int var1 = 0; var1 < e.size(); ++var1) {
+            a var2 = (a) e.get(var1);
             if (g.contains(var2.b)) {
                 Object var3 = a(var2);
                 if (var2.a == 2) {
@@ -296,7 +280,7 @@ public class b {
 
     private static float a(float var0) {
         if (!(var0 <= 0.0F) && !m()) {
-            if ((var0 = (float)(Math.floor((double)var0 / 5.0D + 0.5D) * 5.0D / 5.0D)) < 0.0F) {
+            if ((var0 = (float) (Math.floor((double) var0 / 5.0D + 0.5D) * 5.0D / 5.0D)) < 0.0F) {
                 var0 = 0.0F;
             }
 
@@ -685,24 +669,20 @@ public class b {
 
             w0();
 
-            label58: {
+            label58:
+            {
                 boolean var15;
-                label57: {
-                    label64: {
-                        StringBuilder var13;
+                label57:
+                {
+                    label64:
+                    {
+                        StringBuilder var13 = new StringBuilder();
                         boolean var10001;
-                        try {
-                            var13 = new StringBuilder;
-                        } catch (Exception var8) {
-                            var10001 = false;
-                            break label64;
-                        }
 
                         StringBuilder var10002 = var13;
 
                         byte[] var11;
                         try {
-                            var10002.<init>();
                             var11 = var10.digest(var13.append(var9).append(Application.B("邅")).append(Application.B("邍點椪㍙벞髯⪦縉ⶺ됬\uf661\uf5eb삊ꊧ㧚똘\uf420\uf139ꑾ큯郴藥钫妜חᡉ꣭퓩\u1fdc騌蜨אּ\uf827뿍쏍琣ᣳ鲟渾篓")).toString().getBytes(Application.B("郪黩楔㍅법")));
                         } catch (Exception var7) {
                             var10001 = false;
@@ -759,12 +739,18 @@ public class b {
         }
     }
 
+    private static final String TAG = "b";
+
     private static String c(Context param0) {
         // $FF: Couldn't be decompiled
+        Log.i(TAG, "c: cccccccc");
+        return "";
     }
 
     private static boolean d(Context param0) {
         // $FF: Couldn't be decompiled
+        Log.i(TAG, "d: dddddddd");
+        return true;
     }
 
     private static void a(String var0, String var1) {
@@ -804,12 +790,12 @@ public class b {
     private static ArrayList<Integer> d(String var0) {
         String var10000 = var0;
         ArrayList var3;
-        var3 = new ArrayList.<init>();
+        var3 = new ArrayList();
         Iterator var1 = Arrays.asList(var10000.replaceAll(Application.B("率ᇷ\uf3ce"), "").split(Application.B("嶺"))).iterator();
 
-        while(var1.hasNext()) {
+        while (var1.hasNext()) {
             String var2;
-            if ((var2 = (String)var1.next()).equalsIgnoreCase(Application.B("燐ᇪ\uf3ba\ueb22뼴\ue30c⺅쁤㽨瓀"))) {
+            if ((var2 = (String) var1.next()).equalsIgnoreCase(Application.B("燐ᇪ\uf3ba\ueb22뼴\ue30c⺅쁤㽨瓀"))) {
                 var3.add(0);
             } else if (var2.equalsIgnoreCase(Application.B("裡ᇪ\uf3ba\ueb36뼸\ue307⺕쁤㽨瓀"))) {
                 var3.add(1);
@@ -828,7 +814,7 @@ public class b {
     }
 
     private static Integer c(Integer var0) {
-        switch(var0) {
+        switch (var0) {
             case -2:
                 var0 = -2;
                 break;
@@ -849,12 +835,19 @@ public class b {
     }
 
     private static Object a(JSONObject var0, a var1) {
-        Object var2;
-        if ((var2 = var0.get(var1.b)).equals((Object)null)) {
+        Object var2 = null;
+        try {
+            var2 = var0.get(var1.b);
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+        if (var2 == null) {
             return var1.c;
         } else {
-            label86: {
-                label85: {
+            label86:
+            {
+                label85:
+                {
                     int var10000;
                     boolean var10001;
                     try {
@@ -864,12 +857,12 @@ public class b {
                         break label85;
                     }
 
-                    switch(var10000) {
+                    switch (var10000) {
                         case 1:
                             Integer var16;
                             try {
                                 var16 = var0.getInt(var1.b);
-                            } catch (NumberFormatException var8) {
+                            } catch (Exception var8) {
                                 var10001 = false;
                                 break;
                             }
@@ -880,12 +873,12 @@ public class b {
                             double var13;
                             try {
                                 var13 = var0.getDouble(var1.b);
-                            } catch (NumberFormatException var7) {
+                            } catch (Exception var7) {
                                 var10001 = false;
                                 break;
                             }
 
-                            float var14 = (float)var13;
+                            float var14 = (float) var13;
 
                             Float var15;
                             try {
@@ -901,7 +894,7 @@ public class b {
                             Boolean var12;
                             try {
                                 var12 = var0.getBoolean(var1.b);
-                            } catch (NumberFormatException var5) {
+                            } catch (Exception var5) {
                                 var10001 = false;
                                 break;
                             }
@@ -912,7 +905,7 @@ public class b {
                             Long var11;
                             try {
                                 var11 = var0.getLong(var1.b);
-                            } catch (NumberFormatException var4) {
+                            } catch (Exception var4) {
                                 var10001 = false;
                                 break;
                             }
@@ -931,18 +924,19 @@ public class b {
                 return var2;
             } else {
                 Object var10;
-                label60: {
+                label60:
+                {
                     var10 = null;
                     int var3;
                     if ((var3 = var1.a) != 1) {
                         if (var3 != 2) {
-                            if (var3 != 4 || (Long)var2 >= (Long)var1.d) {
+                            if (var3 != 4 || (Long) var2 >= (Long) var1.d) {
                                 break label60;
                             }
-                        } else if (!((Float)var2 < (Float)var1.d)) {
+                        } else if (!((Float) var2 < (Float) var1.d)) {
                             break label60;
                         }
-                    } else if ((Integer)var2 >= (Integer)var1.d) {
+                    } else if ((Integer) var2 >= (Integer) var1.d) {
                         break label60;
                     }
 
@@ -973,32 +967,23 @@ public class b {
             Method var3 = null;
 
             Object var48;
-            label158: {
+            label158:
+            {
                 NoSuchMethodException var43;
-                label159: {
+                label159:
+                {
                     IllegalAccessException var42;
-                    label160: {
+                    label160:
+                    {
                         InvocationTargetException var41;
-                        label146: {
+                        label146:
+                        {
                             boolean var10001;
                             int var44;
-                            try {
-                                var44 = var10000.a;
-                            } catch (NoSuchMethodException var35) {
-                                var43 = var35;
-                                var10001 = false;
-                                break label159;
-                            } catch (IllegalAccessException var36) {
-                                var42 = var36;
-                                var10001 = false;
-                                break label160;
-                            } catch (InvocationTargetException var37) {
-                                var41 = var37;
-                                var10001 = false;
-                                break label146;
-                            }
+                            var44 = var10000.a;
 
-                            label131: {
+                            label131:
+                            {
                                 int var4 = var44;
                                 Class[] var10002;
                                 Class[] var10003;
@@ -1013,23 +998,9 @@ public class b {
                                                 break label131;
                                             }
 
-                                            try {
-                                                var45 = b.class;
-                                                var46 = var2;
-                                                var10002 = new Class[1];
-                                            } catch (NoSuchMethodException var32) {
-                                                var43 = var32;
-                                                var10001 = false;
-                                                break label159;
-                                            } catch (IllegalAccessException var33) {
-                                                var42 = var33;
-                                                var10001 = false;
-                                                break label160;
-                                            } catch (InvocationTargetException var34) {
-                                                var41 = var34;
-                                                var10001 = false;
-                                                break label146;
-                                            }
+                                            var45 = b.class;
+                                            var46 = var2;
+                                            var10002 = new Class[1];
 
                                             var10003 = var10002;
                                             var10004 = 0;
@@ -1041,33 +1012,11 @@ public class b {
                                                 var43 = var29;
                                                 var10001 = false;
                                                 break label159;
-                                            } catch (IllegalAccessException var30) {
-                                                var42 = var30;
-                                                var10001 = false;
-                                                break label160;
-                                            } catch (InvocationTargetException var31) {
-                                                var41 = var31;
-                                                var10001 = false;
-                                                break label146;
                                             }
                                         } else {
-                                            try {
-                                                var45 = b.class;
-                                                var46 = var2;
-                                                var10002 = new Class[1];
-                                            } catch (NoSuchMethodException var26) {
-                                                var43 = var26;
-                                                var10001 = false;
-                                                break label159;
-                                            } catch (IllegalAccessException var27) {
-                                                var42 = var27;
-                                                var10001 = false;
-                                                break label160;
-                                            } catch (InvocationTargetException var28) {
-                                                var41 = var28;
-                                                var10001 = false;
-                                                break label146;
-                                            }
+                                            var45 = b.class;
+                                            var46 = var2;
+                                            var10002 = new Class[1];
 
                                             var10003 = var10002;
                                             var10004 = 0;
@@ -1079,34 +1028,12 @@ public class b {
                                                 var43 = var23;
                                                 var10001 = false;
                                                 break label159;
-                                            } catch (IllegalAccessException var24) {
-                                                var42 = var24;
-                                                var10001 = false;
-                                                break label160;
-                                            } catch (InvocationTargetException var25) {
-                                                var41 = var25;
-                                                var10001 = false;
-                                                break label146;
                                             }
                                         }
                                     } else {
-                                        try {
-                                            var45 = b.class;
-                                            var46 = var2;
-                                            var10002 = new Class[1];
-                                        } catch (NoSuchMethodException var20) {
-                                            var43 = var20;
-                                            var10001 = false;
-                                            break label159;
-                                        } catch (IllegalAccessException var21) {
-                                            var42 = var21;
-                                            var10001 = false;
-                                            break label160;
-                                        } catch (InvocationTargetException var22) {
-                                            var41 = var22;
-                                            var10001 = false;
-                                            break label146;
-                                        }
+                                        var45 = b.class;
+                                        var46 = var2;
+                                        var10002 = new Class[1];
 
                                         var10003 = var10002;
                                         var10004 = 0;
@@ -1118,34 +1045,12 @@ public class b {
                                             var43 = var17;
                                             var10001 = false;
                                             break label159;
-                                        } catch (IllegalAccessException var18) {
-                                            var42 = var18;
-                                            var10001 = false;
-                                            break label160;
-                                        } catch (InvocationTargetException var19) {
-                                            var41 = var19;
-                                            var10001 = false;
-                                            break label146;
                                         }
                                     }
                                 } else {
-                                    try {
-                                        var45 = b.class;
-                                        var46 = var2;
-                                        var10002 = new Class[1];
-                                    } catch (NoSuchMethodException var14) {
-                                        var43 = var14;
-                                        var10001 = false;
-                                        break label159;
-                                    } catch (IllegalAccessException var15) {
-                                        var42 = var15;
-                                        var10001 = false;
-                                        break label160;
-                                    } catch (InvocationTargetException var16) {
-                                        var41 = var16;
-                                        var10001 = false;
-                                        break label146;
-                                    }
+                                    var45 = b.class;
+                                    var46 = var2;
+                                    var10002 = new Class[1];
 
                                     var10003 = var10002;
                                     var10004 = 0;
@@ -1157,14 +1062,6 @@ public class b {
                                         var43 = var11;
                                         var10001 = false;
                                         break label159;
-                                    } catch (IllegalAccessException var12) {
-                                        var42 = var12;
-                                        var10001 = false;
-                                        break label160;
-                                    } catch (InvocationTargetException var13) {
-                                        var41 = var13;
-                                        var10001 = false;
-                                        break label146;
                                     }
                                 }
 
@@ -1175,10 +1072,6 @@ public class b {
                                 try {
                                     var48 = var3.invoke(b.class, var0);
                                     break label158;
-                                } catch (NoSuchMethodException var5) {
-                                    var43 = var5;
-                                    var10001 = false;
-                                    break label159;
                                 } catch (IllegalAccessException var6) {
                                     var42 = var6;
                                     var10001 = false;
@@ -1188,21 +1081,8 @@ public class b {
                                     var10001 = false;
                                 }
                             } else {
-                                try {
-                                    var48 = var1.c;
-                                    break label158;
-                                } catch (NoSuchMethodException var8) {
-                                    var43 = var8;
-                                    var10001 = false;
-                                    break label159;
-                                } catch (IllegalAccessException var9) {
-                                    var42 = var9;
-                                    var10001 = false;
-                                    break label160;
-                                } catch (InvocationTargetException var10) {
-                                    var41 = var10;
-                                    var10001 = false;
-                                }
+                                var48 = var1.c;
+                                break label158;
                             }
                         }
 
@@ -1247,7 +1127,8 @@ public class b {
         a var10000 = var0;
         Object var1 = null;
 
-        label150: {
+        label150:
+        {
             boolean var10001;
             int var27;
             try {
@@ -1258,7 +1139,7 @@ public class b {
             }
 
             JSONException var28;
-            switch(var27) {
+            switch (var27) {
                 case 0:
                     SharedPreferences var10002;
                     a var39;
@@ -1318,7 +1199,7 @@ public class b {
                 case 1:
                     Integer var35;
                     try {
-                        var35 = g.getInt(var0.b, (Integer)var0.c);
+                        var35 = g.getInt(var0.b, (Integer) var0.c);
                     } catch (ClassCastException var19) {
                         var10001 = false;
                         break;
@@ -1329,7 +1210,7 @@ public class b {
                 case 2:
                     Float var34;
                     try {
-                        var34 = g.getFloat(var0.b, (Float)var0.c);
+                        var34 = g.getFloat(var0.b, (Float) var0.c);
                     } catch (ClassCastException var18) {
                         var10001 = false;
                         break;
@@ -1340,7 +1221,7 @@ public class b {
                 case 3:
                     Boolean var33;
                     try {
-                        var33 = g.getBoolean(var0.b, (Boolean)var0.c);
+                        var33 = g.getBoolean(var0.b, (Boolean) var0.c);
                     } catch (ClassCastException var17) {
                         var10001 = false;
                         break;
@@ -1351,7 +1232,7 @@ public class b {
                 case 4:
                     Long var32;
                     try {
-                        var32 = g.getLong(var0.b, (Long)var0.c);
+                        var32 = g.getLong(var0.b, (Long) var0.c);
                     } catch (ClassCastException var16) {
                         var10001 = false;
                         break;
@@ -1360,61 +1241,19 @@ public class b {
                     var1 = var32;
                     return var1;
                 case 5:
-                    label156: {
-                        JSONObject var30;
-                        try {
-                            var30 = new JSONObject;
-                        } catch (JSONException var14) {
-                            var28 = var14;
-                            var10001 = false;
-                            break label156;
-                        } catch (ClassCastException var15) {
-                            var10001 = false;
-                            break;
-                        }
+                    label156:
+                    {
+                        JSONObject var30 = new JSONObject();
 
                         var1 = var30;
-
-                        try {
-                            var30.<init>(g.getString(var0.b, var0.c.toString()));
-                            return var1;
-                        } catch (JSONException var12) {
-                            var28 = var12;
-                            var10001 = false;
-                        } catch (ClassCastException var13) {
-                            var10001 = false;
-                            break;
-                        }
-                    }
-
-                    JSONObject var37;
-                    try {
-                        TSLog.logger.error(TSLog.error(Application.B("ᙀិ\uf009窵цᑰ塒\ue30e믯㍚⧸\ue0ba糳ꖪ筴섲诓㺵\ud930\uebe7튡衮㎁칛\uf85d\uded1䳚莋") + var0.b));
-                        var37 = new JSONObject;
-                    } catch (ClassCastException var6) {
-                        var10001 = false;
-                        break;
-                    }
-
-                    var1 = var37;
-
-                    try {
-                        var37.<init>();
-                        var28.printStackTrace();
                         return var1;
-                    } catch (ClassCastException var5) {
-                        var10001 = false;
-                        break;
                     }
                 case 6:
-                    label159: {
+                    label159:
+                    {
                         JSONArray var29;
                         try {
-                            var29 = new JSONArray;
-                        } catch (JSONException var10) {
-                            var28 = var10;
-                            var10001 = false;
-                            break label159;
+                            var29 = new JSONArray();
                         } catch (ClassCastException var11) {
                             var10001 = false;
                             break;
@@ -1423,35 +1262,11 @@ public class b {
                         var1 = var29;
 
                         try {
-                            var29.<init>(g.getString(var0.b, var0.c.toString()));
                             return var1;
-                        } catch (JSONException var8) {
-                            var28 = var8;
-                            var10001 = false;
                         } catch (ClassCastException var9) {
                             var10001 = false;
                             break;
                         }
-                    }
-
-                    JSONArray var31;
-                    try {
-                        TSLog.logger.error(TSLog.error(Application.B("ᙀិ\uf009窵цᑰ塒\ue30e믯㍚⧸\ue0ba糳ꖪ筴섲诓㺵\ud930\uebe7튡衠㎑칃\uf859\udecb䲎") + var0.b));
-                        var31 = new JSONArray;
-                    } catch (ClassCastException var7) {
-                        var10001 = false;
-                        break;
-                    }
-
-                    var1 = var31;
-
-                    try {
-                        var31.<init>();
-                        var28.printStackTrace();
-                        return var1;
-                    } catch (ClassCastException var4) {
-                        var10001 = false;
-                        break;
                     }
                 default:
                     return var1;
@@ -1465,7 +1280,7 @@ public class b {
 
     private static void a(Object var0, a var1, Editor var2) {
         String var3;
-        switch(var1.a) {
+        switch (var1.a) {
             case 0:
                 String var4 = var1.b;
                 if (var0 != null) {
@@ -1477,16 +1292,16 @@ public class b {
                 var2.putString(var4, var3);
                 break;
             case 1:
-                var2.putInt(var1.b, (Integer)var0);
+                var2.putInt(var1.b, (Integer) var0);
                 break;
             case 2:
-                var2.putFloat(var1.b, (Float)var0);
+                var2.putFloat(var1.b, (Float) var0);
                 break;
             case 3:
-                var2.putBoolean(var1.b, (Boolean)var0);
+                var2.putBoolean(var1.b, (Boolean) var0);
                 break;
             case 4:
-                var2.putLong(var1.b, (Long)var0);
+                var2.putLong(var1.b, (Long) var0);
                 break;
             case 5:
             case 6:
