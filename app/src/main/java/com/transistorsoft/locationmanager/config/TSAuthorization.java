@@ -7,21 +7,27 @@ package com.transistorsoft.locationmanager.config;
 
 import android.content.Context;
 import android.util.Log;
+
 import com.transistorsoft.locationmanager.adapter.TSConfig;
 import com.transistorsoft.locationmanager.event.AuthorizationEvent;
 import com.transistorsoft.locationmanager.logger.TSLog;
 import com.transistorsoft.locationmanager.util.Util;
+import com.transistorsoft.locationmanager.http.HttpResponse;
+import com.transistorsoft.locationmanager.http.HttpService;
 import com.transistorsoft.tslocationmanager.Application;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
+
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,6 +59,7 @@ public class TSAuthorization extends a implements IModule {
     private boolean mFoundAccessToken = false;
     private boolean mFoundRefreshToken = false;
     private boolean mFoundExpires = false;
+    private static final String TAG = "TSAuthorization";
 
     public TSAuthorization() {
         super(Application.B("쎩廖厬䩊☙六\udede辨ᬫጿ䌶\uab0f咍"));
@@ -62,27 +69,27 @@ public class TSAuthorization extends a implements IModule {
     public TSAuthorization(Map<String, Object> var1) {
         super(Application.B("쎩廖厬䩊☙六\udede辨ᬫጿ䌶\uab0f咍"));
         if (var1.containsKey(Application.B("쎻廗厪䩃☂阮\uded0辫"))) {
-            this.mStrategy = (String)var1.get(Application.B("쎻廗厪䩃☂阮\uded0辫"));
+            this.mStrategy = (String) var1.get(Application.B("쎻廗厪䩃☂阮\uded0辫"));
         }
 
         if (var1.containsKey(Application.B("쎩廀去䩇★類\udee3辽ᬡጮ䌱"))) {
-            this.mAccessToken = (String)var1.get(Application.B("쎩廀去䩇★類\udee3辽ᬡጮ䌱"));
+            this.mAccessToken = (String) var1.get(Application.B("쎩廀去䩇★類\udee3辽ᬡጮ䌱"));
         }
 
         if (var1.containsKey(Application.B("쎺廆厾䩐☓類\udedf辆ᬥጠ䌺ꬎ"))) {
-            this.mRefreshToken = (String)var1.get(Application.B("쎺廆厾䩐☓類\udedf辆ᬥጠ䌺ꬎ"));
+            this.mRefreshToken = (String) var1.get(Application.B("쎺廆厾䩐☓類\udedf辆ᬥጠ䌺ꬎ"));
         }
 
         if (var1.containsKey(Application.B("쎺廆厾䩐☓類\udedf辇ᬸጧ"))) {
-            this.mRefreshUrl = (String)var1.get(Application.B("쎺廆厾䩐☓類\udedf辇ᬸጧ"));
+            this.mRefreshUrl = (String) var1.get(Application.B("쎺廆厾䩐☓類\udedf辇ᬸጧ"));
         }
 
         if (var1.containsKey(Application.B("쎺廆厾䩐☓類\udedf辂ᬫጲ䌳\uab0f咂\uf7fa"))) {
-            this.mRefreshPayload = (Map)var1.get(Application.B("쎺廆厾䩐☓類\udedf辂ᬫጲ䌳\uab0f咂\uf7fa"));
+            this.mRefreshPayload = (Map) var1.get(Application.B("쎺廆厾䩐☓類\udedf辂ᬫጲ䌳\uab0f咂\uf7fa"));
         }
 
         Integer var2;
-        if (var1.containsKey(Application.B("쎭廛厨䩋☄阮\udec4")) && (var2 = (Integer)var1.get(Application.B("쎭廛厨䩋☄阮\udec4"))) != null) {
+        if (var1.containsKey(Application.B("쎭廛厨䩋☄阮\udec4")) && (var2 = (Integer) var1.get(Application.B("쎭廛厨䩋☄阮\udec4"))) != null) {
             this.mExpires = var2.longValue();
         }
 
@@ -90,28 +97,32 @@ public class TSAuthorization extends a implements IModule {
 
     public TSAuthorization(JSONObject var1, boolean var2) {
         super(Application.B("쎩廖厬䩊☙六\udede辨ᬫጿ䌶\uab0f咍"));
-        if (var1.has(Application.B("쎻廗厪䩃☂阮\uded0辫"))) {
-            this.mStrategy = var1.getString(Application.B("쎻廗厪䩃☂阮\uded0辫"));
-        }
+        try {
+            if (var1.has(Application.B("쎻廗厪䩃☂阮\uded0辫"))) {
+                this.mStrategy = var1.getString(Application.B("쎻廗厪䩃☂阮\uded0辫"));
+            }
 
-        if (var1.has(Application.B("쎩廀去䩇★類\udee3辽ᬡጮ䌱"))) {
-            this.mAccessToken = var1.getString(Application.B("쎩廀去䩇★類\udee3辽ᬡጮ䌱"));
-        }
+            if (var1.has(Application.B("쎩廀去䩇★類\udee3辽ᬡጮ䌱"))) {
+                this.mAccessToken = var1.getString(Application.B("쎩廀去䩇★類\udee3辽ᬡጮ䌱"));
+            }
 
-        if (var1.has(Application.B("쎺廆厾䩐☓類\udedf辆ᬥጠ䌺ꬎ"))) {
-            this.mRefreshToken = var1.getString(Application.B("쎺廆厾䩐☓類\udedf辆ᬥጠ䌺ꬎ"));
-        }
+            if (var1.has(Application.B("쎺廆厾䩐☓類\udedf辆ᬥጠ䌺ꬎ"))) {
+                this.mRefreshToken = var1.getString(Application.B("쎺廆厾䩐☓類\udedf辆ᬥጠ䌺ꬎ"));
+            }
 
-        if (var1.has(Application.B("쎺廆厾䩐☓類\udedf辇ᬸጧ"))) {
-            this.mRefreshUrl = var1.getString(Application.B("쎺廆厾䩐☓類\udedf辇ᬸጧ"));
-        }
+            if (var1.has(Application.B("쎺廆厾䩐☓類\udedf辇ᬸጧ"))) {
+                this.mRefreshUrl = var1.getString(Application.B("쎺廆厾䩐☓類\udedf辇ᬸጧ"));
+            }
 
-        if (var1.has(Application.B("쎺廆厾䩐☓類\udedf辂ᬫጲ䌳\uab0f咂\uf7fa"))) {
-            this.mRefreshPayload = Util.toMap(var1.getJSONObject(Application.B("쎺廆厾䩐☓類\udedf辂ᬫጲ䌳\uab0f咂\uf7fa")));
-        }
+            if (var1.has(Application.B("쎺廆厾䩐☓類\udedf辂ᬫጲ䌳\uab0f咂\uf7fa"))) {
+                this.mRefreshPayload = Util.toMap(var1.getJSONObject(Application.B("쎺廆厾䩐☓類\udedf辂ᬫጲ䌳\uab0f咂\uf7fa")));
+            }
 
-        if (var1.has(Application.B("쎭廛厨䩋☄阮\udec4"))) {
-            this.mExpires = var1.getLong(Application.B("쎭廛厨䩋☄阮\udec4"));
+            if (var1.has(Application.B("쎭廛厨䩋☄阮\udec4"))) {
+                this.mExpires = var1.getLong(Application.B("쎭廛厨䩋☄阮\udec4"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         if (var2) {
@@ -133,41 +144,23 @@ public class TSAuthorization extends a implements IModule {
         this.mFoundRefreshToken = false;
         this.mFoundExpires = false;
 
-        label27: {
-            JSONException var10000;
-            label31: {
+        label27:
+        {
+            label31:
+            {
                 boolean var9;
-                TSAuthorization var10004;
-                try {
-                    var10004 = new TSAuthorization;
-                } catch (JSONException var5) {
-                    var10000 = var5;
-                    var9 = false;
-                    break label31;
-                }
+                TSAuthorization var10004 = new TSAuthorization();
 
                 TSAuthorization var7;
                 TSAuthorization var10005 = var7 = var10004;
 
-                try {
-                    var7.<init>();
-                    var7.setStrategy(this.mStrategy);
-                    var7.setRefreshToken(this.mRefreshToken);
-                    var10005.setRefreshPayload(this.mRefreshPayload);
-                    var10002.applyResponseData(var10003, var10004);
-                    TSConfig.getInstance(var10001).updateWithBuilder().setAuthorization(var7).commit();
-                    break label27;
-                } catch (JSONException var4) {
-                    var10000 = var4;
-                    var9 = false;
-                }
+                var7.setStrategy(this.mStrategy);
+                var7.setRefreshToken(this.mRefreshToken);
+                var10005.setRefreshPayload(this.mRefreshPayload);
+                var10002.applyResponseData(var10003, var10004);
+                TSConfig.getInstance(var10001).updateWithBuilder().setAuthorization(var7).commit();
+                break label27;
             }
-
-            JSONException var6 = var10000;
-            String var8 = Application.B("玓ْ좖⣩偿艚ﭟ僌颍⩽巄툱帝苆㞮㼬鼡‛ᝆ읫\ua7ea蛓ᮐ\ue504唰簌⇏ⓥᄡ佖숀\u089bﴸͺꄇ둋㛸㰠ﴐ瓼햨鿔\udac5䶭眭") + var6.getMessage();
-            TSLog.logger.error(TSLog.error(Application.B("꯫\udb31죄") + var8), var6);
-            var3.invoke(new AuthorizationEvent(var8));
-            return;
         }
 
         if (this.mFoundAccessToken) {
@@ -182,27 +175,31 @@ public class TSAuthorization extends a implements IModule {
     private void applyResponseData(JSONObject var1, TSAuthorization var2) {
         Iterator var3 = var1.keys();
 
-        while(true) {
-            while(var3.hasNext()) {
+        while (true) {
+            while (var3.hasNext()) {
                 String var4;
                 Object var5;
-                if ((var5 = var1.get(var4 = (String)var3.next())) instanceof JSONObject) {
-                    this.applyResponseData((JSONObject)var5, var2);
-                } else if (!(var5 instanceof JSONArray)) {
-                    String var6 = var5.toString();
-                    if (!this.mFoundAccessToken && ACCESS_PATTERN.matcher(var4).find()) {
-                        this.mFoundAccessToken = true;
-                        TSLog.logger.debug(Application.B("\ue93aᑠ\udc98별\uea6b䑄ꈑႯ倊Ḯ麏\ue4fc\uf150퓮傁㽪儍蔩\ud938地穩♋Ě"));
-                        var2.setAccessToken(var6);
-                    } else if (!this.mFoundRefreshToken && REFRESH_OR_RENEW_PATTERN.matcher(var4).find()) {
-                        this.mFoundRefreshToken = true;
-                        TSLog.logger.debug(Application.B("\ue93aᑠ\udc98별\uea6b䑄ꈑႯ倊Ḯ麏\ue4fc\uf143퓨傄㽽儛蔩\ud904國穭♅đ䖁"));
-                        var2.setRefreshToken(var6);
-                    } else if (!this.mFoundExpires && EXPIRES_PATTERN.matcher(var4).find()) {
-                        this.mFoundExpires = true;
-                        TSLog.logger.debug(Application.B("\ue93aᑠ\udc98별\uea6b䑄ꈑႯ倊Ḯ麏\ue4fc\uf154퓵傒㽦儌蔿\ud91f"));
-                        var2.setExpires(Long.valueOf(var6));
+                try {
+                    if ((var5 = var1.get(var4 = (String) var3.next())) instanceof JSONObject) {
+                        this.applyResponseData((JSONObject) var5, var2);
+                    } else if (!(var5 instanceof JSONArray)) {
+                        String var6 = var5.toString();
+                        if (!this.mFoundAccessToken && ACCESS_PATTERN.matcher(var4).find()) {
+                            this.mFoundAccessToken = true;
+                            TSLog.logger.debug(Application.B("\ue93aᑠ\udc98별\uea6b䑄ꈑႯ倊Ḯ麏\ue4fc\uf150퓮傁㽪儍蔩\ud938地穩♋Ě"));
+                            var2.setAccessToken(var6);
+                        } else if (!this.mFoundRefreshToken && REFRESH_OR_RENEW_PATTERN.matcher(var4).find()) {
+                            this.mFoundRefreshToken = true;
+                            TSLog.logger.debug(Application.B("\ue93aᑠ\udc98별\uea6b䑄ꈑႯ倊Ḯ麏\ue4fc\uf143퓨傄㽽儛蔩\ud904國穭♅đ䖁"));
+                            var2.setRefreshToken(var6);
+                        } else if (!this.mFoundExpires && EXPIRES_PATTERN.matcher(var4).find()) {
+                            this.mFoundExpires = true;
+                            TSLog.logger.debug(Application.B("\ue93aᑠ\udc98별\uea6b䑄ꈑႯ倊Ḯ麏\ue4fc\uf154퓵傒㽦儌蔿\ud91f"));
+                            var2.setExpires(Long.valueOf(var6));
+                        }
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
 
@@ -313,8 +310,7 @@ public class TSAuthorization extends a implements IModule {
 
     public Map<String, Object> toMap() {
         HashMap var1;
-        HashMap var10000 = var1 = new HashMap;
-        var1.<init>();
+        HashMap var10000 = var1 = new HashMap();
         String var10012 = this.mStrategy;
         var1.put(Application.B("㈦ྐ⺓்佝享㈳\uf8de"), var10012);
         String var10010 = this.mAccessToken;
@@ -331,7 +327,7 @@ public class TSAuthorization extends a implements IModule {
 
     public JSONObject toJson(boolean var1) {
         JSONObject var2;
-        var2 = new JSONObject.<init>();
+        var2 = new JSONObject();
         String var3;
         if ((var3 = this.mAccessToken) == null) {
             return var2;
@@ -363,7 +359,8 @@ public class TSAuthorization extends a implements IModule {
             String var4 = Application.B("緺㓲טּ횹꾰딌썊䘍");
 
             JSONException var21;
-            label108: {
+            label108:
+            {
                 boolean var23;
                 try {
                     var10005.put(var4, var10006.mStrategy);
@@ -402,34 +399,13 @@ public class TSAuthorization extends a implements IModule {
                 var17 = Application.B("緻㓣שּׁ횪꾡딚썅䘤븶ᷣഖ㡺䏬⦌");
 
                 Map var24;
-                try {
-                    var24 = var20.mRefreshPayload;
-                } catch (JSONException var10) {
-                    var21 = var10;
-                    var23 = false;
-                    break label108;
-                }
+                var24 = var20.mRefreshPayload;
 
                 JSONObject var18;
                 JSONObject var25;
                 if (var24 != null) {
-                    try {
-                        var25 = new JSONObject;
-                    } catch (JSONException var9) {
-                        var21 = var9;
-                        var23 = false;
-                        break label108;
-                    }
-
+                    var25 = new JSONObject();
                     var18 = var25;
-
-                    try {
-                        var25.<init>(this.mRefreshPayload);
-                    } catch (JSONException var8) {
-                        var21 = var8;
-                        var23 = false;
-                        break label108;
-                    }
                 } else {
                     var18 = null;
                 }
@@ -448,13 +424,7 @@ public class TSAuthorization extends a implements IModule {
                 String var15 = Application.B("緬㓾ךּ횱꾶딌썞");
 
                 long var27;
-                try {
-                    var27 = var26.mExpires;
-                } catch (JSONException var6) {
-                    var21 = var6;
-                    var23 = false;
-                    break label108;
-                }
+                var27 = var26.mExpires;
 
                 long var19 = var27;
 
@@ -488,7 +458,7 @@ public class TSAuthorization extends a implements IModule {
         if (this.mRefreshPayload == null) {
             TSAuthorization var10000 = this;
             HashMap var1;
-            var1 = new HashMap.<init>();
+            var1 = new HashMap();
             var10000.mRefreshPayload = var1;
         }
 
@@ -497,16 +467,16 @@ public class TSAuthorization extends a implements IModule {
     public void refreshAuthorizationToken(final Context var1, final TSAuthorization.Callback var2) {
         OkHttpClient var3 = HttpService.getInstance(var1).getClient();
         okhttp3.FormBody.Builder var4;
-        var4 = new okhttp3.FormBody.Builder.<init>();
+        var4 = new okhttp3.FormBody.Builder();
 
         String var6;
         Object var7;
         String var10001;
-        for(Iterator var5 = this.mRefreshPayload.entrySet().iterator(); var5.hasNext(); var4.add(var6, var7.toString())) {
-            Entry var10000 = (Entry)var5.next();
-            var6 = (String)var10000.getKey();
+        for (Iterator var5 = this.mRefreshPayload.entrySet().iterator(); var5.hasNext(); var4.add(var6, var7.toString())) {
+            Entry var10000 = (Entry) var5.next();
+            var6 = (String) var10000.getKey();
             String var8;
-            if ((var7 = var10000.getValue()).getClass() == String.class && (var8 = (String)var7).contains(Application.B("⮉뒿챺ኰ뉴ኺ搨俞骹礥\ue47bἮ라幜"))) {
+            if ((var7 = var10000.getValue()).getClass() == String.class && (var8 = (String) var7).contains(Application.B("⮉뒿챺ኰ뉴ኺ搨俞骹礥\ue47bἮ라幜"))) {
                 var10001 = this.mRefreshToken;
                 var7 = var8.replace(Application.B("⮉뒿챺ኰ뉴ኺ搨俞骹礥\ue47bἮ라幜"), var10001);
             }
@@ -518,15 +488,15 @@ public class TSAuthorization extends a implements IModule {
             Iterator var12 = var11.keys();
 
             label43:
-            while(true) {
+            while (true) {
                 String var13;
                 do {
                     do {
                         if (!var12.hasNext()) {
                             break label43;
                         }
-                    } while((var13 = (String)var12.next()) == null);
-                } while(var13.equalsIgnoreCase(Application.B("⮑뒢챱ኢ뉣\u12b1搯供骙礳\ue460Ἦ")));
+                    } while ((var13 = (String) var12.next()) == null);
+                } while (var13.equalsIgnoreCase(Application.B("⮑뒢챱ኢ뉣\u12b1搯供骙礳\ue460Ἦ")));
 
                 try {
                     var10.header(var13, var11.getString(var13));
@@ -546,109 +516,11 @@ public class TSAuthorization extends a implements IModule {
 
         var3.newCall(var10.build()).enqueue(new okhttp3.Callback() {
             public void onFailure(@NotNull Call var1x, @NotNull IOException var2x) {
-                TSLog.logger.warn(TSLog.warn(var2x.getMessage()));
-                TSAuthorization var10000 = TSAuthorization.this;
-                <undefinedtype> var10001 = this;
-                String var3 = var2x.getMessage();
-                var10000._onFailure(var3, var2);
+                Log.i(TAG, "onFailure: aaaaaaaaa");
             }
 
             public void onResponse(@NotNull Call var1x, @NotNull Response var2x) {
-                ResponseBody var12;
-                TSAuthorization.Callback var23;
-                if ((var12 = var2x.body()) == null) {
-                    var23 = var2;
-                    TSAuthorization.this._onFailure(Application.B("ᨱ\uf80a䢬梩㤋覨讔擝錹⛀⢍憳ᛩ惔塦㴐"), var23);
-                } else {
-                    JSONException var10000;
-                    TSAuthorization var21;
-                    <undefinedtype> var22;
-                    label64: {
-                        Response var17;
-                        boolean var10001;
-                        String var18;
-                        try {
-                            var17 = var2x;
-                            var18 = var12.string();
-                        } catch (JSONException var10) {
-                            var10000 = var10;
-                            var10001 = false;
-                            break label64;
-                        }
-
-                        String var13 = var18;
-
-                        JSONObject var20;
-                        try {
-                            var20 = new JSONObject;
-                        } catch (JSONException var9) {
-                            var10000 = var9;
-                            var10001 = false;
-                            break label64;
-                        }
-
-                        JSONObject var16 = var20;
-
-                        boolean var19;
-                        try {
-                            var20.<init>(var13);
-                            var19 = var17.isSuccessful();
-                        } catch (JSONException var8) {
-                            var10000 = var8;
-                            var10001 = false;
-                            break label64;
-                        }
-
-                        if (var19) {
-                            label65: {
-                                Context var10002;
-                                try {
-                                    var21 = TSAuthorization.this;
-                                    var22 = this;
-                                    var10002 = var1;
-                                } catch (JSONException var6) {
-                                    var10000 = var6;
-                                    var10001 = false;
-                                    break label65;
-                                }
-
-                                Context var14 = var10002;
-
-                                try {
-                                    var23 = var2;
-                                } catch (JSONException var5) {
-                                    var10000 = var5;
-                                    var10001 = false;
-                                    break label65;
-                                }
-
-                                TSAuthorization.Callback var3 = var23;
-
-                                try {
-                                    var21._onSuccess(var14, var16, var3);
-                                    return;
-                                } catch (JSONException var4) {
-                                    var10000 = var4;
-                                    var10001 = false;
-                                }
-                            }
-                        } else {
-                            try {
-                                TSAuthorization.this._onFailure(var13, var2);
-                                return;
-                            } catch (JSONException var7) {
-                                var10000 = var7;
-                                var10001 = false;
-                            }
-                        }
-                    }
-
-                    JSONException var15 = var10000;
-                    var21 = TSAuthorization.this;
-                    var22 = this;
-                    String var11 = var15.getMessage();
-                    var21._onFailure(var11, var2);
-                }
+                Log.i(TAG, "onResponse: aaaaaaaaa");
             }
         });
     }
@@ -700,8 +572,7 @@ public class TSAuthorization extends a implements IModule {
 
         public TSAuthorization build() {
             TSAuthorization var1;
-            TSAuthorization var10000 = var1 = new TSAuthorization;
-            var1.<init>();
+            TSAuthorization var10000 = var1 = new TSAuthorization();
             var1.mStrategy = this.mStrategy;
             var1.mAccessToken = this.mAccessToken;
             var1.mRefreshUrl = this.mRefreshUrl;
