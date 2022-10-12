@@ -50,7 +50,7 @@ class a implements Runnable {
                 a.this.c = var1;
                 BackgroundGeolocation.getThreadPool().execute(a.this);
             }
-        }.<init>();
+        };
         var10000.startBackgroundTask(var10001, var5);
     }
 
@@ -103,36 +103,18 @@ class a implements Runnable {
                             while(true) {
                                 boolean var18;
                                 boolean var19;
-                                try {
-                                    var18 = var16.hasNext();
-                                } catch (JSONException var9) {
-                                    var17 = var9;
-                                    var19 = false;
-                                    break;
-                                }
+                                var18 = var16.hasNext();
 
                                 if (!var18) {
                                     break label57;
                                 }
 
                                 String var20;
-                                try {
-                                    var20 = (String)var16.next();
-                                } catch (JSONException var8) {
-                                    var17 = var8;
-                                    var19 = false;
-                                    break;
-                                }
+                                var20 = (String)var16.next();
 
                                 String var5 = var20;
 
-                                try {
-                                    var18 = var20.equalsIgnoreCase(Application.B("㈈ᩙ\uf144쫂ᵫأ薄㜶惣擄㭯ﬄ"));
-                                } catch (JSONException var7) {
-                                    var17 = var7;
-                                    var19 = false;
-                                    break;
-                                }
+                                var18 = var20.equalsIgnoreCase(Application.B("㈈ᩙ\uf144쫂ᵫأ薄㜶惣擄㭯ﬄ"));
 
                                 if (!var18) {
                                     try {

@@ -9,12 +9,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
+
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.android.LogcatAppender;
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
+
 import com.transistorsoft.locationmanager.adapter.BackgroundGeolocation;
 import com.transistorsoft.locationmanager.adapter.TSConfig;
 import com.transistorsoft.locationmanager.adapter.callback.TSCallback;
@@ -25,6 +28,7 @@ import com.transistorsoft.locationmanager.device.DeviceInfo;
 import com.transistorsoft.locationmanager.logger.LoggerFacade.a;
 import com.transistorsoft.locationmanager.util.Sensors;
 import com.transistorsoft.tslocationmanager.Application;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,6 +38,7 @@ import java.lang.ref.WeakReference;
 import java.util.Iterator;
 import java.util.List;
 import java.util.zip.GZIPOutputStream;
+
 import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -156,36 +161,33 @@ public class TSLog {
                     ch.qos.logback.classic.Logger var10000 = var1x = TSLog.getRootLogger();
                     var10000.setLevel(TSLog.decodeLogLevel(var0));
                     LoggerContext var2;
-                    (var2 = (LoggerContext)LoggerFactory.getILoggerFactory()).reset();
+                    (var2 = (LoggerContext) LoggerFactory.getILoggerFactory()).reset();
                     PatternLayoutEncoder var3;
-                    PatternLayoutEncoder var10001 = var3 = new PatternLayoutEncoder;
-                    var3.<init>();
+                    PatternLayoutEncoder var10001 = var3 = new PatternLayoutEncoder();
                     var10001.setContext(var2);
                     var10001.setPattern(Application.B("\uedb4넧ꐋἿ᷻蒊\uf231緬i쨘ꭈ塪뀖国\ufe1dЅ㺓愯䣲œ䭀쀸ꯖḲ\u2e52"));
                     var10001.start();
                     LogcatAppender var4;
-                    LogcatAppender var9 = var4 = new LogcatAppender;
-                    var4.<init>();
+                    LogcatAppender var9 = var4 = new LogcatAppender();
                     var4.setContext(var2);
                     var9.setEncoder(var3);
                     var9.start();
                     var10000.addAppender(var9);
                     TSSQLiteAppender var6;
-                    TSSQLiteAppender var7 = var6 = new TSSQLiteAppender;
-                    var6.<init>();
+                    TSSQLiteAppender var7 = var6 = new TSSQLiteAppender();
                     var6.setName(Application.B("\ued9c녳ꐄἺᷮ蒜"));
                     var6.setMaxHistory(var1 + Application.B("\uedcf녦ꐉἪᷩ"));
                     var6.setContext(var2);
                     var1x.addAppender(var6);
                     var7.start();
-                    List var8 = ((LoggerFacade)TSLog.logger).getQueue();
+                    List var8 = ((LoggerFacade) TSLog.logger).getQueue();
                     TSLog.logger = LoggerFactory.getLogger(Application.B("\uedbb녑ꐤἼ᷹蒘\uf236緾5쩆ꭸ堫끝囱\ufe1fД㺉"));
                     TSLog.setLogLevel(var0);
                     TSLog.setMaxHistory(var1);
                     Iterator var5 = var8.iterator();
 
-                    while(var5.hasNext()) {
-                        ((a)var5.next()).a(TSLog.logger);
+                    while (var5.hasNext()) {
+                        ((a) var5.next()).a(TSLog.logger);
                     }
 
                 }
@@ -212,7 +214,7 @@ public class TSLog {
     }
 
     public static TSSQLiteAppender getDatabaseAppender() {
-        return (TSSQLiteAppender)getRootLogger().getAppender(Application.B("裡纥쓆채承㭅"));
+        return (TSSQLiteAppender) getRootLogger().getAppender(Application.B("裡纥쓆채承㭅"));
     }
 
     public static void getLog(TSGetLogCallback var0) {
@@ -230,7 +232,7 @@ public class TSLog {
     public static void emailLog(String var0, Activity var1, TSEmailLogCallback var2) {
         Activity var10002 = var1;
         SQLQuery var3;
-        var3 = new SQLQuery.<init>();
+        var3 = new SQLQuery();
         (new TSLog.d(var10002, var0, var3, var2)).execute(new Void[0]);
     }
 
@@ -244,18 +246,17 @@ public class TSLog {
 
     public static File writeLogFile(Context var0, String var1) {
         File var2;
-        File var10000 = var2 = new File;
-        var10000.<init>(var0.getCacheDir(), Application.B("ឹ䄋꒖\uf026翖\u0cdd\ua83eు틂ꃒ瘻춣ઉ째ꅭ\ue236센戬혻矆\ue181ꬁ鞜圭㓹綑˭璆㼝"));
+        File var10000 = var2 = new File(var0.getCacheDir(), Application.B("ឹ䄋꒖\uf026翖\u0cdd\ua83eు틂ꃒ瘻춣ઉ째ꅭ\ue236센戬혻矆\ue181ꬁ鞜圭㓹綑˭璆㼝"));
 
         FileNotFoundException var14;
-        label54: {
+        label54:
+        {
             FileOutputStream var16;
             boolean var10001;
             FileOutputStream var10002;
             try {
-                var16 = new FileOutputStream;
+                var16 = new FileOutputStream(var2);
                 var10002 = var16;
-                var16.<init>(var2);
             } catch (FileNotFoundException var8) {
                 var14 = var8;
                 var10001 = false;
@@ -263,48 +264,30 @@ public class TSLog {
             }
 
             IOException var15;
-            label55: {
-                ByteArrayOutputStream var10003;
+            label55:
+            {
                 try {
-                    var10003 = new ByteArrayOutputStream;
-                } catch (IOException var7) {
-                    var15 = var7;
-                    var10001 = false;
-                    break label55;
-                }
+                    ByteArrayOutputStream var10003;
+                    var10003 = new ByteArrayOutputStream(var1.length());
 
-                ByteArrayOutputStream var10004 = var10003;
-                ByteArrayOutputStream var10;
-                ByteArrayOutputStream var10005 = var10 = var10003;
+                    ByteArrayOutputStream var10004 = var10003;
+                    ByteArrayOutputStream var10;
+                    ByteArrayOutputStream var10005 = var10 = var10003;
 
-                GZIPOutputStream var9;
-                try {
-                    var10005.<init>(var1.length());
-                    var9 = new GZIPOutputStream;
-                } catch (IOException var6) {
-                    var15 = var6;
-                    var10001 = false;
-                    break label55;
-                }
+                    GZIPOutputStream var9;
+                    var9 = new GZIPOutputStream(var10);
 
-                GZIPOutputStream var10006 = var9;
-                GZIPOutputStream var10007 = var9;
+                    GZIPOutputStream var10006 = var9;
+                    GZIPOutputStream var10007 = var9;
 
-                byte[] var17;
-                try {
-                    var10007.<init>(var10);
+                    byte[] var17;
                     var10006.write(var1.getBytes());
                     var9.close();
                     var17 = var10004.toByteArray();
-                } catch (IOException var5) {
-                    var15 = var5;
-                    var10001 = false;
-                    break label55;
-                }
 
-                byte[] var11 = var17;
+                    byte[] var11 = var17;
 
-                try {
+
                     var10003.close();
                     var10002.write(var11);
                     var16.close();
@@ -317,14 +300,9 @@ public class TSLog {
 
             IOException var12 = var15;
 
-            try {
-                logger.error(error(var12.getMessage()), var12);
-                var12.printStackTrace();
-                return null;
-            } catch (FileNotFoundException var3) {
-                var14 = var3;
-                var10001 = false;
-            }
+            logger.error(error(var12.getMessage()), var12);
+            var12.printStackTrace();
+            return null;
         }
 
         FileNotFoundException var13 = var14;
@@ -339,7 +317,7 @@ public class TSLog {
     private static Level decodeLogLevel(int var0) {
         int var10000 = var0;
         Level var1 = Level.ALL;
-        switch(var10000) {
+        switch (var10000) {
             case 0:
                 var1 = Level.OFF;
                 break;
@@ -361,7 +339,7 @@ public class TSLog {
     }
 
     private static ch.qos.logback.classic.Logger getRootLogger() {
-        return (ch.qos.logback.classic.Logger)LoggerFactory.getLogger(Application.B("㯟ﻼ✔\ue099"));
+        return (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Application.B("㯟ﻼ✔\ue099"));
     }
 
     public static File getDatabaseFile() {
@@ -406,21 +384,19 @@ public class TSLog {
         private final SQLQuery d;
 
         public d(Activity var1, String var2, @Nullable SQLQuery var3, TSEmailLogCallback var4) {
-            TSLog.d var10000 = this;
-            TSLog.d var10001 = this;
-            TSLog.d var10002 = this;
             super();
             this.a = var2;
             WeakReference var5;
-            var5 = new WeakReference.<init>(var1);
-            var10002.b = var5;
-            var10001.c = var4;
-            var10000.d = var3;
+            var5 = new WeakReference(var1);
+            b = var5;
+            c = var4;
+            d = var3;
         }
 
-        protected Intent a(Void... var1) {
+        @Override
+        protected Intent doInBackground(Void... var1) {
             Activity var7;
-            if ((var7 = (Activity)this.b.get()) == null) {
+            if ((var7 = (Activity) this.b.get()) == null) {
                 this.c.onFailure(Application.B("\uf77eட쳹緰毑壉瞀颤쌾䣕\ue54f밋潕鄹⃣ᵌ蕙ᯄ델\ue595\uefcd쿳桼벾ነ㫊ꝭ㸱嘊\ueb68\u07b2\uf5ef\uaafc憅\ue89a缵㇡⤗\u208f厼옊텊區᧘隱\uf039\uf043쥑ﶤ鋃楧\ue233㑇血\ue2cb䕧短ɠ㩝\u0e3e鲣尊鷲牺旍ꩮ蘼童\udd5c괄\u0af6璴猪흧華败Ꭳ뵥₋ᜉ鸁泼\udc1a镺읿桛士䅕\u0dd5㫼\ud89eრ뾝⊂\uab66뵵\udd58\udb73"));
                 return null;
             } else {
@@ -431,8 +407,7 @@ public class TSLog {
                     return null;
                 } else {
                     Intent var3;
-                    Intent var10001 = var3 = new Intent;
-                    var10001.<init>(Application.B("\uf759ஐ쳴緮毛壄矄飾쌸䢛\ue55d밋潏鄮₥ᴍ蕻ᯓ덥\ue593\uefd5쾴桛벂ዾ㫨"));
+                    Intent var10001 = var3 = new Intent(Application.B("\uf759ஐ쳴緮毛壄矄飾쌸䢛\ue55d밋潏鄮₥ᴍ蕻ᯓ덥\ue593\uefd5쾴桛벂ዾ㫨"));
                     var10001.setType(Application.B("\uf755\u0b9b쳣緯毕壊矅飿쌣䢓\ue54a뱖漓酨"));
                     String[] var4;
                     (var4 = new String[1])[0] = this.a;
@@ -440,9 +415,8 @@ public class TSLog {
                     var10001.putExtra(Application.B("\uf759ஐ쳴緮毛壄矄飾쌸䢛\ue55d밋潏鄮₥ᴉ蕠ᯓ덾\ue59d\uef95쿉桝벅ዺ㫩Ꝝ㸊"), Application.B("\uf77aட쳳緷毓壟矏颥쌿䢑\ue56e밋潎鄶⃤ᴏ蕹ᯓ덥\ue593\uefd5쾺桤벨\u12d7"));
                     TSConfig var10 = TSConfig.getInstance(var8);
                     StringBuilder var5;
-                    StringBuilder var10000 = var5 = new StringBuilder;
+                    StringBuilder var10000 = var5 = new StringBuilder();
                     TSConfig var11 = var10;
-                    var5.<init>();
                     var5.append(TSLog.header(Application.B("\uf76c\u0bad쳜緳毗壌矔颹쌾䢛\ue564및潏鄻⃬ᴉ蕪ᮇ덺\ue599\uefc9쿩桡벨ዞ㪖ꜿ㹭噉\ueb7aߋ\uf5bbꪽ懆\ue8fc罠ㆰ⥛")));
                     var5.append(TSLog.boxRow(DeviceInfo.getInstance(var8).print()));
 
@@ -461,8 +435,8 @@ public class TSLog {
                     } else {
                         var3.putExtra(Application.B("\uf759ஐ쳴緮毛壄矄飾쌸䢛\ue55d밋潏鄮₥ᴉ蕠ᯓ덾\ue59d\uef95쿉桜법ድ㫭Ꝓ"), FileProvider.getUriForFile(var8, var8.getPackageName() + Application.B("\uf716ஊ쳣緰毛壎矁颤쌸䢚\ue547밃潀鄴⃪ᴋ蕽ᯕ댢\ue59a\uefd2쿶桭벷ዂ㫃ꝩ㸷嘃\ueb2dޗ"), var9));
                         var9.deleteOnExit();
-                        var3.setFlags(1);
-                        var3.setFlags(2);
+                        var3.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        var3.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                         return var3;
                     }
                 }
@@ -474,7 +448,7 @@ public class TSLog {
                 this.c.onFailure(var1.getStringExtra(Application.B("\uf75d\u0b8c쳢緳毆")));
             } else {
                 Activity var2;
-                if ((var2 = (Activity)this.b.get()) == null) {
+                if ((var2 = (Activity) this.b.get()) == null) {
                     TSLog.logger.error(TSLog.error(Application.B("\uf77eட쳹緰毑壉瞀颤쌾䣕\ue54e밋潕酺\u20caᴏ蕬ᯎ덺\ue595\uefcf쿣栨벡ዂ㫃ꝲ㹾嘰\ueb2dބ\uf5e1\uaacf憋\ue8ae缵ㇵ⤗ₓ厺영턇包᧖雘\uf06d\uf02a쥖\ufde1鋕楯\ue225㐊衇\ue283䕶瞥ɤ㨍ฯ鲿尓鷽牲旚ꩦ蘧竢\udd13괚ત璫缾흭菿贳Ᏸ뵾\u20caᜒ鹀泭\udc5f镽이栞壱䄐ස㫴\ud884ჺ뾎⊙ꭺ뵴\udd12")));
                     this.c.onFailure(Application.B("\uf76dர쳛緒毻壺矮颏쌔䢧\ue57b밡潳"));
                 } else {
@@ -494,14 +468,6 @@ public class TSLog {
             this.a = var2;
         }
 
-        protected String a(Void... var1) {
-            try {
-                return TSLogReader.getLog(this.b);
-            } catch (Exception var2) {
-                return null;
-            }
-        }
-
         protected void a(String var1) {
             if (var1 == null) {
                 this.a.onFailure(Application.B("뺀\uf51f\ue617ᗒㅑ뒢琲蒶潡⊏傉瑋㶾뷢염膓㻉윲냣✉"));
@@ -509,6 +475,11 @@ public class TSLog {
                 this.a.onSuccess(var1);
             }
 
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            return TSLogReader.getLog(this.b);
         }
     }
 

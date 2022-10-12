@@ -7,6 +7,7 @@ package com.transistorsoft.locationmanager.location;
 
 import android.app.PendingIntent;
 import android.content.Context;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -19,6 +20,7 @@ import com.transistorsoft.locationmanager.logger.TSLog;
 import com.transistorsoft.locationmanager.service.LocationRequestService;
 import com.transistorsoft.locationmanager.util.c;
 import com.transistorsoft.tslocationmanager.Application;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TSWatchPositionRequest extends SingleLocationRequest {
@@ -61,7 +63,7 @@ public class TSWatchPositionRequest extends SingleLocationRequest {
         AtomicBoolean var1;
         AtomicBoolean var10002 = var1 = this.mEnabled;
         TSWatchPositionRequest var10003 = this;
-        synchronized(var1) {
+        synchronized (var1) {
             var10003.mEnabled.set(false);
         }
 
@@ -77,37 +79,23 @@ public class TSWatchPositionRequest extends SingleLocationRequest {
         TSConfig var1 = TSConfig.getInstance(super.mContext);
         if (b.e(super.mContext)) {
             TSWatchPositionRequest var10000 = this;
-            synchronized(this.mEnabled){}
+            synchronized (this.mEnabled) {
+            }
 
             boolean var10001;
             Throwable var25;
             boolean var26;
-            try {
-                var26 = var10000.mEnabled.get();
-            } catch (Throwable var22) {
-                var25 = var22;
-                var10001 = false;
-                throw var25;
-            }
+            var26 = var10000.mEnabled.get();
+
 
             if (var26) {
-                try {
-                    this.stop();
-                } catch (Throwable var21) {
-                    var25 = var21;
-                    var10001 = false;
-                    throw var25;
-                }
+                this.stop();
+
             }
 
-            try {
-                var10000 = this;
-                this.mEnabled.set(true);
-            } catch (Throwable var20) {
-                var25 = var20;
-                var10001 = false;
-                throw var25;
-            }
+            var10000 = this;
+            this.mEnabled.set(true);
+
 
             LocationRequest var2;
             LocationRequest var27 = var2 = LocationRequest.create();
@@ -119,7 +107,8 @@ public class TSWatchPositionRequest extends SingleLocationRequest {
             FusedLocationProviderClient var28 = LocationServices.getFusedLocationProviderClient(var10000.mContext);
 
             SecurityException var29;
-            label218: {
+            label218:
+            {
                 Context var10002;
                 TSWatchPositionRequest var10003;
                 int var10004;

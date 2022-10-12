@@ -36,7 +36,7 @@ public class TSLogReader {
             SQLiteDatabase var10000 = var1;
             SQLQuery var10001 = var0;
             StringBuffer var2;
-            var2 = new StringBuffer.<init>();
+            var2 = new StringBuffer();
             Cursor var3 = null;
 
             Cursor var523;
