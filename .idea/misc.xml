@@ -5,6 +5,9 @@
       <map>
         <entry key="app/src/main/res/drawable-anydpi-v24/ic_tslocationmanager_location_marker.xml" value="0.357" />
         <entry key="app/src/main/res/drawable/tslocationmanager_permission_rationale_background.xml" value="0.357" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.5760416666666667" />
+        <entry key="app/src/main/res/layout/tslocationmanager_notification_layout.xml" value="0.5760416666666667" />
+        <entry key="app/src/main/res/layout/tslocationmanager_permission_rationale_layout.xml" value="0.5760416666666667" />
       </map>
     </option>
   </component>

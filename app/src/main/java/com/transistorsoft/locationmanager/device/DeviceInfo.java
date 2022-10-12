@@ -73,8 +73,7 @@ public class DeviceInfo {
 
     public Map<String, Object> toMap() {
         HashMap var1;
-        HashMap var10000 = var1 = new HashMap;
-        var1.<init>();
+        HashMap var10000 = var1 = new HashMap();
         String var10008 = this.b;
         var1.put(Application.B("柲썚\uf0b6︬\ufbc7"), var10008);
         String var10006 = this.c;
@@ -88,7 +87,7 @@ public class DeviceInfo {
     }
 
     public JSONObject toJson() {
-        JSONObject var10000 = new JSONObject;
+        JSONObject var10000 = new JSONObject();
         JSONObject var10001 = var10000;
         JSONObject var1;
         JSONObject var10002 = var1 = var10000;
@@ -97,7 +96,6 @@ public class DeviceInfo {
         DeviceInfo var10005 = this;
         JSONObject var10006 = var1;
         DeviceInfo var10007 = this;
-        var1.<init>();
         String var7 = Application.B("瀅諑\ude5d\uee12짍");
 
         JSONException var9;

@@ -91,11 +91,7 @@ public class DeviceSettings {
                 var2 = false;
             }
 
-            try {
-                return var2;
-            } catch (SettingNotFoundException var3) {
-                var10001 = false;
-            }
+            return var2;
         }
 
         TSLog.logger.warn(TSLog.warn(DeviceInfo.MANUFACTURER_HUAWEI + Application.B("瓪忌㓧㧰㭝煚\ue914豑붖ᔩጙగ⩈\u0c50쀣ᙛ뚪") + Application.B("璙忲㓿㧱㭝煲\ue916谕부ᔟጙం⩕ో쀷") + Application.B("瓭徿㓰㧬㭝焟\ue91f谞붐ᔢጉ")));
@@ -110,8 +106,8 @@ public class DeviceSettings {
             var3 = this.getPowerManagerIntent(var1);
         }
 
-        if (var3 != null && var1.getPackageManager().resolveActivity(var3, 65536) != null) {
-            var3.setFlags(268435456);
+        if (var3 != null && var1.getPackageManager().resolveActivity(var3, PackageManager.MATCH_DEFAULT_ONLY) != null) {
+            var3.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             return var3;
         } else {
             return null;
@@ -125,7 +121,7 @@ public class DeviceSettings {
             return null;
         } else {
             Intent var10000 = new Intent();
-            var10000.setFlags(268435456);
+            var10000.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             var10000.setAction(Application.B("琼ᕦ᧳⦮ຼ\ua7f3쳨ᙓ촣摗㣽\udb1c\uda1f껔\uda60暾\ue69e⮿\udb6bጋ獭鮯⪑藈敢∐ڠ伎﹑㴋徜\ua8fe\u0d65\ue87e╱퉼머㊳썖뻝盻ꮆᒪ꙳ꎇ㮴箤聅촁犐ﾩ屬惆"));
             return var10000;
         }
@@ -141,11 +137,11 @@ public class DeviceSettings {
         Intent var5;
         while(true) {
             if (var4 >= var3) {
-                var5 = var1;
+                var5 = new Intent();
                 break;
             }
 
-            if (var6.resolveActivity(var5 = var2[var4], 65536) != null) {
+            if (var6.resolveActivity(var5 = var2[var4], PackageManager.MATCH_DEFAULT_ONLY) != null) {
                 break;
             }
 
@@ -187,8 +183,7 @@ public class DeviceSettings {
 
             this.mPowerSaveChangeReceiver = new DeviceSettings.a();
             IntentFilter var2;
-            IntentFilter var10000 = var2 = new IntentFilter;
-            var10000.<init>();
+            IntentFilter var10000 = var2 = new IntentFilter();
             var10000.addAction(Application.B("ﾞ땆穸⠓쮀䳠䜲釨⩫\u0c53㘘뢜\uf66c\udd94践캮ѭ㞍ꎁ䑨븼ꔔ煚ભ欮婎칩줓袍膈⤴桿ᝂ﮿✳ᯭ傑ҏ쒻癚ꫀ"));
             var10000.addAction(Application.B("ﾗ땝穽⠖쮊䳠䝸醯⩪\u0c54㙓뢓\uf67b\uddce跽캢ѷ㟊ꎾ䑉빅ꔁ煇થ欸婝칠줛袝膁⤾桤ᝄﮨ✱ᯫ傗҄쒸癀\uaac5䇸\ud9be迚勺蚖"));
             if (VERSION.SDK_INT >= 23) {
