@@ -11,9 +11,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.Location;
 import android.os.BatteryManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.os.Build.VERSION;
+
+import androidx.annotation.RequiresApi;
+
 import com.google.android.gms.location.ActivityTransitionEvent;
 import com.google.android.gms.location.DetectedActivity;
 import com.google.android.gms.location.GeofencingEvent;
@@ -25,6 +29,7 @@ import com.transistorsoft.locationmanager.logger.TSLog;
 import com.transistorsoft.locationmanager.util.Util;
 import com.transistorsoft.locationmanager.util.e;
 import com.transistorsoft.tslocationmanager.Application;
+
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
@@ -34,6 +39,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.UUID;
+
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -85,7 +91,7 @@ public class TSLocation {
     private LocationProviderChangeEvent mProvider;
 
     private static String formatDate(long var0) {
-        return ((SimpleDateFormat)dateFormatter.get()).format(new Date(var0));
+        return ((SimpleDateFormat) dateFormatter.get()).format(new Date(var0));
     }
 
     public static synchronized Location applyExtras(Context var0, Location var1) {
@@ -93,19 +99,19 @@ public class TSLocation {
         Bundle var10000 = var2 = var1.getExtras();
         TSConfig var3 = TSConfig.getInstance(var0);
         if (var10000 == null) {
-            var2 = new Bundle.<init>();
+            var2 = new Bundle();
         }
 
         Context var8 = var0;
         var2.putFloat(Application.B("덉\ud85b囎톺멹ᢓ\u2064ﻛ"), var3.getOdometer());
         IntentFilter var4;
-        var4 = new IntentFilter.<init>(Application.B("덇\ud851囅톥멳ᢎ\u2065ﺇ鿣Ժ胧蚋鉸鎁ᘥȲ祠\ue320踙\u202c\uf0df묹\ud8a7ສ㶕⒌⚷ꇞ꼧鿊걕鱠鶍\ue06c캅摂柿"));
+        var4 = new IntentFilter(Application.B("덇\ud851囅톥멳ᢎ\u2065ﺇ鿣Ժ胧蚋鉸鎁ᘥȲ祠\ue320踙\u202c\uf0df묹\ud8a7ສ㶕⒌⚷ꇞ꼧鿊걕鱠鶍\ue06c캅摂柿"));
         Intent var5;
-        if ((var5 = var8.registerReceiver((BroadcastReceiver)null, var4)) != null) {
+        if ((var5 = var8.registerReceiver((BroadcastReceiver) null, var4)) != null) {
             Intent var9 = var5;
             Intent var10002 = var5;
             int var6 = var5.getIntExtra(Application.B("덊\ud85a囗톲며"), -1);
-            var2.putFloat(Application.B("덄\ud85e囕톣멹ᢕ⁸ﻶ鿦Ա胥蚋鉺"), (float)var6 / (float)var10002.getIntExtra(Application.B("덕\ud85c囀톻멹"), -1));
+            var2.putFloat(Application.B("덄\ud85e囕톣멹ᢕ⁸ﻶ鿦Ա胥蚋鉺"), (float) var6 / (float) var10002.getIntExtra(Application.B("덕\ud85c囀톻멹"), -1));
             boolean var7;
             if ((var6 = var9.getIntExtra(Application.B("덕\ud84b囀톣멩ᢔ"), -1)) != 2 && var6 != 5) {
                 var7 = false;
@@ -122,14 +128,14 @@ public class TSLocation {
 
     public static TSLocation buildFromJson(Context var0, JSONObject var1) {
         Location var2;
-        Location var10000 = var2 = new Location;
+        Location var10000 = var2 = new Location(Application.B("ﲉ牬푮ᐋ珏"));
         JSONObject var10001 = var1;
-        var2.<init>(Application.B("ﲉ牬푮ᐋ珏"));
         Bundle var3;
-        var3 = new Bundle.<init>();
+        var3 = new Bundle();
 
         JSONException var19;
-        label97: {
+        label97:
+        {
             boolean var20;
             try {
                 var10001 = var10001.getJSONObject(Application.B("ﲌ牶푲ᐜ珏፞"));
@@ -190,23 +196,9 @@ public class TSLocation {
             }
 
             ActivityTransitionEvent var29;
-            try {
-                var29 = new ActivityTransitionEvent;
-            } catch (JSONException var12) {
-                var19 = var12;
-                var20 = false;
-                break label97;
-            }
+            var29 = new ActivityTransitionEvent(3, 0, 0L);
 
             ActivityTransitionEvent var17 = var29;
-
-            try {
-                var29.<init>(3, 0, 0L);
-            } catch (JSONException var11) {
-                var19 = var11;
-                var20 = false;
-                break label97;
-            }
 
             String var18 = Application.B("ﲀ牽푲ᐃ珎ፙ⨅躎");
 
@@ -219,16 +211,10 @@ public class TSLocation {
                 break label97;
             }
 
-            float var28 = (float)var27;
+            float var28 = (float) var27;
 
-            try {
-                var10015.putFloat(var18, var28);
-                var10014.putBoolean(Application.B("ﲜ牸푰ᐞ珇ፈ"), false);
-            } catch (JSONException var9) {
-                var19 = var9;
-                var20 = false;
-                break label97;
-            }
+            var10015.putFloat(var18, var28);
+            var10014.putBoolean(Application.B("ﲜ牸푰ᐞ珇ፈ"), false);
 
             var18 = Application.B("ﲊ牯푸᐀珟");
 
@@ -244,7 +230,7 @@ public class TSLocation {
                 break label97;
             }
 
-            float var26 = (float)var25;
+            float var26 = (float) var25;
 
             double var23;
             try {
@@ -256,7 +242,7 @@ public class TSLocation {
                 break label97;
             }
 
-            float var24 = (float)var23;
+            float var24 = (float) var23;
 
             double var21;
             try {
@@ -268,52 +254,54 @@ public class TSLocation {
                 break label97;
             }
 
-            float var22 = (float)var21;
+            float var22 = (float) var21;
 
             try {
                 var10002.setBearing(var22);
                 var10000.setAltitude(var10001.getDouble(Application.B("ﲎ牵푩ᐇ珟ፘ⨄躙")));
-                return new TSLocation(var0, var2, var17);
+                if (VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    return new TSLocation(var0, var2, var17);
+                }
             } catch (JSONException var5) {
                 var19 = var5;
                 var20 = false;
             }
         }
-
-        JSONException var16 = var19;
-        TSLog.logger.error(Application.B("ﲪ牫푯ᐁ珙ግ⨂躉旒㾣䴇虵ၪ긃蠬₠琎\ue32fᨬ숉ݙ흌쟴裯쿢넶쀲⪸臢䣭무᎖繇豘ᥞ꞊࡙") + var16.getMessage());
-        var16.printStackTrace();
-        throw var16;
+        return null;
     }
 
     private static void initialize() {
         DecimalFormatSymbols var0;
-        var0 = new DecimalFormatSymbols.<init>(Locale.US);
+        var0 = new DecimalFormatSymbols(Locale.US);
         twoDForm = new DecimalFormat(Application.B("硎\ue976鸈ꬠ"), var0);
         oneDForm = new DecimalFormat(Application.B("硎\ue976鸈"), var0);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.S)
     public TSLocation(Context var1, Location var2, ActivityTransitionEvent var3) {
         this.initialize(var1, var2, var3);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.S)
     public TSLocation(Context var1, Location var2, ActivityTransitionEvent var3, LocationProviderChangeEvent var4) {
         this.mProvider = var4;
         this.initialize(var1, var2, var3);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.S)
     private void initialize(Context var1, Location var2, ActivityTransitionEvent var3) {
         this.mLocation = var2;
         TSConfig var4 = TSConfig.getInstance(var1);
         Bundle var5;
         if ((var5 = var2.getExtras()) == null) {
-            var5 = new Bundle.<init>();
+            var5 = new Bundle();
             var2.setExtras(var5);
         }
 
         int var6;
         if ((var6 = VERSION.SDK_INT) >= 18) {
-            label105: {
+            label105:
+            {
                 if (var6 >= 31) {
                     if (!var2.isMock()) {
                         break label105;
@@ -331,27 +319,27 @@ public class TSLocation {
         this.enableTimestampMeta = var4.getEnableTimestampMeta();
         this.latitude = var2.getLatitude();
         this.longitude = var2.getLongitude();
-        Double var7 = var2.hasAccuracy() && !Float.isNaN(var2.getAccuracy()) ? Double.valueOf(oneDForm.format((double)var2.getAccuracy())) : -1.0D;
+        Double var7 = var2.hasAccuracy() && !Float.isNaN(var2.getAccuracy()) ? Double.valueOf(oneDForm.format((double) var2.getAccuracy())) : -1.0D;
         this.accuracy = var7;
         var7 = var2.hasAltitude() && !Double.isNaN(var2.getAltitude()) ? Double.valueOf(oneDForm.format(var2.getAltitude())) : -1.0D;
         this.altitude = var7;
         this.altitudeAccuracy = -1.0D;
-        if (VERSION.SDK_INT >= 26 && var2.hasVerticalAccuracy() && !Double.isNaN((double)var2.getVerticalAccuracyMeters())) {
-            this.altitudeAccuracy = Double.valueOf(oneDForm.format((double)var2.getVerticalAccuracyMeters()));
+        if (VERSION.SDK_INT >= 26 && var2.hasVerticalAccuracy() && !Double.isNaN((double) var2.getVerticalAccuracyMeters())) {
+            this.altitudeAccuracy = Double.valueOf(oneDForm.format((double) var2.getVerticalAccuracyMeters()));
         }
 
-        var7 = var2.hasSpeed() && !Float.isNaN(var2.getSpeed()) ? Double.valueOf(twoDForm.format((double)var2.getSpeed())) : -1.0D;
+        var7 = var2.hasSpeed() && !Float.isNaN(var2.getSpeed()) ? Double.valueOf(twoDForm.format((double) var2.getSpeed())) : -1.0D;
         this.speed = var7;
         this.speedAccuracy = -1.0D;
         if (VERSION.SDK_INT >= 26) {
-            this.speedAccuracy = var2.hasSpeedAccuracy() && !Float.isNaN(var2.getSpeedAccuracyMetersPerSecond()) ? Double.valueOf(twoDForm.format((double)var2.getSpeedAccuracyMetersPerSecond())) : -1.0D;
+            this.speedAccuracy = var2.hasSpeedAccuracy() && !Float.isNaN(var2.getSpeedAccuracyMetersPerSecond()) ? Double.valueOf(twoDForm.format((double) var2.getSpeedAccuracyMetersPerSecond())) : -1.0D;
         }
 
-        var7 = var2.hasBearing() && !Float.isNaN(var2.getBearing()) ? Double.valueOf(twoDForm.format((double)var2.getBearing())) : -1.0D;
+        var7 = var2.hasBearing() && !Float.isNaN(var2.getBearing()) ? Double.valueOf(twoDForm.format((double) var2.getBearing())) : -1.0D;
         this.heading = var7;
         this.headingAccuracy = -1.0D;
         if (VERSION.SDK_INT >= 26) {
-            this.headingAccuracy = var2.hasBearingAccuracy() && !Float.isNaN(var2.getBearingAccuracyDegrees()) ? Double.valueOf(twoDForm.format((double)var2.getBearingAccuracyDegrees())) : -1.0D;
+            this.headingAccuracy = var2.hasBearingAccuracy() && !Float.isNaN(var2.getBearingAccuracyDegrees()) ? Double.valueOf(twoDForm.format((double) var2.getBearingAccuracyDegrees())) : -1.0D;
         }
 
         if (var3 != null) {
@@ -393,22 +381,22 @@ public class TSLocation {
         int var2;
         int var3;
         if (VERSION.SDK_INT >= 26) {
-            BatteryManager var10000 = (BatteryManager)var1.getSystemService(Application.B("兎\uea22ꏘ犚桄狸Å⿓崛⼭ﳔ\uea90葽㟩"));
+            BatteryManager var10000 = (BatteryManager) var1.getSystemService(Application.B("兎\uea22ꏘ犚桄狸Å⿓崛⼭ﳔ\uea90葽㟩"));
             var3 = var10000.getIntProperty(4);
             int var6 = var2 = var10000.getIntProperty(6);
-            this.batteryLevel = Double.valueOf(twoDForm.format((double)((float)var3 / 100.0F)));
+            this.batteryLevel = Double.valueOf(twoDForm.format((double) ((float) var3 / 100.0F)));
             this.batteryIsCharging = var6 == 2 || var2 == 5;
         } else {
             Context var7 = var1;
             IntentFilter var4;
-            var4 = new IntentFilter.<init>(Application.B("免\uea2dꏈ犜桎狣Ø⾐崓⼭ﳁ\uea92葶㟯幽臺\uda06ᢶ憂棝\uefdd䔂㶸洍弨痢⌀뻨楴졸䎥\ud8ee\ue659鼳愗냊圮"));
+            var4 = new IntentFilter(Application.B("免\uea2dꏈ犜桎狣Ø⾐崓⼭ﳁ\uea92葶㟯幽臺\uda06ᢶ憂棝\uefdd䔂㶸洍弨痢⌀뻨楴졸䎥\ud8ee\ue659鼳愗냊圮"));
             Intent var5;
-            if ((var5 = var7.registerReceiver((BroadcastReceiver)null, var4)) != null && var5.hasExtra(Application.B("兀\uea26ꏚ犋桍"))) {
+            if ((var5 = var7.registerReceiver((BroadcastReceiver) null, var4)) != null && var5.hasExtra(Application.B("兀\uea26ꏚ犋桍"))) {
                 Intent var8 = var5;
                 Intent var10002 = var5;
                 var3 = var5.getIntExtra(Application.B("兀\uea26ꏚ犋桍"), -1);
                 var2 = var10002.getIntExtra(Application.B("兟\uea20ꏍ犂桄"), -1);
-                this.batteryLevel = Double.valueOf(twoDForm.format((double)((float)var3 / (float)var2)));
+                this.batteryLevel = Double.valueOf(twoDForm.format((double) ((float) var3 / (float) var2)));
                 this.batteryIsCharging = (var3 = var8.getIntExtra(Application.B("兟\uea37ꏍ犚桔狹"), -1)) == 2 || var3 == 5;
             }
         }
@@ -417,8 +405,7 @@ public class TSLocation {
 
     private HashMap<String, String> getLocationData() {
         HashMap var1;
-        HashMap var10000 = var1 = new HashMap;
-        var1.<init>();
+        HashMap var10000 = var1 = new HashMap();
         var1.put(Application.B("⠌몷ꭋ璀"), this.isMock.toString());
         String var10036 = this.timestamp;
         var1.put(Application.B("⠕몱ꭅ璎\uefaaᨤ鬬녖閖"), var10036);
@@ -444,10 +431,7 @@ public class TSLocation {
         var10000.put(Application.B("⠃몹ꭜ璟\uefbcᨢ鬴넕閏莜吋䡿擟ᇄꗂ\udbba愳ꎲ㚠"), this.batteryIsCharging.toString());
         String var10001 = Application.B("⠕몱ꭅ璎\uefaaᨤ鬬녖閖莢吱䡨擖");
 
-        try {
-            var10000.put(var10001, this.getTimestampMeta().toString());
-        } catch (JSONException var2) {
-        }
+        var10000.put(var10001, this.getTimestampMeta().toString());
 
         return var1;
     }
@@ -463,23 +447,18 @@ public class TSLocation {
     private JSONObject buildJSONObject() {
         TSLocation var10000 = this;
         JSONObject var1;
-        var1 = new JSONObject.<init>();
+        var1 = new JSONObject();
         JSONObject var2;
-        var2 = new JSONObject.<init>();
+        var2 = new JSONObject();
         JSONObject var3;
-        var3 = new JSONObject.<init>();
+        var3 = new JSONObject();
 
         JSONException var52;
-        label369: {
+        label369:
+        {
             boolean var10001;
             boolean var53;
-            try {
-                var53 = var10000.event.isEmpty();
-            } catch (JSONException var47) {
-                var52 = var47;
-                var10001 = false;
-                break label369;
-            }
+            var53 = var10000.event.isEmpty();
 
             String var4;
             TSLocation var10002;
@@ -500,23 +479,11 @@ public class TSLocation {
                     break label369;
                 }
 
-                try {
-                    var53 = var10000.event.equalsIgnoreCase(Application.B("㓼遠陖촇烧荊㣊끫\u0888䵽ᩫ\ue15b⥜虎"));
-                } catch (JSONException var45) {
-                    var52 = var45;
-                    var10001 = false;
-                    break label369;
-                }
+                var53 = var10000.event.equalsIgnoreCase(Application.B("㓼遠陖촇烧荊㣊끫\u0888䵽ᩫ\ue15b⥜虎"));
 
                 if (var53) {
                     LocationProviderChangeEvent var55;
-                    try {
-                        var55 = this.mProvider;
-                    } catch (JSONException var44) {
-                        var52 = var44;
-                        var10001 = false;
-                        break label369;
-                    }
+                    var55 = this.mProvider;
 
                     if (var55 != null) {
                         var57 = var1;
@@ -570,13 +537,7 @@ public class TSLocation {
                 break label369;
             }
 
-            try {
-                var53 = var10000.enableTimestampMeta;
-            } catch (JSONException var39) {
-                var52 = var39;
-                var10001 = false;
-                break label369;
-            }
+            var53 = var10000.enableTimestampMeta;
 
             TSLocation var61;
             if (var53) {
@@ -606,13 +567,7 @@ public class TSLocation {
                 break label369;
             }
 
-            try {
-                var53 = var10000.isMock;
-            } catch (JSONException var36) {
-                var52 = var36;
-                var10001 = false;
-                break label369;
-            }
+            var53 = var10000.isMock;
 
             if (var53) {
                 var57 = var1;
@@ -628,13 +583,7 @@ public class TSLocation {
                 }
             }
 
-            try {
-                var53 = this.isSample;
-            } catch (JSONException var34) {
-                var52 = var34;
-                var10001 = false;
-                break label369;
-            }
+            var53 = this.isSample;
 
             if (var53) {
                 var57 = var1;
@@ -802,29 +751,16 @@ public class TSLocation {
                 break label369;
             }
 
-            try {
-                var58 = new JSONObject;
-            } catch (JSONException var19) {
-                var52 = var19;
-                var10001 = false;
-                break label369;
-            }
+            var58 = new JSONObject();
 
             var2 = var58;
 
             TSLocation var59;
             JSONObject var60;
             TSLocation var63;
-            try {
-                var59 = this;
-                var60 = var2;
-                var63 = this;
-                var2.<init>();
-            } catch (JSONException var18) {
-                var52 = var18;
-                var10001 = false;
-                break label369;
-            }
+            var59 = this;
+            var60 = var2;
+            var63 = this;
 
             String var51 = Application.B("㓥遡陦촒烦荏㣝끾\u0882䵻ᩭ");
 
@@ -855,35 +791,16 @@ public class TSLocation {
             }
 
             TSGeofence var64;
-            try {
-                var64 = var10000.geofence;
-            } catch (JSONException var14) {
-                var52 = var14;
-                var10001 = false;
-                break label369;
-            }
+            var64 = var10000.geofence;
 
             if (var64 != null) {
-                try {
-                    var10000 = this;
-                    var54 = new JSONObject;
-                } catch (JSONException var13) {
-                    var52 = var13;
-                    var10001 = false;
-                    break label369;
-                }
+                var10000 = this;
+                var54 = new JSONObject();
 
                 var2 = var54;
 
-                try {
-                    var10002 = this;
-                    var10003 = var2;
-                    var2.<init>();
-                } catch (JSONException var12) {
-                    var52 = var12;
-                    var10001 = false;
-                    break label369;
-                }
+                var10002 = this;
+                var10003 = var2;
 
                 String var62 = Application.B("㓥遶陜촟烺荇㣉끰\u088e䵧");
 
@@ -905,13 +822,7 @@ public class TSLocation {
                     break label369;
                 }
 
-                try {
-                    var57 = var10000.geofence.getExtras();
-                } catch (JSONException var9) {
-                    var52 = var9;
-                    var10001 = false;
-                    break label369;
-                }
+                var57 = var10000.geofence.getExtras();
 
                 if (var57 != null) {
                     var57 = var2;
@@ -935,13 +846,7 @@ public class TSLocation {
                 }
             }
 
-            try {
-                var57 = this.extras;
-            } catch (JSONException var6) {
-                var52 = var6;
-                var10001 = false;
-                break label369;
-            }
+            var57 = this.extras;
 
             if (var57 == null) {
                 return var1;
@@ -959,26 +864,26 @@ public class TSLocation {
                 var10001 = false;
             }
         }
-
-        JSONException var49 = var52;
-        TSLog.logger.error(TSLog.error(Application.B("㓆遁陶촿炮荫㣝끫\u0884䵧")), var49);
-        var49.printStackTrace();
-        throw var49;
+        return null;
     }
 
     private JSONObject getTimestampMeta() {
         JSONObject var1;
-        JSONObject var10000 = var1 = new JSONObject;
-        var1.<init>();
+        JSONObject var10000 = var1 = new JSONObject();
         long var2 = getTime(this.mLocation);
-        var10000.put(Application.B("麋\u0dfe懽ퟏ"), var2);
-        var2 = System.currentTimeMillis();
-        var10000.put(Application.B("麌෮懣ퟞ㳄幂\ue232䮵꒴樭"), var2);
-        if (VERSION.SDK_INT >= 17) {
-            var2 = SystemClock.elapsedRealtimeNanos() / 1000000L;
-            var1.put(Application.B("麌෮懣ퟞ㳄幂\ue225䮰꒶樫ᗂ㈇衑푻ꪑ\uf69d뾕ن陵鿄働慎ꘛ\ue180➐떅頼"), var2);
-            var2 = this.mLocation.getElapsedRealtimeNanos() / 1000000L;
-            var1.put(Application.B("麚\u0dfb懱ퟚ㳒幊\ue202䮎꒼権ᗅ㈶衔푷ꪇ"), var2);
+        try {
+            var10000.put(Application.B("麋\u0dfe懽ퟏ"), var2);
+
+            var2 = System.currentTimeMillis();
+            var10000.put(Application.B("麌෮懣ퟞ㳄幂\ue232䮵꒴樭"), var2);
+            if (VERSION.SDK_INT >= 17) {
+                var2 = SystemClock.elapsedRealtimeNanos() / 1000000L;
+                var1.put(Application.B("麌෮懣ퟞ㳄幂\ue225䮰꒶樫ᗂ㈇衑푻ꪑ\uf69d뾕ن陵鿄働慎ꘛ\ue180➐떅頼"), var2);
+                var2 = this.mLocation.getElapsedRealtimeNanos() / 1000000L;
+                var1.put(Application.B("麚\u0dfb懱ퟚ㳒幊\ue202䮎꒼権ᗅ㈶衔푷ꪇ"), var2);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
         return var1;
@@ -1028,7 +933,7 @@ public class TSLocation {
 
         if (var1.getDebug()) {
             TemplateErrorEvent var5;
-            var5 = new TemplateErrorEvent.<init>(var4, var3);
+            var5 = new TemplateErrorEvent(var4, var3);
             EventBus.getDefault().post(var5);
         }
 
@@ -1076,7 +981,7 @@ public class TSLocation {
     public Object renderJson(Context var1) {
         TSConfig var32 = TSConfig.getInstance(var1);
         HashMap var2;
-        var2 = new HashMap.<init>();
+        var2 = new HashMap();
         e var3;
         if (this.geofence == null) {
             if ((var3 = getLocationTemplate(var32)) != null) {
@@ -1102,64 +1007,29 @@ public class TSLocation {
             String var33 = var10001;
 
             JSONException var36;
-            label214: {
+            label214:
+            {
                 boolean var38;
                 char var39;
-                try {
-                    var39 = var10001.charAt(0);
-                } catch (JSONException var31) {
-                    var36 = var31;
-                    var38 = false;
-                    break label214;
-                }
+                var39 = var10001.charAt(0);
 
                 char var4 = var39;
 
                 TSGeofence var37;
-                try {
-                    var37 = var10000.geofence;
-                } catch (JSONException var30) {
-                    var36 = var30;
-                    var38 = false;
-                    break label214;
-                }
+                var37 = var10000.geofence;
 
                 JSONObject var40;
                 if (var37 != null) {
-                    try {
-                        var40 = this.geofence.getExtras();
-                    } catch (JSONException var29) {
-                        var36 = var29;
-                        var38 = false;
-                        break label214;
-                    }
+                    var40 = this.geofence.getExtras();
 
                     if (var40 != null) {
-                        try {
-                            var40 = this.extras;
-                        } catch (JSONException var28) {
-                            var36 = var28;
-                            var38 = false;
-                            break label214;
-                        }
+                        var40 = this.extras;
 
                         if (var40 == null) {
-                            try {
-                                this.extras = new JSONObject();
-                            } catch (JSONException var27) {
-                                var36 = var27;
-                                var38 = false;
-                                break label214;
-                            }
+                            this.extras = new JSONObject();
                         }
 
-                        try {
-                            this.extras = Util.mergeJson(this.extras, this.geofence.getExtras());
-                        } catch (JSONException var26) {
-                            var36 = var26;
-                            var38 = false;
-                            break label214;
-                        }
+                        this.extras = Util.mergeJson(this.extras, this.geofence.getExtras());
                     }
                 }
 
@@ -1167,28 +1037,15 @@ public class TSLocation {
                 boolean var42;
                 LocationProviderChangeEvent var43;
                 if (var4 == '{') {
-                    try {
-                        var40 = new JSONObject;
-                    } catch (JSONException var25) {
-                        var36 = var25;
-                        var38 = false;
-                        break label214;
-                    }
+                    var40 = new JSONObject();
 
                     Object var41 = var35 = var40;
 
-                    try {
-                        var41.<init>(var33);
-                        var42 = var40.has(Application.B("짎쉛⽢~烵"));
-                    } catch (JSONException var24) {
-                        var36 = var24;
-                        var38 = false;
-                        break label214;
-                    }
+                    var42 = var40.has(Application.B("짎쉛⽢~烵"));
 
                     if (var42) {
                         try {
-                            var42 = ((JSONObject)var35).getString(Application.B("짎쉛⽢~烵")).isEmpty();
+                            var42 = ((JSONObject) var35).getString(Application.B("짎쉛⽢~烵")).isEmpty();
                         } catch (JSONException var23) {
                             var36 = var23;
                             var38 = false;
@@ -1196,40 +1053,22 @@ public class TSLocation {
                         }
 
                         if (var42) {
-                            try {
-                                ((JSONObject)var35).remove(Application.B("짎쉛⽢~烵"));
-                            } catch (JSONException var22) {
-                                var36 = var22;
-                                var38 = false;
-                                break label214;
-                            }
+                            ((JSONObject) var35).remove(Application.B("짎쉛⽢~烵"));
                         }
                     }
 
-                    try {
-                        var42 = this.event.equalsIgnoreCase(Application.B("짛쉟⽨f烨氂菭竁涢킚㧓賦뵅䃢"));
-                    } catch (JSONException var21) {
-                        var36 = var21;
-                        var38 = false;
-                        break label214;
-                    }
+                    var42 = this.event.equalsIgnoreCase(Application.B("짛쉟⽨f烨氂菭竁涢킚㧓賦뵅䃢"));
 
                     Object var44;
                     if (var42) {
-                        try {
-                            var43 = this.mProvider;
-                        } catch (JSONException var20) {
-                            var36 = var20;
-                            var38 = false;
-                            break label214;
-                        }
+                        var43 = this.mProvider;
 
                         if (var43 != null) {
                             var44 = var35;
                             var10001 = Application.B("짛쉟⽨f烨氂菭竁");
 
                             try {
-                                ((JSONObject)var44).put(var10001, this.mProvider.toJson());
+                                ((JSONObject) var44).put(var10001, this.mProvider.toJson());
                             } catch (JSONException var19) {
                                 var36 = var19;
                                 var38 = false;
@@ -1238,13 +1077,7 @@ public class TSLocation {
                         }
                     }
 
-                    try {
-                        var42 = this.isMock;
-                    } catch (JSONException var18) {
-                        var36 = var18;
-                        var38 = false;
-                        break label214;
-                    }
+                    var42 = this.isMock;
 
                     if (var42) {
                         var44 = var35;
@@ -1252,7 +1085,7 @@ public class TSLocation {
                         var33 = Application.B("짆쉂⽤{");
 
                         try {
-                            ((JSONObject)var44).put(var33, var45.isMock);
+                            ((JSONObject) var44).put(var33, var45.isMock);
                         } catch (JSONException var17) {
                             var36 = var17;
                             var38 = false;
@@ -1260,22 +1093,10 @@ public class TSLocation {
                         }
                     }
 
-                    try {
-                        var40 = this.extras;
-                    } catch (JSONException var16) {
-                        var36 = var16;
-                        var38 = false;
-                        break label214;
-                    }
+                    var40 = this.extras;
 
                     if (var40 != null) {
-                        try {
-                            var40 = Util.mergeJson((JSONObject)var35, this.extras);
-                        } catch (JSONException var15) {
-                            var36 = var15;
-                            var38 = false;
-                            break label214;
-                        }
+                        var40 = Util.mergeJson((JSONObject) var35, this.extras);
 
                         var35 = var40;
                     }
@@ -1290,82 +1111,32 @@ public class TSLocation {
                         }
                     }
 
-                    JSONArray var46;
-                    try {
-                        var10000 = this;
-                        var46 = new JSONArray;
-                    } catch (JSONException var14) {
-                        var36 = var14;
-                        var38 = false;
-                        break label214;
-                    }
+                    JSONArray var46 = new JSONArray();
+                    var10000 = this;
 
                     var35 = var46;
 
-                    try {
-                        var46.<init>(var33);
-                        var42 = var10000.isMock;
-                    } catch (JSONException var13) {
-                        var36 = var13;
-                        var38 = false;
-                        break label214;
-                    }
+                    var42 = var10000.isMock;
 
                     if (var42) {
-                        try {
-                            TSLog.logger.warn(TSLog.warn(Application.B("짪쉝⽷u烯氂菡竝润탒㦑賡뵑䃊ꭐ䱬彛퇘\udb73㶹臀鄐\ue401♢것띤읶\udfb5༈摓﹆⪇ﶋ㒹⇉䮒利咝믙卣ힿ\uf5b9⿓ଜ㣲뀩撑\uf3c0궊㜞槰䟧쫀괞⥃݄疕伍뫈")));
-                            ((JSONArray)var35).put(this.isMock);
-                        } catch (JSONException var12) {
-                            var36 = var12;
-                            var38 = false;
-                            break label214;
-                        }
+                        TSLog.logger.warn(TSLog.warn(Application.B("짪쉝⽷u烯氂菡竝润탒㦑賡뵑䃊ꭐ䱬彛퇘\udb73㶹臀鄐\ue401♢것띤읶\udfb5༈摓﹆⪇ﶋ㒹⇉䮒利咝믙卣ힿ\uf5b9⿓ଜ㣲뀩撑\uf3c0궊㜞槰䟧쫀괞⥃݄疕伍뫈")));
+                        ((JSONArray) var35).put(this.isMock);
                     }
 
-                    try {
-                        var40 = this.extras;
-                    } catch (JSONException var11) {
-                        var36 = var11;
-                        var38 = false;
-                        break label214;
-                    }
+                    var40 = this.extras;
 
                     if (var40 != null) {
-                        try {
-                            TSLog.logger.warn(TSLog.warn(Application.B("짪쉝⽷u烯氂菡竝润탒㦑賭뵚䃳ꭍ䱮彃퇘\udb73㶹臀鄐\ue401♢것띤읶\udfb5༈摓﹆⪇ﶋ㒹⇉䮒利咝믙卣ힿ\uf5b9⿓ଜ㣲뀩撑\uf3c0궊㜞槰䟧쫀괞⥃݄疕伍뫈")));
-                            ((JSONArray)var35).put(this.extras);
-                        } catch (JSONException var10) {
-                            var36 = var10;
-                            var38 = false;
-                            break label214;
-                        }
+                        TSLog.logger.warn(TSLog.warn(Application.B("짪쉝⽷u烯氂菡竝润탒㦑賭뵚䃳ꭍ䱮彃퇘\udb73㶹臀鄐\ue401♢것띤읶\udfb5༈摓﹆⪇ﶋ㒹⇉䮒利咝믙卣ힿ\uf5b9⿓ଜ㣲뀩撑\uf3c0궊㜞槰䟧쫀괞⥃݄疕伍뫈")));
+                        ((JSONArray) var35).put(this.extras);
                     }
 
-                    try {
-                        var42 = this.event.equalsIgnoreCase(Application.B("짛쉟⽨f烨氂菭竁涢킚㧓賦뵅䃢"));
-                    } catch (JSONException var9) {
-                        var36 = var9;
-                        var38 = false;
-                        break label214;
-                    }
+                    var42 = this.event.equalsIgnoreCase(Application.B("짛쉟⽨f烨氂菭竁涢킚㧓賦뵅䃢"));
 
                     if (var42) {
-                        try {
-                            var43 = this.mProvider;
-                        } catch (JSONException var8) {
-                            var36 = var8;
-                            var38 = false;
-                            break label214;
-                        }
+                        var43 = this.mProvider;
 
                         if (var43 != null) {
-                            try {
-                                ((JSONArray)var35).put(this.mProvider.toJson());
-                            } catch (JSONException var7) {
-                                var36 = var7;
-                                var38 = false;
-                                break label214;
-                            }
+                            ((JSONArray) var35).put(this.mProvider.toJson());
                         }
                     }
                 }
@@ -1373,9 +1144,7 @@ public class TSLocation {
                 return var35;
             }
 
-            JSONException var34 = var36;
-            this.logError(var32, var3, var34);
-            throw var34;
+            return null;
         }
     }
 
@@ -1434,12 +1203,7 @@ public class TSLocation {
     public void setExtras(JSONObject var1) {
         JSONObject var2;
         if ((var2 = this.extras) != null) {
-            try {
-                this.extras = Util.mergeJson(var2, var1);
-            } catch (JSONException var3) {
-                TSLog.logger.error(TSLog.error(var3.getMessage()));
-                var3.printStackTrace();
-            }
+            this.extras = Util.mergeJson(var2, var1);
         } else {
             this.extras = var1;
         }

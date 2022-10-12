@@ -27,7 +27,6 @@ public class TSCurrentPositionRequest extends SingleLocationRequest {
             BackgroundGeolocation.getThreadPool().execute(new Runnable() {
                 public void run() {
                     TSLocationManager var10000 = var4;
-                    <undefinedtype> var10003 = this;
                     int var1 = TSCurrentPositionRequest.this.getId();
                     var10000.onSingleLocationResult(new SingleLocationResult(var1, var2));
                 }

@@ -75,15 +75,14 @@ public class SingleLocationRequest {
 
     public static PendingIntent getPendingIntent(Context var0, int var1, int var2) {
         Intent var3;
-        Intent var10000 = var3 = new Intent;
-        var10000.<init>(var0, LocationRequestService.class);
+        Intent var10000 = var3 = new Intent(var0, LocationRequestService.class);
         var10000.setAction(var1 + Application.B("\uddf4") + var2);
         if (VERSION.SDK_INT >= 26) {
             Context var4 = var0;
             int var5 = Util.getPendingIntentFlags(134217728);
             return PendingIntent.getForegroundService(var4, 0, var3, var5);
         } else {
-            return PendingIntent.getService(var0, 0, var3, 134217728);
+            return PendingIntent.getService(var0, 0, var3, PendingIntent.FLAG_UPDATE_CURRENT);
         }
     }
 
@@ -202,8 +201,7 @@ public class SingleLocationRequest {
                             SingleLocationRequest.this.onError(1);
                         } else {
                             Intent var2;
-                            Intent var10001 = var2 = new Intent;
-                            var2.<init>(SingleLocationRequest.this.mContext, LocationRequestService.class);
+                            Intent var10001 = var2 = new Intent(SingleLocationRequest.this.mContext, LocationRequestService.class);
                             var2.setAction(Application.B("컂푝ꁫ魸ଭ"));
                             var10001.putExtra(Application.B("컘푍"), SingleLocationRequest.this.mId);
                             AbstractService.startForegroundService(SingleLocationRequest.this.mContext, var2);
@@ -278,27 +276,8 @@ public class SingleLocationRequest {
     }
 
     void addLocation(Location var1) {
-        ArrayList var2;
-        ArrayList var10001 = var2 = this.mLocations;
-        SingleLocationRequest var10002 = this;
-        synchronized(var2){}
-
-        Throwable var10000;
-        boolean var10;
-        try {
-            var10002.mLocations.add(var1);
-        } catch (Throwable var8) {
-            var10000 = var8;
-            var10 = false;
-            throw var10000;
-        }
-
-        try {
-            ;
-        } catch (Throwable var7) {
-            var10000 = var7;
-            var10 = false;
-            throw var10000;
+        synchronized(this.mLocations){
+            mLocations.add(var1);
         }
 
         if (this.mDesiredAccuracy > 0 && var1.getAccuracy() <= (float)this.mDesiredAccuracy) {
@@ -307,7 +286,7 @@ public class SingleLocationRequest {
 
         Bundle var9;
         if ((var9 = var1.getExtras()) == null) {
-            var9 = new Bundle.<init>();
+            var9 = new Bundle();
         }
 
         if (!this.isComplete()) {
@@ -322,14 +301,8 @@ public class SingleLocationRequest {
 
         boolean var10001;
         Throwable var8;
-        boolean var9;
-        try {
-            var9 = var10000.mLocations.isEmpty();
-        } catch (Throwable var7) {
-            var8 = var7;
-            var10001 = false;
-            throw var8;
-        }
+        boolean var9 = var10000.mLocations.isEmpty();
+
 
         boolean var1;
         if (!var9) {
@@ -338,13 +311,7 @@ public class SingleLocationRequest {
             var1 = false;
         }
 
-        try {
             return var1;
-        } catch (Throwable var6) {
-            var8 = var6;
-            var10001 = false;
-            throw var8;
-        }
     }
 
     public Location getBestLocation() {
@@ -365,7 +332,7 @@ public class SingleLocationRequest {
         if (var1 != null) {
             Bundle var4;
             if ((var4 = var1.getExtras()) == null) {
-                var4 = new Bundle.<init>();
+                var4 = new Bundle();
                 var1.setExtras(var4);
             }
 
@@ -397,71 +364,30 @@ public class SingleLocationRequest {
 
                 Throwable var49;
                 boolean var10001;
-                boolean var50;
-                try {
-                    var50 = var10000.mLocations.isEmpty();
-                } catch (Throwable var46) {
-                    var49 = var46;
-                    var10001 = false;
-                    throw var49;
-                }
+                boolean var50 = var10000.mLocations.isEmpty();
+
 
                 if (!var50) {
-                    SingleLocationResult var51;
-                    try {
+                    SingleLocationRequest var52;
+                    int var53;
+                    var52 = this;
+                    var53 = this.mId;
+                    int var4 = var53;
+                    SingleLocationResult var51 = new SingleLocationResult(var4, var52.getBestLocation());
                         TSLog.logger.info(TSLog.notice(Application.B("迕閌엌둁\u0ae4\ue8d6凲Ɲ\udf4a빙끭䄩\u0ee1苷쾅哘\uf451㐝勍☗䀜")));
                         this.mSamples.set(this.mLocations.size());
                         this.mTimedOut.set(false);
-                        var51 = new SingleLocationResult;
-                    } catch (Throwable var45) {
-                        var49 = var45;
-                        var10001 = false;
-                        throw var49;
-                    }
-
                     final SingleLocationResult var3 = var51;
 
-                    SingleLocationRequest var52;
-                    int var53;
-                    try {
-                        var52 = this;
-                        var53 = this.mId;
-                    } catch (Throwable var44) {
-                        var49 = var44;
-                        var10001 = false;
-                        throw var49;
-                    }
-
-                    int var4 = var53;
-
-                    try {
-                        var51.<init>(var4, var52.getBestLocation());
                         BackgroundGeolocation.getThreadPool().execute(new Runnable() {
                             public void run() {
                                 var47.onSingleLocationResult(var3);
                             }
                         });
-                    } catch (Throwable var43) {
-                        var49 = var43;
-                        var10001 = false;
-                        throw var49;
-                    }
-                } else {
-                    try {
-                        var47.onLocationTimeout(this);
-                    } catch (Throwable var42) {
-                        var49 = var42;
-                        var10001 = false;
-                        throw var49;
-                    }
-                }
 
-                try {
-                    ;
-                } catch (Throwable var41) {
-                    var49 = var41;
-                    var10001 = false;
-                    throw var49;
+                } else {
+                        var47.onLocationTimeout(this);
+
                 }
             }
 
@@ -481,14 +407,9 @@ public class SingleLocationRequest {
         Throwable var9;
         int var10;
         int var11;
-        try {
             var10 = var10000.mLocations.size();
             var11 = this.mSamples.get();
-        } catch (Throwable var7) {
-            var9 = var7;
-            var10001 = false;
-            throw var9;
-        }
+
 
         boolean var8;
         if (var10 >= var11) {
@@ -496,14 +417,8 @@ public class SingleLocationRequest {
         } else {
             var8 = false;
         }
-
-        try {
             return var8;
-        } catch (Throwable var6) {
-            var9 = var6;
-            var10001 = false;
-            throw var9;
-        }
+
     }
 
     public boolean isFinished() {
@@ -520,8 +435,9 @@ public class SingleLocationRequest {
         private TSLocationCallback mCallback;
 
         public Builder(Context var1) {
-            Context var10006 = var1;
             super();
+            Context var10006 = var1;
+
             TSConfig var2 = TSConfig.getInstance(var1);
             this.mContext = var10006;
             this.mPersist = var2.getEnabled();
@@ -537,32 +453,32 @@ public class SingleLocationRequest {
             };
         }
 
-        public T setTimeout(int var1) {
-            this.mTimeout = var1;
-            return this;
-        }
+//        public T setTimeout(int var1) {
+//            this.mTimeout = var1;
+//            return this;
+//        }
 
-        public T setPersist(boolean var1) {
+        public Builder<T> setPersist(boolean var1) {
             this.mPersist = var1;
             return this;
         }
 
-        public T setSamples(int var1) {
+        public Builder<T> setSamples(int var1) {
             this.mSamples = var1;
             return this;
         }
 
-        public T setDesiredAccuracy(int var1) {
+        public Builder<T> setDesiredAccuracy(int var1) {
             this.mDesiredAccuracy = var1;
             return this;
         }
 
-        public T setExtras(JSONObject var1) {
+        public Builder<T> setExtras(JSONObject var1) {
             this.mExtras = var1;
             return this;
         }
 
-        public T setCallback(TSLocationCallback var1) {
+        public Builder<T> setCallback(TSLocationCallback var1) {
             this.mCallback = var1;
             return this;
         }
